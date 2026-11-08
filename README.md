@@ -1,7 +1,4 @@
-# CS-9 — Business API Ecosystem
-
-COMP5703 Information Technology Capstone Project, Semester 2 2026
-University of Sydney — group **CS9-5**, Tutorial 21
+# InvoiceBridge - powered by KHEA - Business API Ecosystem
 
 A platform for e-invoicing Business APIs: a catalogue of real APIs with their
 schemas, a way to describe a business process in text, a BPMN diagram or speech,
@@ -21,14 +18,11 @@ and a builder that finds which catalogued APIs can be chained to carry it out.
 
 | Name | SID |
 | --- | --- |
-| Jinghang Miao | 520325186 |
-| Junyi Zang | 530419471 |
-| Di Hou | 550552093 |
-| Guoqiang Chen | 540314830 |
-| Yan Wang | 550477730 |
-| Xiang Xu | 540372896 |
-| Xinzhan Peng | 540926736 |
-| Xinrui Zhang | 540981942 |
+| Muhammad Raheel Raza | Founder |
+| Burak Aba | Co-founder |
+| Fethi Rabhi | Advisor |
+| Emre Ilbay | Technical Team Lead |
+| Amirbek | Business Expert |
 
 ## Technology stack
 
@@ -49,17 +43,6 @@ project in `frontend/`.
 candidate search is keyword-based (`frontend/lib/composition/task-candidates.ts`).
 
 ## Rules for this repository
-
-These come from the course kick-off lecture and are not optional.
-
-- **This repository must remain private.**
-- All members register and commit using their `unikey@uni.sydney.edu.au` address.
-- The tutor and the client must be added as members of the organisation.
-- **No codebase or resource shared by the client may be cloned or downloaded into
-  this repository, or onto any member's machine, without the client's approval.**
-  Request written approval at the first client meeting and archive the reply.
-- All code contributions must go through Git. Everyone commits under their own
-  account — `git log` is the evidence for individual contribution marks.
 
 ## Repository layout
 
@@ -115,7 +98,7 @@ Supabase values.
 
 ### The database
 
-**Supabase is the project's database**, as the client asked. The schema lives in this repository as numbered migrations
+**Supabase is the project's database**. The schema lives in this repository as numbered migrations
 under `migrations/`, and `scripts/migrate.sh` applies them and records what it
 has already run, so that the deployed database and this repository do not drift
 apart.
