@@ -1,0 +1,47 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "EcosioInvoiceAPI",
+    "version": "1.0.0",
+    "description": "ecosio invoice integration API — retrieves processed invoice documents in JSON."
+  },
+  "servers": [{ "url": "https://api.ecosio.com" }],
+  "paths": {
+    "/invoices/{id}": {
+      "get": {
+        "summary": "Fetch a processed invoice",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "The invoice document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "customer_id": { "type": "string" },
+                    "date": { "type": "string" },
+                    "currency_code": { "type": "string" },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "quantity": { "type": "number" },
+                          "price": { "type": "number" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

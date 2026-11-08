@@ -1,0 +1,2599 @@
+openapi: 3.0.1
+info:
+  title: IRIS IRP Solution
+ 
+  version: "10.0"
+  contact:
+    name: API Support
+    url: 'https://www.irisgst.com/'
+    email: kiran.gorde@irisbusiness.com
+servers:
+  - url : 'https://api.sandbox.core.irisirp.com'
+    description: Sandbox Core API
+  - url : 'https://api.sandbox.portal.irisirp.com'
+    description: Sandbox Portal API
+  
+    
+paths:
+  /eivital/v1.04/auth:
+    post:
+      summary: Authentication 
+      tags:
+        - Core E-invoice
+      description: >-
+        To authenticate with IRP
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Data:
+                  type: string
+            examples:
+              
+              'Encrypted Payload':
+                value: "{\r\n    \"Data\": \"LKg9/JGTjixo8mCTDYMVNMthILELnAK3dQMjkifLe94cOoZTSOIv5y6TZnnGf3/wohq7OE7oE+eF0I0MMDw2kuLBqNiFMFKnkmUPG9EWdgnK30ulnRyWilGhYVkgVTGZrEn1YXC4p1MjPrSzdt8N0qf8HmEWvA3Eq7JqyR+y/Tk1P8NH1tuXvy87T4Tn/NOpXW61xAHPJobAtnV8IQtJJR6QH3jbVFFvG22drni+nJIMtHp67qAStj3DJt12jnxXT/8ZRBVTtjjf2sBWSH72lClO3NlLvC3ilUxe+wO+/pcuZT+48a8ta0K1nGuY4zcCqvOeLOxQX+ZU1CgFpRc5PQ==\"\r\n}"
+                
+              'JSON corresponds to the "Data" element of Authentication Request above':
+                value: >-
+                   {
+                      "UserName":"testuser",
+                      "Password":" < Password in plain text >",
+                      "AppKey":" < Randomly generated key>",
+                      "ForceRefreshAccessToken": true
+                   }              
+       
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                        "Status": 1,
+                        "Data": {
+                            "ClientId": "tv5dVs0zwwdowftRAAc50rh2ldoSx7Kg",
+                            "UserName": "msharma1434",
+                            "AuthToken": "XZfp13yy3aD919SeTSq+lp8f3t3v7ZXF",
+                            "Sek": "/w4VK668KqmglotGyv5XlB+bQ97SEmEn8/OWc6ygRcevk/xQLlA6yFak6CtEJZqZxi+8kWX2jeX8PIF0uQucMQ==",
+                            "TokenExpiry": "2022-08-24 03:07:59"
+                        },
+                        "ErrorDetails": null,
+                        "InfoDtls": null
+                    }
+                    
+                'Failure Response':
+                  value: >-
+                    {
+                      "Status": 0,
+                      "Data": null,
+                      "ErrorDetails": [
+                        {
+                          "ErrorCode": "1010",
+                          "ErrorMessage": "Invalid Client-ID/Client-Secret"
+                        }
+                      ],
+                      "InfoDtls": null
+                    }
+                    
+  /eivital/v1.04/Master/gstin/27AACCB3521C2ZA:
+    post:
+      summary: Get GSTIN Details 
+      tags:
+        - Core E-invoice
+      description: >-
+        Provides the tax payer details for a given GSTIN number
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+             
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                      "Status": 1,
+                      "Data": "sk+c5N2HilNyk0uQHkRk1JVTpT4yq6BHdJtH5sCRHMi6PAdu2yZ+UtIP4g0ISQ0xdafyyPJAXeXhJFMt386GesquiCHCB+YgWtLPplZUkOqIFrGcksZTCiw0Ubg3a9i1T/dGUPEJaYHUS58bSeAH1xwm4ZDvffoyp8A6eaLJ7drOPrBNgJZcKljIwTBZ/fLAqzHvYqqbPM03Me19bhQPrIrQFKVNjlDzvXz89snjXrVz5BTFHuyzVVe8FxjTVb3RyJIM7wRLoBzyn7PQWraiWG3owRn9qTk7e+tD6FGiPWicy12UisyjE+1TEwZTF+LHvJtMt20ve5lRSAG1XKwomCyoaVHYLIn54LzHN1P/aHvySfQBPJN1V/yiYndyfxanQnqUVWzdgI310yaiJ5kJ5YL6GGB2BZt1tK/+PKC2O4b6T1f106HX3Lj1jObkmyZ+hTgPTSmrWq1GnaWBE/a0pv5xryJxIfNTwfrNmunABrw+Y4EFU51T08wlX4AwpegvHdUzMSR04BaqOy6+c37DtbFwJEV7UJ64nZ4xjdslOlf8r9RuApqiPE+z5VHqkjT+",
+                      "ErrorDetails": null,
+                      "InfoDtls": null
+                    }
+                    
+                 
+                    
+                '"data" JSON (corresponds to the data element of GetGSTIN Response(Success))':
+                  value: >-
+                    {
+
+                      "Status": 0,
+                  
+                      "Data": "{\"gstin\":\"27AACCB3521C2ZA\",\"tradeName\":\"BIO SCIENTIFIC RESEARCH LABORATORIES INDIA PRIVATE LIMITED\",\"legalName\":\"BIO SCIENTIFIC RESEARCH LABORATORIES INDIA PRIVATE LIMITED\",\"addrBnm\":\"ARIES COMPOUND\",\"addrBno\":\"106/3\",\"addrFlno\":\".\",\"addrSt\":\"W E HIGHWAY, PENKAR PADA RD, OPP GOLDEN CHEMICALS\",\"addrLoc\":\"MIRA ROAD EAST\",\"stateCode\":\"Maharashtra\",\"addrPncd\":\"401101\",\"txpType\":\"Regular\",\"dtReg\":\"08/08/2017\",\"dtDReg\":\"\"}",
+                  
+                      "ErrorDetails": null,
+                  
+                      "InfoDtls": null
+                  
+                    }
+                'Failure Response':
+                  value: >-
+                    {
+
+                        "Status": 0,
+                        "Data": null,
+                        "ErrorDetails": [
+                    
+                            {
+                    
+                                "ErrorCode": "1005",
+                                "ErrorMessage": "Invalid Token"
+                    
+                            }
+                    
+                        ],
+                    
+                        "InfoDtls": null
+                    
+                    }
+                    
+  /eivital/v1.04/Master/syncgstin/27AACCB3521C2ZA:
+    post:
+      summary: Sync GSTIN Details from CP 
+      tags:
+        - Core E-invoice
+      description: >-
+        Provides the tax payer to Sync GSTIN details from Common Portal
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+             
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                      "Status": 1,
+                      "Data": "sk+c5N2HilNyk0uQHkRk1JVTpT4yq6BHdJtH5sCRHMi6PAdu2yZ+UtIP4g0ISQ0xdafyyPJAXeXhJFMt386GesquiCHCB+YgWtLPplZUkOqIFrGcksZTCiw0Ubg3a9i1T/dGUPEJaYHUS58bSeAH1xwm4ZDvffoyp8A6eaLJ7drOPrBNgJZcKljIwTBZ/fLAqzHvYqqbPM03Me19bhQPrIrQFKVNjlDzvXz89snjXrVz5BTFHuyzVVe8FxjTVb3RyJIM7wRLoBzyn7PQWraiWG3owRn9qTk7e+tD6FGiPWicy12UisyjE+1TEwZTF+LHvJtMt20ve5lRSAG1XKwomCyoaVHYLIn54LzHN1P/aHvySfQBPJN1V/yiYndyfxanQnqUVWzdgI310yaiJ5kJ5YL6GGB2BZt1tK/+PKC2O4b6T1f106HX3Lj1jObkmyZ+hTgPTSmrWq1GnaWBE/a0pv5xryJxIfNTwfrNmunABrw+Y4EFU51T08wlX4AwpegvHdUzMSR04BaqOy6+c37DtbFwJEV7UJ64nZ4xjdslOlf8r9RuApqiPE+z5VHqkjT+",
+                      "ErrorDetails": null,
+                      "InfoDtls": null
+                    }
+                    
+                 
+                    
+                '"data" JSON (corresponds to the data element of GetGSTIN Response(Success))':
+                  value: >-
+                    {
+
+                      "Status": 0,
+                  
+                      "Data": "{\"gstin\":\"27AACCB3521C2ZA\",\"tradeName\":\"BIO SCIENTIFIC RESEARCH LABORATORIES INDIA PRIVATE LIMITED\",\"legalName\":\"BIO SCIENTIFIC RESEARCH LABORATORIES INDIA PRIVATE LIMITED\",\"addrBnm\":\"ARIES COMPOUND\",\"addrBno\":\"106/3\",\"addrFlno\":\".\",\"addrSt\":\"W E HIGHWAY, PENKAR PADA RD, OPP GOLDEN CHEMICALS\",\"addrLoc\":\"MIRA ROAD EAST\",\"stateCode\":\"Maharashtra\",\"addrPncd\":\"401101\",\"txpType\":\"Regular\",\"dtReg\":\"08/08/2017\",\"dtDReg\":\"\"}",
+                  
+                      "ErrorDetails": null,
+                  
+                      "InfoDtls": null
+                  
+                    }
+                'Failure Response':
+                  value: >-
+                    {
+
+                        "Status": 0,
+                    
+                        "Data": null,
+                    
+                        "ErrorDetails": [
+                    
+                            {
+                    
+                                "ErrorCode": "1005",
+                    
+                                "ErrorMessage": "Invalid Token"
+                    
+                            }
+                    
+                        ],
+                    
+                        "InfoDtls": null
+                    
+                    }  
+  
+  /eicore/v1.03/Invoice:
+    post:
+      summary: Generate IRN
+      tags:
+        - Core E-invoice
+      description: >-
+        <h3>This API serves the singular purpose of registering invoices and obtaining the Invoice Registration Number (IRN). It does not process any requests for Eway Bill generation.
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+       
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Data:
+                  type: string
+            examples:
+              'Encrypted Payload':
+                value: "{\r\n    \"Data\": \"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\"\r\n}"
+              
+              'JSON corresponds to the "Data" element of Generate E-Invoice Request above':
+                value: >-
+                  
+                    {
+                      "Version": "1.1",
+                      "TranDtls": {
+                        "TaxSch": "GST",
+                        "SupTyp": "B2B",
+                        "RegRev": "Y",
+                        "EcmGstin": null,
+                        "IgstOnIntra": "N"
+                      },
+                      "DocDtls": {
+                        "Typ": "INV",
+                        "No": "DOC/001",
+                        "Dt": "18/08/2020"
+                      },
+                      "SellerDtls": {
+                        "Gstin": "37ARZPT4384Q1MT",
+                        "LglNm": "NIC company pvt ltd",
+                        "TrdNm": "NIC Industries",
+                        "Addr1": "5th block, kuvempu layout",
+                        "Addr2": "kuvempu layout",
+                        "Loc": "GANDHINAGAR",
+                        "Pin": 518001,
+                        "Stcd": "37",
+                        "Ph": "9000000000",
+                        "Em": "abc@gmail.com"
+                      },
+                      "BuyerDtls": {
+                        "Gstin": "29AWGPV7107B1Z1",
+                        "LglNm": "XYZ company pvt ltd",
+                        "TrdNm": "XYZ Industries",
+                        "Pos": "12",
+                        "Addr1": "7th block, kuvempu layout",
+                        "Addr2": "kuvempu layout",
+                        "Loc": "GANDHINAGAR",
+                        "Pin": 562160,
+                        "Stcd": "29",
+                        "Ph": "91111111111",
+                        "Em": "xyz@yahoo.com"
+                      },
+                      "DispDtls": {
+                        "Nm": "ABC company pvt ltd",
+                        "Addr1": "7th block, kuvempu layout",
+                        "Addr2": "kuvempu layout",
+                        "Loc": "Banagalore",
+                        "Pin": 562160,
+                        "Stcd": "29"
+                      },
+                      "ShipDtls": {
+                        "Gstin": "29AWGPV7107B1Z1",
+                        "LglNm": "CBE company pvt ltd",
+                        "TrdNm": "kuvempu layout",
+                        "Addr1": "7th block, kuvempu layout",
+                        "Addr2": "kuvempu layout",
+                        "Loc": "Banagalore",
+                        "Pin": 562160,
+                        "Stcd": "29"
+                      },
+                      "ItemList": [
+                        {
+                          "SlNo": "1",
+                          "PrdDesc": "Rice",
+                          "IsServc": "N",
+                          "HsnCd": "1001",
+                          "Barcde": "123456",
+                          "Qty": 100.345,
+                          "FreeQty": 10,
+                          "Unit": "BAG",
+                          "UnitPrice": 99.545,
+                          "TotAmt": 9988.84,
+                          "Discount": 10,
+                          "PreTaxVal": 1,
+                          "AssAmt": 9978.84,
+                          "GstRt": 12.0,
+                          "IgstAmt": 1197.46,
+                          "CgstAmt": 0,
+                          "SgstAmt": 0,
+                          "CesRt": 5,
+                          "CesAmt": 498.94,
+                          "CesNonAdvlAmt": 10,
+                          "StateCesRt": 12,
+                          "StateCesAmt": 1197.46,
+                          "StateCesNonAdvlAmt": 5,
+                          "OthChrg": 10,
+                          "TotItemVal": 12897.7,
+                          "OrdLineRef": "3256",
+                          "OrgCntry": "AG",
+                          "PrdSlNo": "12345",
+                          "BchDtls": {
+                            "Nm": "123456",
+                            "ExpDt": "01/08/2020",
+                            "WrDt": "01/09/2020"
+                          },
+                          "AttribDtls": [
+                            {
+                              "Nm": "Rice",
+                              "Val": "10000"
+                            }
+                          ]
+                        }
+                      ],
+                      "ValDtls": {
+                        "AssVal": 9978.84,
+                        "CgstVal": 0,
+                        "SgstVal": 0,
+                        "IgstVal": 1197.46,
+                        "CesVal": 508.94,
+                        "StCesVal": 1202.46,
+                        "Discount": 10,
+                        "OthChrg": 20,
+                        "RndOffAmt": 0.3,
+                        "TotInvVal": 12908,
+                        "TotInvValFc": 12897.7
+                      },
+                      "PayDtls": {
+                        "Nm": "ABCDE",
+                        "AccDet": "5697389713210",
+                        "Mode": "Cash",
+                        "FinInsBr": "SBIN11000",
+                        "PayTerm": "100",
+                        "PayInstr": "Gift",
+                        "CrTrn": "test",
+                        "DirDr": "test",
+                        "CrDay": 100,
+                        "PaidAmt": 10000,
+                        "PaymtDue": 5000
+                      },
+                      "RefDtls": {
+                        "InvRm": "TEST",
+                        "DocPerdDtls": {
+                          "InvStDt": "01/08/2020",
+                          "InvEndDt": "01/09/2020"
+                        },
+                        "PrecDocDtls": [
+                          {
+                            "InvNo": "DOC/002",
+                            "InvDt": "01/08/2020",
+                            "OthRefNo": "123456"
+                          }
+                        ],
+                        "ContrDtls": [
+                          {
+                            "RecAdvRefr": "Doc/003",
+                            "RecAdvDt": "01/08/2020",
+                            "TendRefr": "Abc001",
+                            "ContrRefr": "Co123",
+                            "ExtRefr": "Yo456",
+                            "ProjRefr": "Doc-456",
+                            "PORefr": "Doc-789",
+                            "PORefDt": "01/08/2020"
+                          }
+                        ]
+                      },
+                      "AddlDocDtls": [
+                        {
+                          "Url": "https://einv-apisandbox.nic.in",
+                          "Docs": "Test Doc",
+                          "Info": "Document Test"
+                        }
+                      ],
+                      "ExpDtls": {
+                        "ShipBNo": "A-248",
+                        "ShipBDt": "01/08/2020",
+                        "Port": "INABG1",
+                        "RefClm": "N",
+                        "ForCur": "AED",
+                        "CntCode": "AE",
+                        "ExpDuty": null
+                      },
+                      "EwbDtls": {
+                        "TransId": "12AWGPV7107B1Z1",
+                        "TransName": "XYZ EXPORTS",
+                        "Distance": 100,
+                        "TransDocNo": "DOC01",
+                        "TransDocDt": "18/08/2020",
+                        "VehNo": "ka123456",
+                        "VehType": "R",
+                        "TransMode": "1"
+                      }
+                    }
+     
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                        "Status": 1,
+                        "Data": "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",
+                        "ErrorDetails": null,
+                        "InfoDtls": null
+                    }
+                    
+                '"data" JSON (corresponds to the data element of Generate Einvoice Response(Success))':
+                  value: >-
+                    {
+                      "Status": 0,
+                      "Data": "{\"AckNo\":909570753881608,\"AckDt\":\"2023-01-13 13:45:47\",\"Irn\":\"92e063f570e076b7394ae17309e84f95f967aec65daacd5f4eaa3b9e9b7caeed\",\"SignedInvoice\":\"ebJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjoie1widXNlckdzdGluXCI6XCIyN0FJVVBENTU0NlExWkRcIixcIlZlcnNpb25cIjpcIjEuMVwiLFwiSXJuXCI6XCI5MmQwNjNmNTcwZTA3NmI3Mzk0YWUxNzMwOWU4NGY5NWY5NjdhZWM2NWRhYWNkNWY0ZWFhM2I5ZTliN2NhZWVkXCIsXCJBY2tOb1wiOjkwOTU3MDc1Mzg4MTYwOCxcIkFja0R0XCI6XCIyMDIzLTAxLTEzIDEzOjQ1OjQ3XCIsXCJUcmFuRHRsc1wiOntcIlRheFNjaFwiOlwiR1NUXCIsXCJTdXBUeXBcIjpcIlNFWldPUFwiLFwiUmVnUmV2XCI6XCJOXCIsXCJJZ3N0T25JbnRyYVwiOlwiTlwifSxcIkRvY0R0bHNcIjp7XCJUeXBcIjpcIklOVlwiLFwiTm9cIjpcIlRvZGF5NFwiLFwiRHRcIjpcIjEzLzAxLzIwMjNcIn0sXCJTZWxsZXJEdGxzXCI6e1wiR3N0aW5cIjpcIjI3QUlVUEQ1NTQ2UTFaRFwiLFwiTGdsTm1cIjpcIlNreWxhcmvCoFByaW50aW5nc1wiLFwiVHJkTm1cIjpcIlNreWxhcmvCoFByaW50aW5nc1wiLFwiQWRkcjFcIjpcIkdvbGTCoEhpbGzCoFN1cHJlbWVcIixcIkFkZHIyXCI6XCJTaGFudGlwdXJhwqBDcm9zc8KgUm9hZHMsXCIsXCJMb2NcIjpcIkVsZWN0cm9uaWPCoENpdHnCoFBoYXNlwqAyXCIsXCJQaW5cIjo0MDA3MDEsXCJTdGNkXCI6XCIyN1wiLFwiUGhcIjpcIjgwODA4MDgwODBcIixcIkVtXCI6XCJuZWVuYS5zZXRoaUBpcmlzYnVzaW5lc3MuY29tXCJ9LFwiQnV5ZXJEdGxzXCI6e1wiR3N0aW5cIjpcIjIwQkxVUFM0MjMzRjFaMlwiLFwiTGdsTm1cIjpcIkZsYWlywqBHcmFwaGljc1wiLFwiVHJkTm1cIjpcIkZsYWlywqBHcmFwaGljc1wiLFwiUG9zXCI6XCIyMFwiLFwiQWRkcjFcIjpcIkdvbGTCoEhpbGzCoFN1cHJlbWUsXCIsXCJBZGRyMlwiOlwiU2hhbnRpcHVyYcKgQ3Jvc3PCoFJvYWRzLFwiLFwiTG9jXCI6XCJFbGVjdHJvbmljwqBDaXR5wqBQaGFzZcKgMixcIixcIlBpblwiOjgxNDE0MyxcIlN0Y2RcIjpcIjIwXCIsXCJQaFwiOlwiOTA5MDkwOTA5MFwiLFwiRW1cIjpcIm5lZW5hQGdtYWlsLmNvbVwifSxcIkl0ZW1MaXN0XCI6W3tcIlNsTm9cIjpcIjFcIixcIlByZERlc2NcIjpcIlNUUlVDVFVSRSZQQVJUU09GU1RSVUNVVFVSRVwiLFwiSXNTZXJ2Y1wiOlwiTlwiLFwiSHNuQ2RcIjpcIjMwMDQ5MDk5XCIsXCJRdHlcIjoyODgwMCxcIkZyZWVRdHlcIjowLFwiVW5pdFwiOlwiUEFDXCIsXCJVbml0UHJpY2VcIjo0NC42NSxcIlRvdEFtdFwiOjEyODU5MjAsXCJEaXNjb3VudFwiOjAsXCJQcmVUYXhWYWxcIjowLFwiQXNzQW10XCI6MTI4NTkyMCxcIkdzdFJ0XCI6MTIuMDAsXCJJZ3N0QW10XCI6MTU0MzEwLjQsXCJDZ3N0QW10XCI6MC4wMCxcIlNnc3RBbXRcIjowLjAwLFwiQ2VzUnRcIjowLjAwLFwiQ2VzQW10XCI6MC4wMCxcIkNlc05vbkFkdmxBbXRcIjowLjAwLFwiU3RhdGVDZXNSdFwiOjAuMDAsXCJTdGF0ZUNlc0FtdFwiOjAuMDAsXCJTdGF0ZUNlc05vbkFkdmxBbXRcIjowLjAwLFwiT3RoQ2hyZ1wiOjAuMDAsXCJUb3RJdGVtVmFsXCI6MTQ0MDIzMC40fSx7XCJTbE5vXCI6XCIyXCIsXCJQcmREZXNjXCI6XCJTVFJVQ1RVUkUmUEFSVFNPRlNUUlVDVVRVUkVcIixcIklzU2VydmNcIjpcIk5cIixcIkhzbkNkXCI6XCIzMDA0OTA5OVwiLFwiUXR5XCI6MjAsXCJGcmVlUXR5XCI6MCxcIlVuaXRcIjpcIlBBQ1wiLFwiVW5pdFByaWNlXCI6MzAwLFwiVG90QW10XCI6MCxcIkRpc2NvdW50XCI6MCxcIlByZVRheFZhbFwiOjAsXCJBc3NBbXRcIjowLFwiR3N0UnRcIjowLFwiSWdzdEFtdFwiOjAuMDAsXCJDZ3N0QW10XCI6MC4wMCxcIlNnc3RBbXRcIjowLjAwLFwiQ2VzUnRcIjowLjAwLFwiQ2VzQW10XCI6MC4wMCxcIkNlc05vbkFkdmxBbXRcIjowLjAwLFwiU3RhdGVDZXNSdFwiOjAuMDAsXCJTdGF0ZUNlc0FtdFwiOjAuMDAsXCJTdGF0ZUNlc05vbkFkdmxBbXRcIjowLjAwLFwiT3RoQ2hyZ1wiOjAuMDAsXCJUb3RJdGVtVmFsXCI6MC4wMH0se1wiU2xOb1wiOlwiM1wiLFwiUHJkRGVzY1wiOlwiU1RSVUNUVVJFJlBBUlRTT0ZTVFJVQ1VUVVJFXCIsXCJJc1NlcnZjXCI6XCJOXCIsXCJIc25DZFwiOlwiMzAwNDkwOTlcIixcIlF0eVwiOjQzNzUsXCJGcmVlUXR5XCI6MCxcIlVuaXRcIjpcIlBBQ1wiLFwiVW5pdFByaWNlXCI6MzUuNzIsXCJUb3RBbXRcIjoxNTYyNzUsXCJEaXNjb3VudFwiOjAsXCJQcmVUYXhWYWxcIjowLFwiQXNzQW10XCI6MTU2Mjc1LFwiR3N0UnRcIjoxMi4wMCxcIklnc3RBbXRcIjoxODc1MyxcIkNnc3RBbXRcIjowLjAwLFwiU2dzdEFtdFwiOjAuMDAsXCJDZXNSdFwiOjAuMDAsXCJDZXNBbXRcIjowLjAwLFwiQ2VzTm9uQWR2bEFtdFwiOjAuMDAsXCJTdGF0ZUNlc1J0XCI6MC4wMCxcIlN0YXRlQ2VzQW10XCI6MC4wMCxcIlN0YXRlQ2VzTm9uQWR2bEFtdFwiOjAuMDAsXCJPdGhDaHJnXCI6MC4wMCxcIlRvdEl0ZW1WYWxcIjoxNzUwMjh9XSxcIlZhbER0bHNcIjp7XCJBc3NWYWxcIjoxNDQyMTk1LFwiQ2dzdFZhbFwiOjAuMDAsXCJTZ3N0VmFsXCI6MC4wMCxcIklnc3RWYWxcIjoxNzMwNjMuNCxcIkNlc1ZhbFwiOjAuMDAsXCJTdENlc1ZhbFwiOjAuMDAsXCJEaXNjb3VudFwiOjAuMTcsXCJPdGhDaHJnXCI6MCxcIlJuZE9mZkFtdFwiOjAsXCJUb3RJbnZWYWxcIjoxNjE1MjU4LjIzLFwiVG90SW52VmFsRmNcIjowfX0iLCJpc3MiOiJJUklTLUlSUCJ9.PmwL_zrXtw23BebICOQR_mr8HhvqqkI6WyiuHDkuDwmIqL6wTQ1CbfDsCNl2M4GZmM9F6rdMcNujM7jnCjudj0aLggP0ojB76aeOz3wIomeXpHCraF5cLUtIUO1HjT6Urdw0dBU58QV6JUumhncLYxumrjELq0Lm3bqN2kckpHYGg4SGEw-pC5yudEmZyDAF3LJ9JeqUV0wo_ZpURgZ2Pz-gXwHsoKkPwnvpk-B5Gau5ZwvaQX-DYAgkCjSXDlEwjQeDVcfHalAYWCPWtDTxv8e92QMTMptKqTK-3rPOqHpHqoTMq95Z8hDwDA1xTd54RT8d8_uPneA-V7a051XcZw\",\"SignedQRCode\":\"ezJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjI3QUlVUEQ1NTQ2UTFaRFwiLFwiQnV5ZXJHc3RpblwiOlwiMjBCTFVQUzQyMzNGMVoyXCIsXCJEb2NOb1wiOlwiVG9kYXk0XCIsXCJEb2NUeXBcIjpcIklOVlwiLFwiRG9jRHRcIjpcIjEzLzAxLzIwMjNcIixcIlRvdEludlZhbFwiOjE2MTUyNTguMjMsXCJJdGVtQ250XCI6MyxcIk1haW5Ic25Db2RlXCI6XCIzMDA0OTA5OVwiLFwiSXJuXCI6XCI5MmQwNjNmNTcwZTA3NmI3Mzk0YWUxNzMwOWU4NGY5NWY5NjdhZWM2NWRhYWNkNWY0ZWFhM2I5ZTliN2NhZWVkXCIsXCJJcm5EdFwiOlwiMjAyMy0wMS0xMyAxMzo0NTo0N1wifSIsImlzcyI6IklSSVMtSVJQIn0.z8JcBxTSOZvvktczRR9zzHsouend0OG8zpp8QlLNDmTdtZwoPTBEaiGZ6znnzszvUMQdr5O3HUiBpsRFumtc0julXaWEmBRuAMcQu2cMaS1DlmWVyntuoXxU4wl8XXdOh9-4H5S4cSruqzMQNPKgdos8BzA9veNJ3jsqerl_obT0gWTfH4RAPy8uDNmGOHkHKOcmUnnSWIgHBE5caEyWAVieqww8MVJIK2yUiK9j7hMkbJEQumAhjASqN9ATNeDFo_V3r6oUk8xf0hVUGbzHgdzjYQudD2MlLz8nM8nz2ywHDiFKSgQ4hiXz5BzI3_GwvGdQsVovUe22C2JnlHtVAw\",\"Status\":\"ACT\"}",
+                      "ErrorDetails": null,
+                      "InfoDtls": null
+                      }
+                    
+                'Failure Response-1':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1006","ErrorMessage":"Header
+                    User Name is required"}],"InfoDtls":null}
+                    
+                'Failure Response-2':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1010","ErrorMessage":"Invalid
+                    Client-ID/Client-Secret"}],"InfoDtls":null}
+                    
+  /eicore/v1.03/Invoice/Cancel:
+    post:
+      summary: Cancel IRN
+      tags:
+        - Core E-invoice
+      description: >-
+        To Cancel IRN.
+        <h3>Below are the validation<h3>
+        1. IRN can be cancelled within 1 calendar day from IRN generation date<br> For example: If e-invoice is registered on 11th July at 10 am, it should be deleted on 12th July midnight.<br>
+        2.IRN cannot be cancelled, if the Valid/Active E-way Bill exists for the same.<br>
+        3.Cancellation can be done by active or suspended taxpayers.
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/sup_gstin'
+      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Data:
+                  type: string
+            examples:
+              
+              'Encrypted Request':
+                value: >-
+                  {
+                          "Data": "cwMtQmlx/upJuEqKfTMTQ6RH1s6SOQwm9SknTMBvHm9CFeJCCs4otZZbdf76sP/xpR4K3H5qvf1FmSrIFw1kmcPG1fSrE+AhZXjicr07dFsFmngugxwcTu 4BScdA75FgIolVbvDnDgvzJyg9mDWxMIM3Mkbtt7by5XC9CqVqqhnPSri9R5UE3PJgVKcMsM3aBewBdNGiQ/2Z9fITZwCp1l/z6h6pMDd93GT30I8nxMsn3"
+                  }
+              'JSON corresponds to the "Data" element of Cancel E-Invoice Request above':
+                value: >-
+                  {
+                  "Irn":"a5c12dca80e743321740b001fd70953e8738d109865d28ba4013750f2046f229",
+                  "CnlRsn":"1 ",
+                  "CnlRem":"Wrong entry"
+                  }
+              
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                   {
+                    "status":1,
+                    "data":"<Encrypted response>",
+                    "ErrorDetails":null,
+                    "InfoDtls":"<alert message >"
+                    }
+                    
+                'JSON (corresponds to the data element of Cancelled e-Invoice Response(Success))':
+                  value: >-
+                    {   
+                    "Irn":"a5c12dca80e743321740b001fd70953e8738d109865d28ba4013750f2046f229",
+                    "CancelDate": "2019-12-05 14:26:00"
+                    }
+                    
+                'Failure Response-1':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1006","ErrorMessage":"Header
+                    User Name is required"}],"InfoDtls":null}
+                    
+                'Failure Response-2':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1010","ErrorMessage":"Invalid
+                    Client-ID/Client-Secret"}],"InfoDtls":null}
+  /eicore/v1.03/Invoice/irn/{irn}:
+    get:
+      summary: Get IRN Details
+      tags:
+        - Core E-invoice
+      description: >-
+        To get IRN details by IRN number
+        Validation:<br>
+          IRN can be retrieved using this API within three days from the date of generation of IRN.
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/sup_gstin'
+        - $ref: '#/components/parameters/irn'
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                   {
+                    "Status":1,
+                    "Data":"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",
+                    "ErrorDetails": null,
+                    "InfoDtls":"<alert message >"
+                    }
+                    
+                'JSON (corresponds to the data element of Cancelled e-Invoice Response(Success))':
+                  value: >-
+                    {
+                      "AckNo":112010000002315,
+                      "AckDt":"2019-12-25 12:03:00",
+                      "Irn":"d056a57cc7cfcc6c9230aa0014e439259d0dc57cfa4eea2326253011fd53ea7e",
+                      "SignedInvoice":"eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2Iiwia2lkIjoiRTc4MDhFNkZGMDNFMTMyODUzMzBCMDQxQjNFMEEzQUVDNDc4MTMyMCIsInR5cCI6IkpXVCIsIng1dCI6IjU0Q09iX0EtRXloVE1MQkJzLUNqcnNSNEV5QSJ9.eyJkYXRhIjoie1wiQWNrTm9cIjoxNzEwMDAwMDA1NCxcIkFja0R0XCI6XCIyMDE5LTEyLTI1IDEyOjAzOjAwXCIsXCJUYXhTY2hcIjpudWxsLFwiVmVyc2lvblwiOlwiMS4wXCIsXCJJcm5cIjpcImQwNTZhNTdjYzdjZmNjNmM5MjMwYWEwMDE0ZTQzOTI1OWQwZGM1N2NmYTRlZWEyMzI2MjUzMDExZmQ1M2VhN2VcIixcIlRyYW5EdGxzXCI6e1wiQ2F0Z1wiOlwiQjJCXCIsXCJSZWdSZXZcIjpcIlJHXCIsXCJUeXBcIjpcIlJFIFwiLFwiRWNtVHJuXCI6XCJOXCIsXCJFY21Hc3RpblwiOlwiXCJ9LFwiRG9jRHRsc1wiOntcIlR5cFwiOlwiSU5WXCIsXCJOb1wiOlwiZG9jL3Rlc3QxXCIsXCJEdFwiOlwiMjAxOS0xMS0yOFwiLFwiT3JnSW52Tm9cIjpcIjEyMzMyMTEyMzMyMTEyMzJcIn0sXCJTZWxsZXJEdGxzXCI6e1wiR3N0aW5cIjpcIjI5QUFHUEI4Njc4TDFaMVwiLFwiVHJkTm1cIjpcIlRyYWRlIE5hbWUxXCIsXCJCbm9cIjpcIjFcIixcIkJubVwiOlwiXCIsXCJGbG5vXCI6XCJcIixcIkxvY1wiOlwiTG9jYXRpb25cIixcIkRzdFwiOlwiXCIsXCJQaW5cIjo1NjAwNDMsXCJTdGNkXCI6MjksXCJQaFwiOm51bGwsXCJFbVwiOlwiYWJjQHh5ei5jb21cIn0sXCJCdXllckR0bHNcIjp7XCJHc3RpblwiOlwiMjlBQUdQQjg2NzhMMVoxXCIsXCJUcmRObVwiOlwiVHJhZGUgTmFtZTFcIixcIkJub1wiOlwiMVwiLFwiQm5tXCI6XCJcIixcIkZsbm9cIjpcIlwiLFwiTG9jXCI6XCJMb2NhdGlvblwiLFwiRHN0XCI6XCJcIixcIlBpblwiOjU2MDA0MyxcIlN0Y2RcIjoyOSxcIlBoXCI6bnVsbCxcIkVtXCI6XCJhYmNAeHl6LmNvbVwifSxcIkRpc3BEdGxzXCI6e1wiR3N0aW5cIjpcIjI5QUFHUEI4Njc4TDFaMVwiLFwiVHJkTm1cIjpcIm5hbWUgXCIsXCJCbm9cIjpcIjEyM1wiLFwiQm5tXCI6XCJcIixcIkZsbm9cIjpcIjJcIixcIkxvY1wiOlwibG9jYXRpb25cIixcIkRzdFwiOlwiXCIsXCJQaW5cIjo1NjAwNDMsXCJTdGNkXCI6MjksXCJQaFwiOm51bGwsXCJFbVwiOlwiYWJDQFhZWi5DT01cIn0sXCJTaGlwRHRsc1wiOntcIkdzdGluXCI6XCIyOUFBR1BCODY3OEwxWjFcIixcIlRyZE5tXCI6XCJuYW1lIFwiLFwiQm5vXCI6XCIxMjNcIixcIkJubVwiOlwiXCIsXCJGbG5vXCI6XCIyXCIsXCJMb2NcIjpcImxvY2F0aW9uXCIsXCJEc3RcIjpcIlwiLFwiUGluXCI6NTYwMDQzLFwiU3RjZFwiOjI5LFwiUGhcIjpudWxsLFwiRW1cIjpcImFiQ0BYWVouQ09NXCJ9LFwiSXRlbUxpc3RcIjpbe1wiUHJkTm1cIjpcIldoZWF0XCIsXCJQcmREZXNjXCI6XCJXaGVhdCBkZXNjXCIsXCJIc25DZFwiOlwiMTAwMVwiLFwiQmFyY2RlXCI6bnVsbCxcIlF0eVwiOjEsXCJGcmVlUXR5XCI6bnVsbCxcIlVuaXRcIjpcIktHU1wiLFwiVW5pdFByaWNlXCI6MCxcIlRvdEFtdFwiOjAsXCJEaXNjb3VudFwiOjAsXCJPdGhDaHJnXCI6MCxcIkFzc0FtdFwiOjAsXCJDZ3N0UnRcIjozLFwiU2dzdFJ0XCI6MyxcIklnc3RSdFwiOjAsXCJDZXNSdFwiOjAsXCJDZXNOb25BZFZhbFwiOjAsXCJTdGF0ZUNlc1wiOjM2LFwiVG90SXRlbVZhbFwiOjIzNDMyfV0sXCJWYWxEdGxzXCI6e1wiQXNzVmFsXCI6MTAsXCJDZ3N0VmFsXCI6MixcIlNnc3RWYWxcIjoyLFwiSWdzdFZhbFwiOjAsXCJDZXNWYWxcIjowLFwiU3RDZXNWYWxcIjowLFwiQ2VzTm9uQWRWYWxcIjowLFwiRGlzY1wiOjAsXCJPdGhDaHJnXCI6MCxcIlRvdEludlZhbFwiOjB9LFwiRXhwRHRsc1wiOntcIkV4cENhdFwiOlwiU0VaXCIsXCJXdGhQYXlcIjpcIk5cIixcIlNoaXBCTm9cIjpcIlwiLFwiU2hpcEJEdFwiOlwiMjAxOS0xMS0yOFwiLFwiUG9ydFwiOlwiXCIsXCJJbnZGb3JDdXJcIjoyMzQ0NSxcIkZvckN1clwiOlwiQkRUXCIsXCJDbnRDb2RlXCI6XCJCRFwifSxcIlBheUR0bHNcIjp7XCJOYW1cIjpcIlwiLFwiTW9kZVwiOlwiQ0FTSFwiLFwiRmluSW5zQnJcIjpcIlwiLFwiUGF5VGVybVwiOlwiMTAwMVwiLFwiUGF5SW5zdHJcIjpcIlwiLFwiQ3JUcm5cIjpcIlwiLFwiRGlyRHJcIjpcIlwiLFwiQ3JEYXlcIjoyLFwiQmFsQW10XCI6MixcIlBheUR1ZUR0XCI6XCIyMDE5LTExLTI4XCIsXCJBY2N0RGV0XCI6XCIxMFwifSxcIlJlZkR0bHNcIjp7XCJJbnZSbWtcIjpcIjBcIixcIkludlN0RHRcIjpcIjIwMTktMTEtMjhcIixcIkludkVuZER0XCI6XCIyMDE5LTExLTI4XCIsXCJQcmVjSW52Tm9cIjpcIlwiLFwiUHJlY0ludkR0XCI6XCIyMDE5LTExLTI4XCIsXCJJbnZSZWZOb1wiOlwiMFwiLFwiUmVjQWR2UmVmXCI6XCJcIixcIlRlbmRSZWZcIjpcIlwiLFwiQ29udHJSZWZcIjpcIjEwXCIsXCJFeHRSZWZcIjpcIjJcIixcIlByb2pSZWZcIjpcIlwiLFwiUE9SZWZcIjpcIlwifX0iLCJpc3MiOiJOSUMifQ.II0jejF0wOrY0CPwIb6oQsSBYilvFSNHZqQJHYOsFt7txrpAvLlCEo4CDNUhPZGWZ6IeERuoY2ScXKNIsCIMQR_9dc0E_fmsaN5XUscxBV3nqPNIkusFcmzjxu59sT8MzcaFqDWfqHunkA-klW40M7oVy6HtL5eI0zbmNoZpdl2yB1Fxfx5AF_vcDv9vWV2u6i39XQ0KdTSbkTAVStdXHix2hE0TlHtHB9Tqt7i9umNPJc_Uf5Kpn4qHiOPvFT2uxhw1N7bIU00cc-PDIqzlLk2VnLb2Zko7wSgYAMrf5G1hn5Op4lbyQe9EwxOPcvJPjJBJsoOmFTbxd1IRgewm7g",
+                      "SignedQRCode":"eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2Iiwia2lkIjoiRTc4MDhFNkZGMDNFMTMyODUzMzBCMDQxQjNFMEEzQUVDNDc4MTMyMCIsInR5cCI6IkpXVCIsIng1dCI6IjU0Q09iX0EtRXloVE1MQkJzLUNqcnNSNEV5QSJ9.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjI5QUFHUEI4Njc4TDFaMVwiLFwiQnV5ZXJHc3RpblwiOlwiMjlBQUdQQjg2NzhMMVoxXCIsXCJEb2NOb1wiOlwiZG9jL3Rlc3QxXCIsXCJEb2NUeXBcIjpcIklOVlwiLFwiRG9jRHRcIjpcIjIwMTktMTEtMjhcIixcIlRvdEludlZhbFwiOjAsXCJJdGVtQ250XCI6MSxcIk1haW5Ic25Db2RlXCI6XCIxMDAxXCIsXCJJcm5cIjpcImQwNTZhNTdjYzdjZmNjNmM5MjMwYWEwMDE0ZTQzOTI1OWQwZGM1N2NmYTRlZWEyMzI2MjUzMDExZmQ1M2VhN2VcIn0iLCJpc3MiOiJOSUMifQ.UbnWZAI_lq9s9JK8_MovcmjpMPIJnv2-4qGkiXegggQbry_0fJxjwaR8fwCjK_-HVeMujnw8C7F3ITrxKIg5RsdDMzAvLrCNE0K3QkNHGczbvyxhJ02VRFl1wrQoArxSW1RiyGssLSbH_4tdQ6vke0nSUajXRXvXX2yUeI01CyLsbf2FDNIq46MrDmka5RPNGp0dCx4uX2gkmsCx0Yb0CKjqFI176sTbxOQDHQtRCAfJ0I6dwwggVkfnC3p2F-x6GhEls_7GVsFg1Z6k4A_aB89c3N6CaWfe8DOQEJTjWaPggMUa2-1hDE1ODTBcIlLcOwB-8jT971hZWgtBubUzFg",
+                      "Status":"ACT",
+                      }
+                    
+                'Failure Response-1':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1006","ErrorMessage":"Header
+                    User Name is required"}],"InfoDtls":null}
+                    
+                'Failure Response-2':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1010","ErrorMessage":"Invalid
+                    Client-ID/Client-Secret"}],"InfoDtls":null}
+  
+  /eicore/v1.03/Invoice/irnbydocdetails:
+    get:
+      summary: Get IRN Details by Doc details
+      tags:
+        - Core E-invoice
+      description: >-
+        To get IRN details by document number, document type and document date
+        <h3>Validation:<br>
+          IRN can be retrieved using this API within three days from the date of generation of IRN.
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/sup_gstin'
+        - $ref: '#/components/parameters/doctype'
+        - $ref: '#/components/parameters/docnum'
+        - $ref: '#/components/parameters/docdate'
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                   {
+                    "Status":1,
+                    "Data":"kwLp6MJVHAd9fNf0dImSiPg47tF/8l7tFY4Bl6HZqjDjeCHynzBWhx4WoacWlnIX7OyABuAmHx+6lwJEhmWT1UkIcB/Ow731If6roXkcu7Zb z1quV1ND2aYUtVgefR+FNHmj+5j2VuJm4pKiGsMi0hgzA7mX25qG2aZm3ggrqfIV6xCPeI8L5QGvMBhhLlFPvlbt1LC0K24vwXWtoW4FKVlF3bFQHJn7LV69VJCz1IpjmE+xlQo8vmgrnjQT/3+ H3SOHh+ftJHMD78ymRSwgAT8p8D3FfrZ9ImyOaLVThzwYn6dcsLYYTs+qBhxbPvLwUlEFk1cs6Uk2ZdOtfemDZ6A2yR0qYCN4mJTfpwr4Tr+qsende/YJZ0Xt47JGAlt0Xkg1TI2eAA0E+Nd+8g dKb63jNASVzpXlohD+QcaVvyFY3SEMXShIjqpD+xFT2LhPWgAeLHN3SjStpZMhKrZZ7W4I5UNsffz2PI5iK1x6ebGydxpUjyBmYGsxyIof/uqs0Bglex5j6KjkggUd469J9jMNlhOMb+C/5D8nD oUtwjsYf3aeL3nhZv4vcKEpoe+1mpxKv7OtOcQCcNnVxBhP+4KE3F3mbD36YYwndgwO1QNLnPCaO04jT+MTQ0QcjNHGO3g+XQ9TKB619CEnPDH363NPWArIPaQRRsPG+MgtKQLV1PN96Av7sHGy wXssHvZxVxfWgYTsNx4m3CSUAXUQEKPObKEy59ZWOmiiAPvcWpTXKQAVwTu/DiA8hvhlHFargkTZAFhnjmKz2r6bBCgEuJ845DWruEFEEI+hJsn0UaSpniSXeTNM9ojFB+2JJgxvDq/Gd3iADq4 laHN8D4MMz7koRH+kFgEMFTodhvY7zWdHaxpPKOOqEWbJlHc8HNrMoyJa3ThLe9nQhDZRLCn6hlpQj0R1FiinUOQqOZBJfCpufon6zwun+AFySAq6NzFb9EKe4q0ydrfn0os+7CnOi4RjEbFk4C posh5m97I7pQ4wX4fQ350yaPxi0dwrZz1WIJaSyRa826iUk2k4xyQ3hOV81QXEUACLatpY092gfq7W0zUtE8pdgUehvvFR4f/YxQVD0hHp8aKNolp1FnQPfsvfdDtbGwuqKbjCDDZG/dKsiMin+ UEgIb6SYXu3Z3ZBIunYaN/7a67EyGh7YWTw3YCzveAJu7fCVaZIfydVUUhJNfysJi2FdxqnfPv8cHOySc02cNiO/S67Eu3C1oNIwQspRAujZOoaSaixdtY+uI9TiG8COCjbI06oKCVHzdME1xJk Qpv9VAGxVQoZ/QMHmjAE3t4530R1wrgXpbmWR5HZHLLOXsnDB/W95BIx6KzGwl2YpxtZZsaE1pQfnIp18qUYNT14qTSudZO+vfxsYjJrGacZb/G1cwqJZrk4rZgxsshAa1MLR33eNYFc1sWWQ8I BgunfL0sPBskRRbyGmZ7qYKi2181DZ/e0oiojI9+zzhMUnrYnm3wZnsQ/sxeEFjxq6Jsubc3BKfThB8vPI3aa4TaRMLJd87MDQTf0mDlD0eY1eJ4TCIv3m35/3JzKb23mAxcQxvpo4CeAAFVV6O raSEYmZFR/Ew+PV2LhQq6IynSqgfXBnrT0YxHL9VX6xu2TMtMvWrh59hcVHtYX3x2MxIc2fs5h3zE+TC/VE32orZJiakBWq2GJgSO1YbU/yfG/gWzAvxOEw2JYr8oDP0BQdvPby5AL+sqN/nO8m WprnAPZElVGGA8QHw5MOjVPAYSoa54xOR6LlSxjTXtN+fa7gLSroiecE1bchkBbFWf3gEHIcSDbMU6W2EOdU/+wcvm1+2jQUK1LkafLWQvkpKZgXUqIfM779r+OlJiJRdq7zgufBhRcd5qYUXhp nsACdOzDDkHKHkdacKJkpI7RwZHUWkwuv2zAvTL4JYPuVeWX4BWtvC+AIfo8XeBx9BjGcuOjMM1OCKUqILU/GYI0l6CtJ78PDehD1kTGvSB2h0ZzTwegxRWc5kk8SwoppvaoP4mSsp2Tch8127c alCgQ8LBPQBIxg8vLdLG8k/kbrlAL8b+BbMC/E4TDYlivygM/QKNSZPOny7XE4VR34pAQ0STp/rtnQQUthEShJRuhAuLNK9W1KyuYxCNEy74Iaz7b9C9u5ygUQ/o9nInsmVwrDtaMgvjpLj6M4j CZ6BYSJg/oAjuV7yYB+9fz50ojDN58qth8fEKe9WktbtqtWGt6xAM3dRzuDgJk6PGeRm76jYQDeXPa9HkbjMId8hFfwyi0T0XQ3KdOMg9tmbx4sNCrcj2O2JJ/sc/cA7FXPHtBrRN5exkDk416I yC/+vfCj7G8Lu9ar0b8gAJFjhMs96RNUfVX3lQMmoGEzO8nEF7mEkUN7RAnWgyRBUGX+AagykD490LG0P9iG/U2nwwJtpyWZgWYmT8P74pvm3kAg+hUqTMuKpXFyLzc8S5ypknyMTCcj6Ci1UA+ DoJZjIN9YHhFvc5CmSdJvmIlrLdWU4u0sp6jpBMntDl08wNOp1XPK2OJCzTI8RDjBfPX8Xdyv5QuWYn98DWL58bdpj8My7wcho962mHCnMSMa4EPthQy1VNtSIx776Qd04NKmO/LAOgMctyLrvq k4nE5ohPaSLwzkn3ue7zel7frx0aXDqDCswWBYlOdsq9/EHI4VPLXXTQhTMhmCsYd71xv52DI+k4a3WVt1i4iE0HWQMHMuPunjxjQstXz00ZvVP1xU09FPG6uvvGRz3geXe0U1wp6UDCHPaeNYd 1Amr2EUxrY4rnMusLlPaDyP/3fomm2SFqmNkIgvtM6vlpvzGjYBpDAwup/Dig/chqztQYExTYQ8e7hUoT/iaKNzanodLYhJHjzxKIxQR7bWnKfGMzIacIIgRJ+3M+m9xq1KaG14H4n0Iq3rBUqB AjxmqqVYkyJiHEOCx/2K90z+427FNNtaygE5ccUkk/v9lrmRyLj+X80hnYTdPexEQjoN1+pQxtu5hTLuDVJAzXUkJXEdqFmpxas0dPqY2XU7T6+Ddt6YUOArJvYRvlvyUjyd53/Sv+QzzVPg0Qk HHDFVY6ljvQS+LbEFF2G3JSED3qlFcLlDyoTCxvlPA6U/HdtsdDafNJV6V2Mu9xKZQmvEl2Ia2Vn1g7UQBZ3iLgR1Vuu6fmL0NJhjz32+eE5FcUF4CHeOSDWc4472VZp1bV202pYCYVYyplYjXG OHUm8Bu5G1+8/plF+fjS5d/88BdRWpuiDfbXp+6IF6ocwGEkmCqWXsq6ZKbN1TokiFC68eRIWKYW6aIEL3FB8mecDmFmqm9HfVLjtOJh7zUIGYStk2d6OwOaUfaYW+2ksJGbgL1fkmEutSKmN1O nEFDA5cYtdRHamQrkX84H7m3Sp4eiCJ55HTwgKZ4dMF0fkOiO4mw6Du3MbuvlxGVWfZowghjUIZ+emAGW4ABroQmklkfjv5+2+A0fOJqxl9ZSA8okj+LgsffyC0hZQJxPfwsvh2ho8a7HVdTCZz zPDzQtUvyVqPIcfZFrW+6LH4kQc7f/lNKPwdYwxTHeMDUr6Pa2YL9b4RWzCMfR4Uh+LqhSaAPyyBRe+JtacY3cETIkk/vY00N3ykQj09Rp3SlHEkle6jsWy2N6tqT+H6G24vhrQRDFRF1UGHY1f 2ZxrPOcJmZZvDYzMb5PElMjZHOUjCW+XZJfW15x6bBcD3mgJE0p3WvdKH4KVR7Ua0pNqygkfxdqUty1mvEpLh0d9Af5XlGFa8HA+KBW94DeY00AalPLd0AkaihOMr7ujV0rQH5dN5YzlkEooWte QqAJnGUWjyGdu1aP3+7GdKq+rBd8MJHcxMF4DxZRc5yFszRp0e+PBw8tJ5HJGK4ORxG2rXfwd5EPXZKiPwUNQHRNi2JTumM38j+R/5FbdzXszQzNW4tGIrpb1tlotgLvL3sfY7Ev/rfYTPfPLlY nZCnhnVMB35n+PKQ2mYYMDROBIEU4F0mon+qY6ds8Pr5NEx0JycRa9AjaIORewAlMDQMJT+r5MpZorEKAu6ygVaC76eb2fZcu/xfX9VMHnwnacBgy7owwXe1PSl0U7gVq4jRgGp2s140891tBs9 lqq9nDUhHrfqKayyRvB5rH+tItJONE54qYjUHKGpIYFtiVC2phP2gNWDLglwNZvBYFjZfNx1gDQA5q+WO5Vwqvch99lOD1wpAThq/cs7vhYW953/8xVU9frQoLWUsVHMKKvnYm/tp2a2Zlv939n dSj/F/Y/rsJdeSFxd09nvpjIxMYboxVJ5OvAcIRiIHOfpvZQBSYyeNFED1XRUbkuLi/EDLA1pEJ4zUlaMnEghB9FNEiapWGj+kVkAzirtyG1LQjZgtNaMagc5Jq53x91n6b2UAUmMnjRRA9V0VG 5Lk2Hdz5Z8oHhQFT0n1TsdbVYEPbSShNVA1LDIYvaBRiD2B/q4Who1blumlyLkdzVshn+58lr5qYoQ0pXtyZpZYdD17LzHPV2CeM9D3a6LJuLTbUF75MFonPbStVNnxdk/eRUMNNIotTG1VsDZB 890EK1ZqRt+odsq7mUkXDR6GBFaxQGE38ptBIASA/pAzPudmtLArG89/kDSosZ3M/Ob+w1CzbWc/tLvRmyiDipOROzc0zqm4VaXuqbiqEmzDSl5IqvuFNLXaF67587lasXKBl8dPSOaGFSAwwbT WTw8nTnIDh0O3I6vCFjDnPTMuTvZ61HpkquBvZcJucaksckcWGpquWd5JIa4Roln+C1OkcmwouTfFPWmGpxDvy6Q00zl27BgT70mPs+VkEAmAM1oK+YRlqleU+GES+BmjfVj8ABYZCdHM0Q+Ge8 KURlmhiK3ZtooJlsBgobE6JlT4xulHB/mSqdtht93zbjbL5U7IKpksIH5lhCXbhgq7Vnd09KV08V3shgXk57TWBNaQmBfl3BzO0KJEazO0obBIXsHWfdtSGzdP4lFbgOFccIM9P1GNs8qzGEl5j x0ifAHBD0Zcmu3e0giZTXd73qIP5lBCxjSkISoQJGTQ5p65PRc5IDHOpzsZEOD9nwAFjF+QRiepVg1yacbLde0BssUB6baae1gj1hY7b8uizxq5TUCtL7dLRFNm7rwpo6mzvaedizgF1FNfF8dT QlSr1P9xbo8mgyy4++WZ0cezEHzD5GFEBSah3UzNbjxPq451jc4BCnYKnbY9CSKlFyqR6z329EMfg2WFrdckiyPw78Z4THhKN53OnFZqsoln75mYYcSiq/gk5LOwlsi8qlxleXJ5phzNZZ7OU3s c2IUm4Ekg/MwT9hy2ey8If2Fuuy1dsDW3t+y62X3+0Hh+PwnuIGbHvNOovBMTWPto+rUQlBDt/4excDQpuDgth04whmQyl2FBdfCYiSjGALhSxv9MiUhkQzLPREbdnphuTzAWOdeleQ7fS10LuA YJ5dl8g49I2oXQ6dlN5JNfysJi2FdxqnfPv8cHOySc02cNiO/S67Eu3C1oNIwcPjLYWw/wNsw7l4HgKcO+Cug0SWCgxuL/+QPSD6CDNBpoqZFC/FmGFI+BwVc7D9M74caiShG9P3ctotQs41xAb 8Pxba5nd0UOELYDP96NQvFVbHFdjVFeF/pi8hM30Ep4EdYRtjjtzimRntyKINkeVHMKKvnYm/tp2a2Zlv939nEkC4elRQ4M+WmEENVUa1EyuuWEx9HKqEeT9EuQbApYmLsBJLH/B66vC7VNvJ0q ohqW0du+U9OcYgvHvEbRwl/fYQZ6eu9FXMQ2zvcydoCRluiaECIufY5rpradvu3W55XqoH57gwG5GYepz+a5aOttjQjHGbyLC1o7Bf7reyjKbbIWFH2c/GaiU5utk9LABc9z5vWftd11+Wms0bJ 2YQ+1VhFcs2NPUG0sIHfX/VJLV6upgl95PHECm/xyVihK1Vncs3W+NNlFYMztq6Kqx9IRg8n3k5wwjie+sqfz/gMmFtTOUB/pLIT70isNFiToRb4OhdVpt5aaof/DinQyAIHfhmOGcYof88bHsp Q6d5Fa1KeD2hjiPw2mY9fAzNSr1FxozUQRyIVrcfDLEUdmGgSTP8T71Ouic7XgKf4yKzQbuqmUj88Zi5oJMNfIrcsoadyNzSLYfPaXvAlXStiSeJjN5+6RAv6s9NBli4ItbB3vj1xv9mP7PBBMq 8rEuSoKxsIAJ6UydYxEia4dmtFsY5fjE/HOVl7DC0u2nx2ULRYyINRfz1vvvpIVPKvwwLX9q5eMTyW9N3aJLJxq7B4PkmKlaiAgsD/ftQXJbw9RWDIUqlbBQBYoRa/oE+u/JLRU1uYis7HqilDm uD6n02z0anS/VwuDhNm3dwqySLKjNfQNVG2jEZvBhPuvArxxLSfUTcgMe9m2N/fnJ4nZi2HigytRJbwoJQZGHw8HOQj3iEWe6NKITkVqJflKF5RBAaaB2J",
+                    "ErrorDetails": null,
+                    "InfoDtls":"<alert message >"
+                    }
+                    
+                'JSON (corresponds to the data element of Cancelled e-Invoice Response(Success))':
+                  value: >-
+                    {
+                      "AckNo":112010000002315,
+                      "AckDt":"2019-12-25 12:03:00",
+                      "Irn":"d056a57cc7cfcc6c9230aa0014e439259d0dc57cfa4eea2326253011fd53ea7e",
+                      "SignedInvoice":"eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2Iiwia2lkIjoiRTc4MDhFNkZGMDNFMTMyODUzMzBCMDQxQjNFMEEzQUVDNDc4MTMyMCIsInR5cCI6IkpXVCIsIng1dCI6IjU0Q09iX0EtRXloVE1MQkJzLUNqcnNSNEV5QSJ9.eyJkYXRhIjoie1wiQWNrTm9cIjoxNzEwMDAwMDA1NCxcIkFja0R0XCI6XCIyMDE5LTEyLTI1IDEyOjAzOjAwXCIsXCJUYXhTY2hcIjpudWxsLFwiVmVyc2lvblwiOlwiMS4wXCIsXCJJcm5cIjpcImQwNTZhNTdjYzdjZmNjNmM5MjMwYWEwMDE0ZTQzOTI1OWQwZGM1N2NmYTRlZWEyMzI2MjUzMDExZmQ1M2VhN2VcIixcIlRyYW5EdGxzXCI6e1wiQ2F0Z1wiOlwiQjJCXCIsXCJSZWdSZXZcIjpcIlJHXCIsXCJUeXBcIjpcIlJFIFwiLFwiRWNtVHJuXCI6XCJOXCIsXCJFY21Hc3RpblwiOlwiXCJ9LFwiRG9jRHRsc1wiOntcIlR5cFwiOlwiSU5WXCIsXCJOb1wiOlwiZG9jL3Rlc3QxXCIsXCJEdFwiOlwiMjAxOS0xMS0yOFwiLFwiT3JnSW52Tm9cIjpcIjEyMzMyMTEyMzMyMTEyMzJcIn0sXCJTZWxsZXJEdGxzXCI6e1wiR3N0aW5cIjpcIjI5QUFHUEI4Njc4TDFaMVwiLFwiVHJkTm1cIjpcIlRyYWRlIE5hbWUxXCIsXCJCbm9cIjpcIjFcIixcIkJubVwiOlwiXCIsXCJGbG5vXCI6XCJcIixcIkxvY1wiOlwiTG9jYXRpb25cIixcIkRzdFwiOlwiXCIsXCJQaW5cIjo1NjAwNDMsXCJTdGNkXCI6MjksXCJQaFwiOm51bGwsXCJFbVwiOlwiYWJjQHh5ei5jb21cIn0sXCJCdXllckR0bHNcIjp7XCJHc3RpblwiOlwiMjlBQUdQQjg2NzhMMVoxXCIsXCJUcmRObVwiOlwiVHJhZGUgTmFtZTFcIixcIkJub1wiOlwiMVwiLFwiQm5tXCI6XCJcIixcIkZsbm9cIjpcIlwiLFwiTG9jXCI6XCJMb2NhdGlvblwiLFwiRHN0XCI6XCJcIixcIlBpblwiOjU2MDA0MyxcIlN0Y2RcIjoyOSxcIlBoXCI6bnVsbCxcIkVtXCI6XCJhYmNAeHl6LmNvbVwifSxcIkRpc3BEdGxzXCI6e1wiR3N0aW5cIjpcIjI5QUFHUEI4Njc4TDFaMVwiLFwiVHJkTm1cIjpcIm5hbWUgXCIsXCJCbm9cIjpcIjEyM1wiLFwiQm5tXCI6XCJcIixcIkZsbm9cIjpcIjJcIixcIkxvY1wiOlwibG9jYXRpb25cIixcIkRzdFwiOlwiXCIsXCJQaW5cIjo1NjAwNDMsXCJTdGNkXCI6MjksXCJQaFwiOm51bGwsXCJFbVwiOlwiYWJDQFhZWi5DT01cIn0sXCJTaGlwRHRsc1wiOntcIkdzdGluXCI6XCIyOUFBR1BCODY3OEwxWjFcIixcIlRyZE5tXCI6XCJuYW1lIFwiLFwiQm5vXCI6XCIxMjNcIixcIkJubVwiOlwiXCIsXCJGbG5vXCI6XCIyXCIsXCJMb2NcIjpcImxvY2F0aW9uXCIsXCJEc3RcIjpcIlwiLFwiUGluXCI6NTYwMDQzLFwiU3RjZFwiOjI5LFwiUGhcIjpudWxsLFwiRW1cIjpcImFiQ0BYWVouQ09NXCJ9LFwiSXRlbUxpc3RcIjpbe1wiUHJkTm1cIjpcIldoZWF0XCIsXCJQcmREZXNjXCI6XCJXaGVhdCBkZXNjXCIsXCJIc25DZFwiOlwiMTAwMVwiLFwiQmFyY2RlXCI6bnVsbCxcIlF0eVwiOjEsXCJGcmVlUXR5XCI6bnVsbCxcIlVuaXRcIjpcIktHU1wiLFwiVW5pdFByaWNlXCI6MCxcIlRvdEFtdFwiOjAsXCJEaXNjb3VudFwiOjAsXCJPdGhDaHJnXCI6MCxcIkFzc0FtdFwiOjAsXCJDZ3N0UnRcIjozLFwiU2dzdFJ0XCI6MyxcIklnc3RSdFwiOjAsXCJDZXNSdFwiOjAsXCJDZXNOb25BZFZhbFwiOjAsXCJTdGF0ZUNlc1wiOjM2LFwiVG90SXRlbVZhbFwiOjIzNDMyfV0sXCJWYWxEdGxzXCI6e1wiQXNzVmFsXCI6MTAsXCJDZ3N0VmFsXCI6MixcIlNnc3RWYWxcIjoyLFwiSWdzdFZhbFwiOjAsXCJDZXNWYWxcIjowLFwiU3RDZXNWYWxcIjowLFwiQ2VzTm9uQWRWYWxcIjowLFwiRGlzY1wiOjAsXCJPdGhDaHJnXCI6MCxcIlRvdEludlZhbFwiOjB9LFwiRXhwRHRsc1wiOntcIkV4cENhdFwiOlwiU0VaXCIsXCJXdGhQYXlcIjpcIk5cIixcIlNoaXBCTm9cIjpcIlwiLFwiU2hpcEJEdFwiOlwiMjAxOS0xMS0yOFwiLFwiUG9ydFwiOlwiXCIsXCJJbnZGb3JDdXJcIjoyMzQ0NSxcIkZvckN1clwiOlwiQkRUXCIsXCJDbnRDb2RlXCI6XCJCRFwifSxcIlBheUR0bHNcIjp7XCJOYW1cIjpcIlwiLFwiTW9kZVwiOlwiQ0FTSFwiLFwiRmluSW5zQnJcIjpcIlwiLFwiUGF5VGVybVwiOlwiMTAwMVwiLFwiUGF5SW5zdHJcIjpcIlwiLFwiQ3JUcm5cIjpcIlwiLFwiRGlyRHJcIjpcIlwiLFwiQ3JEYXlcIjoyLFwiQmFsQW10XCI6MixcIlBheUR1ZUR0XCI6XCIyMDE5LTExLTI4XCIsXCJBY2N0RGV0XCI6XCIxMFwifSxcIlJlZkR0bHNcIjp7XCJJbnZSbWtcIjpcIjBcIixcIkludlN0RHRcIjpcIjIwMTktMTEtMjhcIixcIkludkVuZER0XCI6XCIyMDE5LTExLTI4XCIsXCJQcmVjSW52Tm9cIjpcIlwiLFwiUHJlY0ludkR0XCI6XCIyMDE5LTExLTI4XCIsXCJJbnZSZWZOb1wiOlwiMFwiLFwiUmVjQWR2UmVmXCI6XCJcIixcIlRlbmRSZWZcIjpcIlwiLFwiQ29udHJSZWZcIjpcIjEwXCIsXCJFeHRSZWZcIjpcIjJcIixcIlByb2pSZWZcIjpcIlwiLFwiUE9SZWZcIjpcIlwifX0iLCJpc3MiOiJOSUMifQ.II0jejF0wOrY0CPwIb6oQsSBYilvFSNHZqQJHYOsFt7txrpAvLlCEo4CDNUhPZGWZ6IeERuoY2ScXKNIsCIMQR_9dc0E_fmsaN5XUscxBV3nqPNIkusFcmzjxu59sT8MzcaFqDWfqHunkA-klW40M7oVy6HtL5eI0zbmNoZpdl2yB1Fxfx5AF_vcDv9vWV2u6i39XQ0KdTSbkTAVStdXHix2hE0TlHtHB9Tqt7i9umNPJc_Uf5Kpn4qHiOPvFT2uxhw1N7bIU00cc-PDIqzlLk2VnLb2Zko7wSgYAMrf5G1hn5Op4lbyQe9EwxOPcvJPjJBJsoOmFTbxd1IRgewm7g",
+                      "SignedQRCode":"eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2Iiwia2lkIjoiRTc4MDhFNkZGMDNFMTMyODUzMzBCMDQxQjNFMEEzQUVDNDc4MTMyMCIsInR5cCI6IkpXVCIsIng1dCI6IjU0Q09iX0EtRXloVE1MQkJzLUNqcnNSNEV5QSJ9.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjI5QUFHUEI4Njc4TDFaMVwiLFwiQnV5ZXJHc3RpblwiOlwiMjlBQUdQQjg2NzhMMVoxXCIsXCJEb2NOb1wiOlwiZG9jL3Rlc3QxXCIsXCJEb2NUeXBcIjpcIklOVlwiLFwiRG9jRHRcIjpcIjIwMTktMTEtMjhcIixcIlRvdEludlZhbFwiOjAsXCJJdGVtQ250XCI6MSxcIk1haW5Ic25Db2RlXCI6XCIxMDAxXCIsXCJJcm5cIjpcImQwNTZhNTdjYzdjZmNjNmM5MjMwYWEwMDE0ZTQzOTI1OWQwZGM1N2NmYTRlZWEyMzI2MjUzMDExZmQ1M2VhN2VcIn0iLCJpc3MiOiJOSUMifQ.UbnWZAI_lq9s9JK8_MovcmjpMPIJnv2-4qGkiXegggQbry_0fJxjwaR8fwCjK_-HVeMujnw8C7F3ITrxKIg5RsdDMzAvLrCNE0K3QkNHGczbvyxhJ02VRFl1wrQoArxSW1RiyGssLSbH_4tdQ6vke0nSUajXRXvXX2yUeI01CyLsbf2FDNIq46MrDmka5RPNGp0dCx4uX2gkmsCx0Yb0CKjqFI176sTbxOQDHQtRCAfJ0I6dwwggVkfnC3p2F-x6GhEls_7GVsFg1Z6k4A_aB89c3N6CaWfe8DOQEJTjWaPggMUa2-1hDE1ODTBcIlLcOwB-8jT971hZWgtBubUzFg",
+                      "Status":"ACT",
+                      }
+                    
+                'Failure Response-1':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1006","ErrorMessage":"Header
+                    User Name is required"}],"InfoDtls":null}
+                    
+                'Failure Response-2':
+                  value: >-
+                    {"Status":0,"Data":null,"ErrorDetails":[{"ErrorCode":"1010","ErrorMessage":"Invalid
+                    Client-ID/Client-Secret"}],"InfoDtls":null}
+  /eivital/v1.04/heartbeat/ping:
+    get:
+      summary: Provides the Health status of Core APIs
+      tags:
+        - Core E-invoice
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                   {
+                      "Status": 0,
+                      "Data": "Working fine",
+                      "ErrorDetails": null,
+                      "InfoDtls": null
+                    }
+   
+  /eicore/v1.03/Invoice/ewb:
+    post:
+      summary: IRN and Ewaybill generation
+      description: <h3>This API serves dual process both IRN and eway bill way generation.<br>
+                    <h3>The API can be used in two ways:<br>
+ 
+                    <h3>Generate IRN and Eway Bill Together</h3>
+                    Users can utilize this feature to simultaneously generate the IRN and Eway Bill for an invoice. This is particularly useful when Eway Bill details are available.<br>
+                     
+                   <h3> Generate IRN First, Eway Bill Later</h3>
+                    Users have the flexibility to register the invoice and obtain the IRN without generating the Eway Bill immediately. This can be beneficial when Eway Bill details are not readily available, but the invoice contains at least one item with an HSN code belonging to goods. 
+      
+      tags:
+        - Free Add-ons
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/sup_gstin'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "Data"
+              type: "object"
+              properties:
+                Data:
+                  type: "string"
+              additionalProperties: false
+            examples:
+              Encrypted Payload:
+                value: "{\r\n    \"Data\": \"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\"\
+                  \r\n}"
+                  
+              'JSON corresponds to the "Data" element of Generate E-Invoice + Eway bill Request above':
+                value: >-
+                  
+                  {
+                    "Version": "1.1",
+                    "TranDtls": {
+                      "TaxSch": "GST",
+                      "SupTyp": "B2B",
+                      "RegRev": "Y",
+                      "EcmGstin": null,
+                      "IgstOnIntra": "N"
+                    },
+                    "DocDtls": {
+                      "Typ": "INV",
+                      "No": "DOC/001",
+                      "Dt": "18/08/2020"
+                    },
+                    "SellerDtls": {
+                      "Gstin": "37ARZPT4384Q1MT",
+                      "LglNm": "NIC company pvt ltd",
+                      "TrdNm": "NIC Industries",
+                      "Addr1": "5th block, kuvempu layout",
+                      "Addr2": "kuvempu layout",
+                      "Loc": "GANDHINAGAR",
+                      "Pin": 518001,
+                      "Stcd": "37",
+                      "Ph": "9000000000",
+                      "Em": "abc@gmail.com"
+                    },
+                    "BuyerDtls": {
+                      "Gstin": "29AWGPV7107B1Z1",
+                      "LglNm": "XYZ company pvt ltd",
+                      "TrdNm": "XYZ Industries",
+                      "Pos": "12",
+                      "Addr1": "7th block, kuvempu layout",
+                      "Addr2": "kuvempu layout",
+                      "Loc": "GANDHINAGAR",
+                      "Pin": 562160,
+                      "Stcd": "29",
+                      "Ph": "91111111111",
+                      "Em": "xyz@yahoo.com"
+                    },
+                    "DispDtls": {
+                      "Nm": "ABC company pvt ltd",
+                      "Addr1": "7th block, kuvempu layout",
+                      "Addr2": "kuvempu layout",
+                      "Loc": "Banagalore",
+                      "Pin": 562160,
+                      "Stcd": "29"
+                    },
+                    "ShipDtls": {
+                      "Gstin": "29AWGPV7107B1Z1",
+                      "LglNm": "CBE company pvt ltd",
+                      "TrdNm": "kuvempu layout",
+                      "Addr1": "7th block, kuvempu layout",
+                      "Addr2": "kuvempu layout",
+                      "Loc": "Banagalore",
+                      "Pin": 562160,
+                      "Stcd": "29"
+                    },
+                    "ItemList": [
+                      {
+                        "SlNo": "1",
+                        "PrdDesc": "Rice",
+                        "IsServc": "N",
+                        "HsnCd": "1001",
+                        "Barcde": "123456",
+                        "Qty": 100.345,
+                        "FreeQty": 10,
+                        "Unit": "BAG",
+                        "UnitPrice": 99.545,
+                        "TotAmt": 9988.84,
+                        "Discount": 10,
+                        "PreTaxVal": 1,
+                        "AssAmt": 9978.84,
+                        "GstRt": 12.0,
+                        "IgstAmt": 1197.46,
+                        "CgstAmt": 0,
+                        "SgstAmt": 0,
+                        "CesRt": 5,
+                        "CesAmt": 498.94,
+                        "CesNonAdvlAmt": 10,
+                        "StateCesRt": 12,
+                        "StateCesAmt": 1197.46,
+                        "StateCesNonAdvlAmt": 5,
+                        "OthChrg": 10,
+                        "TotItemVal": 12897.7,
+                        "OrdLineRef": "3256",
+                        "OrgCntry": "AG",
+                        "PrdSlNo": "12345",
+                        "BchDtls": {
+                          "Nm": "123456",
+                          "ExpDt": "01/08/2020",
+                          "WrDt": "01/09/2020"
+                        },
+                        "AttribDtls": [
+                          {
+                            "Nm": "Rice",
+                            "Val": "10000"
+                          }
+                        ]
+                      }
+                    ],
+                    "ValDtls": {
+                      "AssVal": 9978.84,
+                      "CgstVal": 0,
+                      "SgstVal": 0,
+                      "IgstVal": 1197.46,
+                      "CesVal": 508.94,
+                      "StCesVal": 1202.46,
+                      "Discount": 10,
+                      "OthChrg": 20,
+                      "RndOffAmt": 0.3,
+                      "TotInvVal": 12908,
+                      "TotInvValFc": 12897.7
+                    },
+                    "PayDtls": {
+                      "Nm": "ABCDE",
+                      "AccDet": "5697389713210",
+                      "Mode": "Cash",
+                      "FinInsBr": "SBIN11000",
+                      "PayTerm": "100",
+                      "PayInstr": "Gift",
+                      "CrTrn": "test",
+                      "DirDr": "test",
+                      "CrDay": 100,
+                      "PaidAmt": 10000,
+                      "PaymtDue": 5000
+                    },
+                    "RefDtls": {
+                      "InvRm": "TEST",
+                      "DocPerdDtls": {
+                        "InvStDt": "01/08/2020",
+                        "InvEndDt": "01/09/2020"
+                      },
+                      "PrecDocDtls": [
+                        {
+                          "InvNo": "DOC/002",
+                          "InvDt": "01/08/2020",
+                          "OthRefNo": "123456"
+                        }
+                      ],
+                      "ContrDtls": [
+                        {
+                          "RecAdvRefr": "Doc/003",
+                          "RecAdvDt": "01/08/2020",
+                          "TendRefr": "Abc001",
+                          "ContrRefr": "Co123",
+                          "ExtRefr": "Yo456",
+                          "ProjRefr": "Doc-456",
+                          "PORefr": "Doc-789",
+                          "PORefDt": "01/08/2020"
+                        }
+                      ]
+                    },
+                    "AddlDocDtls": [
+                      {
+                        "Url": "https://einv-apisandbox.nic.in",
+                        "Docs": "Test Doc",
+                        "Info": "Document Test"
+                      }
+                    ],
+                    "ExpDtls": {
+                      "ShipBNo": "A-248",
+                      "ShipBDt": "01/08/2020",
+                      "Port": "INABG1",
+                      "RefClm": "N",
+                      "ForCur": "AED",
+                      "CntCode": "AE",
+                      "ExpDuty": null
+                    },
+                    "EwbDtls": {
+                      "TransId": "12AWGPV7107B1Z1",
+                      "TransName": "XYZ EXPORTS",
+                      "Distance": 100,
+                      "TransDocNo": "DOC01",
+                      "TransDocDt": "18/08/2020",
+                      "VehNo": "ka123456",
+                      "VehType": "R",
+                      "TransMode": "1"
+                    }
+                  }
+     
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'In case distance is passed 0 and both IRN and eway bill are generated':
+                  value: >-
+                    {
+                          "Status": 1,
+                          "ErrorDetails": null,
+                          "InfoDtls": [
+                              {
+                                  "InfCd": "EWBPPD",
+                                  "Desc": "Pin-Pin calc distance: 973KM"
+                              }
+                          ],
+                          "Data": "jbImWEVzDnpbzk7/SmBQziMgdYNwN7RjkeC7VJHmRRwLJcSjDoIXrrgYw1GWxQmjWWbPAtwXRJLwAn+LoyZXrtyA/eOwQzi9Yjnm6w9DEf3qrAoYQNFuwor/j8CL9v4Ul6jLw8dovFzAvkCyPqs7LTkOckpgGkeHU7FSd2x6KOpZ2UdFDg85oJoXV0TDOS7uWnIhU/BljFAtznfe1CBPGQ3+oMQyGAXYIUM8LHA8EPZ8GQF8IqiIZ3F0M0roVCsEdSdL6KB/ZEELWMgVqO8PCc1Tfp3HjRDDnQZQYzJpagMIJ3TYU2YK3yxGPIhcis/Z8f5+VH/dXn13v+3fH/YFSdXWhi4GU5/GY3l0kur1x+/2a1u7svv2ZUZEVxZ62rYMDt3y1L6qp09JSmN6NKu8cS9WmNU36Nh2RD2vbzaK0uezIxvs7ka3liIdni4YwWUSw1y6+kSh6xV5c0qQTkupbwromy7wUkktdQ10JFSPiK7B8As12OuP+K8oa1L2D477fwt5BjMw8RHp0XNXxkfrNjSIiaupd/QT4yeqqpfcjySR3pSPQbYdZnZz7kccbxJlK6oV1mYcCyxx1W9Afc0QuucSUY2MEDJfPe7AU2FwOpBPsGw8oglyF9bZrrZsxuS3XMC1iShAxflY8jggtNvpZ5qPKxbm/0rfgn0Ks+kyfb200Qd4TCZNsQmC+KDT9kcMu9501niWlrafDsuyzTK9T65DUuGJKmS19gXr1xRy154DlvpDcDNh7waRvGHMPqJJNp58+4roWFHez8Vo/2sQdvYGkDhP5j0HebiFLdlyNcWS4VL1eV8Mav5pxmnGApoUfapfAR71qiEpKrFaH2EkUf8mPyERQDK1+1bSxgi/oJ6zs9FILv8116p6miOs7c02InQRpXoS3qNq5mt+fb9kmZNokplqxkWdYen/HzMjAgrNpLfkOpWvNQRTvR9UoX+1bd48z32zAzH0TbPNpLTyjccisa/nT3tytVSiiupfv34FpuKLd96HJq1dsVzUuL/5p2ObEG5ZqaOQsbMyo0X8ZhurCSjHy0RQeuCQzOpE2YTNd0xK/SD8Pu3HCBJXR4p5vUQ3EpGX/N9lZXj4wwteQVKW4OIzprERfVunq8AR0rEgVxiNXTgE8trtZH1q/31d9MKfVjBya7rV2s40qhJfQ03xsk4ZT1XUnx+RyUxcumprxHV7mxdvkkQNk6X8I9iaD0T8ZCquXNMAsz6h3H2kmkVd5iEGBobPY4ZC/395YWsI4h7PJZq6WYUhMIKFhlhcxdpJS7a99IdbLeTHFfxYjiHtc0c+hOYvVKKtu6++J2h9Rx2BfVG/I0vn8RVLSRGk6tn4tE3cSgQePmjav56CHgfrptg6iMnNcKqJ+EW2n3FEsnSK4XPxHhyPtj9a+P+8IIK2cinyVLTaCxeYGBEtNvNs7qG48OU48Vl6T6ZldZzUHagGgAuHZOjOCr5DWJ6OV/mW1VFcyA9M6Z1zLavDQzKhjl0DDavT62MuNQnXShU9VjBwOsQrdfud4PxVLOwcrsQNutmwLa19nFl0EwC19OUkxHGOZN8J7wcorRQSh5BzaF4KVD0E6H1zj8bE0uEWy0biHVRpbswopT4Ryp4zQ1ZGmK8gEW9aaE1cJaXfLeuWV4M3LwMnEboXzIW4qH7GaeOvDJhYB2pz7aI8SzeNdZ3acoBWgW8cdxazNKXZZRKmXadlkoHdDiGyt5B/a6XcVvdOY4HYumo9Y5v6cm43yCIi3GbcUJmG1ld012lwd4UePo4WRC6krqQredpA0saWJCvtRXY8YyRF3CAh+qUOqU3aozZ4TAxU5B/Lpn6julLg3N6xdalUL6p/sn44Od95r1QCoyfiXTXd/pn6tXtUTPzxTvkqvCvpy1HTHhmve5xIOcWD1n6i0PbXgVhLury+Fw3TNCVWmk2NYkwO3moyf8Obt0Txt7J08BQbL4VdoioQCLXR6Ucygm5zqMBm4bCT9OPTVgqo7oeJfMr4TKr9yqsuJwhHpc4KFaIxvW9yVg+IzHj8fJ1SkcMliasR9VbtxVSDzSzjAJWiBKkNkYM3xi2GM3kB+DJgqVWRpD9qMVPjt/ts5cS8cNzeP5dsVVNvwuYAQ6B98vJbVLiHKVGcbBLEikuhk2IdTN6JdWNtC5j9drtkc4AWSFlaUgc58lGlnPD/DP6a4jOlC8513NFjZsuc6qZBIQwIE6zGVnoObL2fKABgYXiJY2NHv60USaRTG33D6OYHH2i9gjVcUsnC5Els2SO5O17UsL5CzcjRGY5MdlYeiONqyi7JTaZs0elV2139GwunipceYc6auRSGuDbvFIILQ3/Hi058yC01CYHWX6iVabZBo4NNpMc3//cq5w78I553psoz83rlxq2E3UUxLrdBdoCdBzwNSkS2B41R/Kai7VwGDZeasNZ/xy8Gxk+3QcCW/TKUxzFFoHRXxv9txM5eFIddl3OyBfoJb3b+vRLk/FKvdguJGvwgENes1qaI7LYRe5qENMDQseNe8Sb2oRkPjvx2jeLgpEUaUg7CMKJQYSMwTnX2mrXzFP+X5uzdHk9T5fMoRQFa/augMKS6qc0RI4JpA4juqbcExJ58JNQJnqIdY9A6NIB9qvx2DLd2S52lyxU6L9UMHm1TjcRph4WGX52n506pHK9+G2RnHXPktt6zkMbTvD/eCaRf0CRFWgFCx8zrHovYNLbXoiD9pjYZFvVsTjHyHPDVitGaelEbXRZr1dwCuP5g5MWe9oImufGbt6oysHhKBMwzARnQHmePHKSV5EjFVmx6+0OTEFH6iwe0F5hcGEoG6URN/+1NzIvfdnb8hmzxxd6gsS4sal7IejCuPnumCk4Z4V5m6W7cw5ISiVlr0ajYqDTNcSjSdtTxesrcPFvQy7OoyUl5jl6s9CQtSmu3NLiV6V/n2YSDIYfn8zfCumwOScXVnR1keRretQVEXsmvmqlM5KWVjHdIYaTKsMkQzwe61SVoTbaAXnolSw9iySVCRAdlhpuPiSGJhW2F1pXswrhD0cuc6qZBIQwIE6zGVnoObL1AH6fF4DoZs21+5DtcKVOKG33D6OYHH2i9gjVcUsnC5Els2SO5O17UsL5CzcjRGY5MdlYeiONqyi7JTaZs0elV2139GwunipceYc6auRSGuFCC+VVPdF24/LZXbXwro8/eMXl6UQHSi/6vZ3bHEa33w44zv/iosSobYSRnHP/1oCZ9zFZkixo7Noqpk310nGKp9jSJtzv+QPpHZawAn3v5U+fqBkmBIeafK2/5ipIP+YZjbNHHa008yvWQkIMHX2VyzAE8cRNcOJd6ynU4U3jlv9ccXp017MeRR4ufdpwJmnVY9vBG4VghXB5DDxftYBOJff4m7w/ZS+qLNcZZ8Oz36gvt89dHH8UDKz0y0pgN33Qx0B8pbtdwz6qwXIYjkMSbHiBkFDwxZTYW2UaiR0ztP1aejhRy9dWVVZR344YdbYmeVC6XjsZIs3ZgkIrpVBM2ef4zRItd0JqWUty8aEFqe/ZUcBmilJHMcc2hkeFWnxcPjwLRvXkOigZ0Dnd+ZVuJnlQul47GSLN2YJCK6VQT4L3LzaQ2HOUxDkgePBCvJ9AkRVoBQsfM6x6L2DS216Jzg0TOv/DwZWL0BDTH3a7IC5totoFJYOpjjnwVd9O2ig8OpRT4MGX69kTEmEUl1WWGe7VUHT/OsMzuVLE44wxgEsWfvQQ725nGAWHBuTPgnXX0Gqe6eigAaxN98nQ8oTE/7D0IRsDgyKMjXxf4jO8k0nfm7OKAwhnqbSvrbDomUsuGUS36mTCd/HYXpqOdEgOxKz8CRV39vGGfC6QDf8iESpTP42942mujKXVZU1ONCOTNYE4eHpSpvcyNjo2MrzJwTkunZOcqmSL3Ud4TcP36p4QpvFRJVRj8EmsYUq9LWuoxI53vh8qlP+9J4zByyFMbSj1U33214/j4E8jLJfkiq2OfOm8EJ70BbWgfr9uXCJSY/8cGph3x3tFsNrqufl0UXLxiEn3i2JvMCcf3MejyF8XhZLWwoIiFlKyLs9vNebocMkKk5QcF8HXwiW668z+mmwM3LIhM7tqyDXW7M1kqzdcdce4YyAAjo8SrXaKGa9+my4qYJV4CJAWl/dE+DxkUHIOmdbQPp/E1Wx84KXtC4yF5DOvIfMjKOKev99Z8io0BC3Gt1j+KivVyGi+Ljw4ZKHQzGBKcrjuC/niXpzQYq2UPuEe3ffbTTtkp655IAIFyJGPxz9Q/l4x0cjz2Y6nfOZ0kXs5cJWTZsoRTenTnjyQhNrFTiHiMapSd2QXaB0Yx7m1awYPwqgQteEld5/KVyM15un/z5/RpdksKZ17dGdAeZ48cpJXkSMVWbHr7Q3Eo0nbU8XrK3Dxb0MuzqMlVFnzKLlkJEngJZTWlRQTOxI3ogApO5R4/BdzmLBojqnmRQViUIneVyAgMhPKsJm7/7U3Mi992dvyGbPHF3qCxKSjmygDl4oLCy3dAo71jlwubaLaBSWDqY458FXfTtorgvcvNpDYc5TEOSB48EK8nA/g9hndio2CcKbKJ8QKOidae4BxDeqw+KOd11/F6fB2l0ZBrptKKJnBpAwB77vHfxlgmgiabPr5XvFeg06i5f3LdmzblX1ZoYwRA8xnsIGveqm+KrGuPoCOot1JcBEjvNivRV+te4bSHaSQE+1t2Y6pU0bEK3dhQ46SU8yMnHF7WpAYZXfduNbtlHetEu2eefchR3nEunmbqZ+IjdyxC1eSLZT8ux5PlAH7FWQraEBpJ2iv5CiNn5PW0ib1SLYEu+Pxta7pidCcz9UCNpgXvik0jbzJVan8uLwLiCM8vBr2zqX5dck1/GzAr+ugc4XqNOY2DsZgxO64z6tS5Os/l1IDOxcHA+R/LL5RjFlmhjkJhGMCAs134KxXxS/xwZK4gsdR4WChs0UYJT8ogcoztydnj24QKteNZfte5C9ATvtsD5PDocX6tTYnop1L3Q7KsOl3FXk9+RuMdJbHpLkbbl0xmlylpP+LubCsk8kYJuiWP0sEKURSBRpBIJi5csBSgGHCa9mIkHcjEO5kfw6+KNMurxoWXI7hbpZ5FWkveLAAD2z9pZX/6saSK9Ndz/QRaIaHgvlEsbqmii6lHHa9Tr3d3aS4gwr65hdI+Y0HJdcexoteObIEeWbkwwnEci9bbODZV4HNZaQUkws+sklpemXLZeoqbLO4d1ZS9vB0gqnnqILDg+NxPwiI29QVPhaywvvcVszxbg89owTeiEG3ejE7qMgirGDc120gg7aVsSiw6zFeeMTGOPpEAqxavkFKWRrzwwrZLuNlUl3MqaI8bSX+Qy1txkNvYmNrWmxrjVX+wjq6g6E/UfXrMuzut7kmM0A2/A9i/uvO6zxp+FBKVGiU0xjb9PUnm5ST9sPwDDrOFnmwyBXuj9Fi99orthjRZYIdGvlUMNvQ+NFdZUJFZWp52GvQIZGnhVVCSS6jEfmv6DRnndr+2YHPajW7RrpKoegNBdXVypN3PlL6prDfhW+vl9xg2gb0KvyMgoxZXP79t29w0DykRQ9SvwcBSJiDjMHpkTHQgPEOm0g0KcHYG6pn8wEbC4bWfMMNyBIfgHattUHs+mYnItdLdymnLOVjhhdkZNPMCThvgOz1+3BGQIbo661tsxTwMtKAsw7f9J3UFbklOo+TQqdoj3CDetc9nV7qNXr1+JYbKFhvV5hSFGrLXWCNKztU72pLlPOQyG28ZkfqNQl769PWosUr7vGCX6TulYslTEW/f3erMkj4wM04d9pTr8LRQQZx/6k+/9dreERF6nX8hU+hQb4VThsgRU0Sp34Wh1RmB2kRdqCGje3gW8ZST4ChzCW52BNoPAuY2rGmoOC1r3aNbvBu1B3KJ0jppMaCJd8YYqajY/ReMsoZY8Sqer2lHgY8u0WxAoIvAteauzfqHib/YDl4RsdidfrvfA9jG6CWtQrC59bkI4JXnTsXue+jsSrqZvzuIL6djt2e7qGIjvfQ46X46hzmI+YZ7encgPLmImWYc+NK6N5+aMejTBBPRr0APcc9vGSfYypmcOYR/cCiBccqfZXkegRdjNM+5rc7qwsyqiUrau5hB/t/Js6InTzY2yXXClON2n5CqLVioXinoH++1RWd1G6sJKMfLRFB64JDM6kTZhM13TEr9IPw+7ccIEldHinlT3XxRyJ/j1ceWS1QSIKQu+EP8DH/wO0cq29mNdiT3WigNQcFUaT/IhmRyAW5CRK0Pj0Yp9VsVYi1MPybfYgSX0LQsojykto4T18OCblaIzbHzJfNNdHuEvgnbU7jVyuJonbeMhtsxu/ZyC9RYY17zbquhTERwubClDBC0tqNEmITSJVrZd+xlA3f7G8TXQQ8P8hqpsbTyv93SdG/NQxApaXC5pTAGcQjwzOujYsp6d2h3m4fu0fLzKbdjDYIgOUvKql3bgWsP+zUkn3jcEj689D61ahy+U9OFWNW2ydEOZaItFDT44Qqeyrajbg1fpURUg6luwZ1JCiZgTpueY4/RFjSn0/YfzTULBEJpnmZtf2TCU8fM4fjv2l1dd6JseK5IPvQ4451dWOQOP2fp94MGjYN4qgzjDdHYQKwSK/owU0Af+1ZxK+5JUjbeDSBA85ExX3T/fTCUYTw/X8VOy740ks+QDesXWG6TbnfxU9OIfOGTaUsLppVChzmIK4v3IMVw2RoOY7TOoOEowzHyg4vR1UPB0t6QOeXwxB6OWfcu1q04EYK/cz0t/SxspkYK4zbbNbwpNNk8w0LZBGBpN+n40I/4VjpJvGBYuDmCnRik6sWTVINZOULWiWOI3xLyliO2z9oLFtkjajqe+e2VXf/vCxA6nm9LD6ha0+UHBbTEyLWVFum1w9gw8bKbrUdTsdNa+U30u0XSEOWYM+2s015QS4dWbpGV2vL5s4mfpYehQanvtiSmJWE//7zdPZcBehvwrnjSKPOQHu5dz71zU6aIwQNjbxNHqOdPCUkLfI5fg/OzjXoht1I9Ia1zD0S75gqIdqGnvBlYQu41q4yI24CHRu/1rDGIc84i4XwSCKQoP2BYqOMMV/f10ukI5tNjfCk3iJch1XMPqxvipoYc7HdcT6+AYlTCuRhE55p0GnaE7wFR4P2fL152hDzlDyLBpEKeq+ljPn1k0Nd0jSevC37WfrpY1l+jrfTqNoctcBOFw+r53mqgEZUna0uSD2Rorg6FUXI2O1EWYP3LQukb6QHGOuG1CDoNvRMIHWSFVUAEv+gYZUnkTJk94Gyq2FT2Tyomk/6y3wS707r8Qc6/Z9bj6FCM898i2Xfg7qteQNfxkBO8TLlhExlpO0AyYdeAKz8aAlTFnrSN30uCXnDvwphzbb3xprrhFl4iLFU+enX1WA=="
+                      }
+                         
+                
+                '"data" JSON (corresponds to above data element of Generate Einvoice and Ewaybill Response(Success))':
+                  value: >-
+                    {
+                        "AckNo":112010000002315,
+                        "AckDt":"2020-08-05 15:18:00",
+                        "Irn":"11f8ef701fe294d4a14aad0b12457e62775d0fdc41a0acf05b74fbb2ddc47acb",
+                        "SignedInvoice":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNUY0NDI2NjE3QTc5MzhCRTFCQTA2REJFRTkxQTQyNzU4NEVEQUIiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJFVjlFSm1GNmVUaS1HNkJ0dnVrYVFuV0U3YXMifQ.eyJkYXRhIjoie1wiQWNrTm9cIjoxMTIwMTAwMDAwMDIzMTUsXCJBY2tEdFwiOlwiMjAyMC0wOC0wNSAxNToxODowMFwiLFwiSXJuXCI6XCIxMWY4ZWY3MDFmZTI5NGQ0YTE0YWFkMGIxMjQ1N2U2Mjc3NWQwZmRjNDFhMGFjZjA1Yjc0ZmJiMmRkYzQ3YWNiXCIsXCJWZXJzaW9uXCI6XCIxLjAxXCIsXCJUcmFuRHRsc1wiOntcIlRheFNjaFwiOlwiR1NUXCIsXCJTdXBUeXBcIjpcIkIyQlwiLFwiUmVnUmV2XCI6XCJOXCIsXCJJZ3N0T25JbnRyYVwiOlwiWVwifSxcIkRvY0R0bHNcIjp7XCJUeXBcIjpcIklOVlwiLFwiTm9cIjpcIkRELTIwMjAwODA0LTlcIixcIkR0XCI6XCIwNC8wOC8yMDIwXCJ9LFwiU2VsbGVyRHRsc1wiOntcIkdzdGluXCI6XCIzN0FSWlBUNDM4NFExTVRcIixcIkxnbE5tXCI6XCIgQUJDIGNvbXBhbnkgcHZ0IGx0ZFwiLFwiVHJkTm1cIjpcInZpa2FzXCIsXCJBZGRyMVwiOlwiVEUgaFwiLFwiQWRkcjJcIjpcImFiY1wiLFwiTG9jXCI6XCJCYW5nYWxvcmVcIixcIlBpblwiOjUxNTMxMSxcIlN0Y2RcIjpcIjM3XCIsXCJQaFwiOlwiOTczODk3MTk3MFwiLFwiRW1cIjpcInZpa2FzQGdtYWlsLmNvbVwifSxcIkJ1eWVyRHRsc1wiOntcIkdzdGluXCI6XCIxMUFBQUNUMzkwNEYxWlpcIixcIkxnbE5tXCI6XCJYWVogY29tcGFueSBwdnQgbHRkXCIsXCJQb3NcIjpcIjM3XCIsXCJBZGRyMVwiOlwiN3RoIGJsb2NrLCBrdXZlbXB1IGxheW91dFwiLFwiTG9jXCI6XCJHQU5ESElOQUdBUlwiLFwiUGluXCI6NzM3MTAxLFwiU3RjZFwiOlwiMTFcIn0sXCJEaXNwRHRsc1wiOntcIk5tXCI6XCJuYW1lIG9mIHRoZSBjb21wYW55IGZyb20gd2hpY2ggZ29vZHMgZGlzcGF0Y2hlZFwiLFwiQWRkcjFcIjpcImFkZHJlc3NcIixcIkFkZHIyXCI6XCJCYW5nYWxvcmVcIixcIkxvY1wiOlwia3prXCIsXCJQaW5cIjo2OTA1MTMsXCJTdGNkXCI6XCIzMlwifSxcIlNoaXBEdGxzXCI6e1wiR3N0aW5cIjpcIjMyRElVUFAxMTc1RzFaMVwiLFwiTGdsTm1cIjpcInNoaXAgdHJhZGVcIixcIlRyZE5tXCI6XCJ2aWthc1wiLFwiQWRkcjFcIjpcInNoaXAgYiBub1wiLFwiQWRkcjJcIjpcIkJhbmdhbG9yZVwiLFwiTG9jXCI6XCJCYW5nYWxvcmVcIixcIlBpblwiOjY5MDUxMyxcIlN0Y2RcIjpcIjMyXCJ9LFwiSXRlbUxpc3RcIjpbe1wiSXRlbU5vXCI6MSxcIlNsTm9cIjpcIjFcIixcIklzU2VydmNcIjpcIk5cIixcIlByZERlc2NcIjpcIlN0ZWVsXCIsXCJIc25DZFwiOlwiMTAwMVwiLFwiUXR5XCI6MTAsXCJVbml0XCI6XCJCQUdcIixcIlVuaXRQcmljZVwiOjIwMC4wMCxcIlRvdEFtdFwiOjIwMDAuMDAsXCJEaXNjb3VudFwiOjEwLFwiQXNzQW10XCI6MTk5MC4wMCxcIkdzdFJ0XCI6MTIuMDAsXCJJZ3N0QW10XCI6MjM4LjgsXCJDZ3N0QW10XCI6MCxcIlNnc3RBbXRcIjowLFwiQ2VzUnRcIjo1LFwiQ2VzQW10XCI6OTkuNSxcIkNlc05vbkFkdmxBbXRcIjoxMCxcIlN0YXRlQ2VzUnRcIjoxMixcIlN0YXRlQ2VzQW10XCI6MjM4LjgwLFwiU3RhdGVDZXNOb25BZHZsQW10XCI6NSxcIk90aENocmdcIjoxMCxcIlRvdEl0ZW1WYWxcIjoyNTkyLjF9LHtcIkl0ZW1Ob1wiOjIsXCJTbE5vXCI6XCIyXCIsXCJJc1NlcnZjXCI6XCJOXCIsXCJQcmREZXNjXCI6XCJTdGVlbFwiLFwiSHNuQ2RcIjpcIjEwMDFcIixcIlF0eVwiOjEwLFwiVW5pdFwiOlwiQkFHXCIsXCJVbml0UHJpY2VcIjoyMDAuMDAsXCJUb3RBbXRcIjoyMDAwLjAwLFwiRGlzY291bnRcIjoxMCxcIkFzc0FtdFwiOjE5OTAuMDAsXCJHc3RSdFwiOjEyLjAwLFwiSWdzdEFtdFwiOjIzOC44LFwiQ2dzdEFtdFwiOjAsXCJTZ3N0QW10XCI6MCxcIkNlc1J0XCI6NSxcIkNlc0FtdFwiOjk5LjUsXCJDZXNOb25BZHZsQW10XCI6MTAsXCJTdGF0ZUNlc1J0XCI6MTIsXCJTdGF0ZUNlc0FtdFwiOjIzOC44MCxcIlN0YXRlQ2VzTm9uQWR2bEFtdFwiOjUsXCJPdGhDaHJnXCI6MTAsXCJUb3RJdGVtVmFsXCI6MjU5Mi4xfSx7XCJJdGVtTm9cIjozLFwiU2xOb1wiOlwiM1wiLFwiSXNTZXJ2Y1wiOlwiTlwiLFwiUHJkRGVzY1wiOlwiU3RlZWxcIixcIkhzbkNkXCI6XCIxMDAxXCIsXCJRdHlcIjoxMCxcIlVuaXRcIjpcIkJBR1wiLFwiVW5pdFByaWNlXCI6MjAwLjAwLFwiVG90QW10XCI6MjAwMC4wMCxcIkRpc2NvdW50XCI6MTAsXCJBc3NBbXRcIjoxOTkwLjAwLFwiR3N0UnRcIjoxMi4wMCxcIklnc3RBbXRcIjoyMzguOCxcIkNnc3RBbXRcIjowLFwiU2dzdEFtdFwiOjAsXCJDZXNSdFwiOjUsXCJDZXNBbXRcIjo5OS41LFwiQ2VzTm9uQWR2bEFtdFwiOjEwLFwiU3RhdGVDZXNSdFwiOjEyLFwiU3RhdGVDZXNBbXRcIjoyMzguODAsXCJTdGF0ZUNlc05vbkFkdmxBbXRcIjo1LFwiT3RoQ2hyZ1wiOjEwLFwiVG90SXRlbVZhbFwiOjI1OTIuMX1dLFwiVmFsRHRsc1wiOntcIkFzc1ZhbFwiOjU5NzAuMCxcIkNnc3RWYWxcIjowLFwiU2dzdFZhbFwiOjAsXCJJZ3N0VmFsXCI6NzE2LjQsXCJDZXNWYWxcIjozMjguNSxcIlN0Q2VzVmFsXCI6NzMxLjQsXCJSbmRPZmZBbXRcIjowLFwiVG90SW52VmFsXCI6Nzc3Ni4zfSxcIlJlZkR0bHNcIjp7XCJJbnZSbVwiOlwiMTIzXCIsXCJQcmVjRG9jRHRsc1wiOlt7XCJJbnZOb1wiOlwiQUJDXCIsXCJJbnZEdFwiOlwiMDIvMDIvMjAyMFwiLFwiT3RoUmVmTm9cIjpcIjEyQVwifV0sXCJDb250ckR0bHNcIjpbe1wiUmVjQWR2UmVmclwiOlwiMTIzXCIsXCJSZWNBZHZEdFwiOlwiMTIvMDIvMjAyMFwiLFwiVGVuZFJlZnJcIjpcImFiY1wiLFwiQ29udHJSZWZyXCI6XCJhYmNcIixcIkV4dFJlZnJcIjpcImFiY1wiLFwiUHJvalJlZnJcIjpcImFiY1wiLFwiUE9SZWZyXCI6XCJhYmNcIixcIlBPUmVmRHRcIjpcIjEyLzAyLzIwMjBcIn1dfSxcIkFkZGxEb2NEdGxzXCI6W3tcIlVybFwiOlwiaHR0cHM6Ly9laW52LWFwaXNhbmRib3gubmljLmluL2dzdGNvcmVfdGVzdC92MS4wMS9pbnZvaWNlXCIsXCJEb2NzXCI6XCJ2aWthc1wiLFwiSW5mb1wiOlwidmlrYXNcIn1dLFwiRXdiRHRsc1wiOntcIlRyYW5zSWRcIjpcIjEyQVdHUFY3MTA3QjFaMVwiLFwiVHJhbnNOYW1lXCI6XCJYWVogRVhQT1JUU1wiLFwiVHJhbnNNb2RlXCI6XCIxXCIsXCJEaXN0YW5jZVwiOjEwMCxcIlRyYW5zRG9jTm9cIjpcIkRPQzAxXCIsXCJUcmFuc0RvY0R0XCI6XCIwNC8wOC8yMDIwXCIsXCJWZWhOb1wiOlwia2ExMjM0NTZcIixcIlZlaFR5cGVcIjpcIlJcIn19IiwiaXNzIjoiTklDIn0.oesnTXdXgOEeRjYr6bRQ-_Ks-bnIpwtj7Zx8phzfjL6vsfuGqBokILz6ai0NHFKRxiX_bTLrgrWmwXyBdEFmt88myf4n-NP5JvwqFx4OIf0gYMFTKGLx4AQsxwXER836FDxyS33K_7Erkm7_yHsITR5sBkYrZYOWimYl5cgh4EFN2mEq0B8oIp9pSXAU2RGvuirV6Rnl902sWj1Zv_2UK8e9C7cS7maeuFvEgAHrwBjxqLVvRGDz93oRVgQcavhdNTmBr8LQo2yRQkwtZKCMY_NGDsIoJx3orAKEUE7D1RbAM6xh-uxGOlqxur50826y0sk6OuG2WB9K5g5gumxIpg",
+                        "SignedQRCode":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNUY0NDI2NjE3QTc5MzhCRTFCQTA2REJFRTkxQTQyNzU4NEVEQUIiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJFVjlFSm1GNmVUaS1HNkJ0dnVrYVFuV0U3YXMifQ.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjM3QVJaUFQ0Mzg0UTFNVFwiLFwiQnV5ZXJHc3RpblwiOlwiMTFBQUFDVDM5MDRGMVpaXCIsXCJEb2NOb1wiOlwiREQtMjAyMDA4MDQtOVwiLFwiRG9jVHlwXCI6XCJJTlZcIixcIkRvY0R0XCI6XCIwNC8wOC8yMDIwXCIsXCJUb3RJbnZWYWxcIjo3Nzc2LjMsXCJJdGVtQ250XCI6MyxcIk1haW5Ic25Db2RlXCI6XCIxMDAxXCIsXCJJcm5cIjpcIjExZjhlZjcwMWZlMjk0ZDRhMTRhYWQwYjEyNDU3ZTYyNzc1ZDBmZGM0MWEwYWNmMDViNzRmYmIyZGRjNDdhY2JcIn0iLCJpc3MiOiJOSUMifQ.fya8oD85f2_K8pDWSf8N94_T24O1lA9OPpIuUwk14el_r1lhL13OFxGkklhiewSMUom8DvO9JKu4jjz2l5farRTJhiBWJ43EtEky2SLzRhJf23JYW_6PyLErYL2RTzv2PlZ75eXIBZzPkxc2erCx61T50oHmExLgl1Q6HclvgiQUAVxysq1VFv96zEZVH8I0xDNqjdvqdtsW74ZHqzpV28kDIvuyV4Z5j3bR39GE6YKMetext_x3bJ4Wt4F1z3DOzfUjuKGdEjP0fTSwNg1RpiDoH4wcaMP7RJgtbQYXn4j3YoppCEw916AmbihiT2gSODPn04vhCbBecI7oOZvxpw",
+                        "Status":"ACT",
+                        "EwbNo":191008688443,
+                        "EwbDt":"2020-08-05 15:18:00",
+                        "EwbValidTill":"2020-08-06 23:59:00",
+                        "Remarks":null
+                    }
+                    
+                'In case error in eway bill related field and only IRN is generated':
+                  value: >-
+                    {
+                      "Status": 1,
+                      "ErrorDetails": null,
+                      "InfoDtls": [
+                        {
+                          "InfCd": "EWBERR",
+                          "Desc": [
+                            {
+                              "ErrorCode": "4021",
+                              "ErrorMessage": "Transporter document date cannot be earlier than the invoice date."
+                            }
+                          ]
+                        }
+                      ],
+                      "Data": "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"
+                    }
+                
+                '"data" JSON (corresponds to the data element of Generate Einvoice Response(Success))':
+                  value: >-
+                    {
+                      "AckNo": 112010000002315,
+                      "AckDt": "2020-08-05 15:18:00",
+                      "Irn": "11f8ef701fe294d4a14aad0b12457e62775d0fdc41a0acf05b74fbb2ddc47acb",
+                      "SignedInvoice": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNUY0NDI2NjE3QTc5MzhCRTFCQTA2REJFRTkxQTQyNzU4NEVEQUIiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJFVjlFSm1GNmVUaS1HNkJ0dnVrYVFuV0U3YXMifQ.eyJkYXRhIjoie1wiQWNrTm9cIjoxMTIwMTAwMDAwMDIzMTUsXCJBY2tEdFwiOlwiMjAyMC0wOC0wNSAxNToxODowMFwiLFwiSXJuXCI6XCIxMWY4ZWY3MDFmZTI5NGQ0YTE0YWFkMGIxMjQ1N2U2Mjc3NWQwZmRjNDFhMGFjZjA1Yjc0ZmJiMmRkYzQ3YWNiXCIsXCJWZXJzaW9uXCI6XCIxLjAxXCIsXCJUcmFuRHRsc1wiOntcIlRheFNjaFwiOlwiR1NUXCIsXCJTdXBUeXBcIjpcIkIyQlwiLFwiUmVnUmV2XCI6XCJOXCIsXCJJZ3N0T25JbnRyYVwiOlwiWVwifSxcIkRvY0R0bHNcIjp7XCJUeXBcIjpcIklOVlwiLFwiTm9cIjpcIkRELTIwMjAwODA0LTlcIixcIkR0XCI6XCIwNC8wOC8yMDIwXCJ9LFwiU2VsbGVyRHRsc1wiOntcIkdzdGluXCI6XCIzN0FSWlBUNDM4NFExTVRcIixcIkxnbE5tXCI6XCIgQUJDIGNvbXBhbnkgcHZ0IGx0ZFwiLFwiVHJkTm1cIjpcInZpa2FzXCIsXCJBZGRyMVwiOlwiVEUgaFwiLFwiQWRkcjJcIjpcImFiY1wiLFwiTG9jXCI6XCJCYW5nYWxvcmVcIixcIlBpblwiOjUxNTMxMSxcIlN0Y2RcIjpcIjM3XCIsXCJQaFwiOlwiOTczODk3MTk3MFwiLFwiRW1cIjpcInZpa2FzQGdtYWlsLmNvbVwifSxcIkJ1eWVyRHRsc1wiOntcIkdzdGluXCI6XCIxMUFBQUNUMzkwNEYxWlpcIixcIkxnbE5tXCI6XCJYWVogY29tcGFueSBwdnQgbHRkXCIsXCJQb3NcIjpcIjM3XCIsXCJBZGRyMVwiOlwiN3RoIGJsb2NrLCBrdXZlbXB1IGxheW91dFwiLFwiTG9jXCI6XCJHQU5ESElOQUdBUlwiLFwiUGluXCI6NzM3MTAxLFwiU3RjZFwiOlwiMTFcIn0sXCJEaXNwRHRsc1wiOntcIk5tXCI6XCJuYW1lIG9mIHRoZSBjb21wYW55IGZyb20gd2hpY2ggZ29vZHMgZGlzcGF0Y2hlZFwiLFwiQWRkcjFcIjpcImFkZHJlc3NcIixcIkFkZHIyXCI6XCJCYW5nYWxvcmVcIixcIkxvY1wiOlwia3prXCIsXCJQaW5cIjo2OTA1MTMsXCJTdGNkXCI6XCIzMlwifSxcIlNoaXBEdGxzXCI6e1wiR3N0aW5cIjpcIjMyRElVUFAxMTc1RzFaMVwiLFwiTGdsTm1cIjpcInNoaXAgdHJhZGVcIixcIlRyZE5tXCI6XCJ2aWthc1wiLFwiQWRkcjFcIjpcInNoaXAgYiBub1wiLFwiQWRkcjJcIjpcIkJhbmdhbG9yZVwiLFwiTG9jXCI6XCJCYW5nYWxvcmVcIixcIlBpblwiOjY5MDUxMyxcIlN0Y2RcIjpcIjMyXCJ9LFwiSXRlbUxpc3RcIjpbe1wiSXRlbU5vXCI6MSxcIlNsTm9cIjpcIjFcIixcIklzU2VydmNcIjpcIk5cIixcIlByZERlc2NcIjpcIlN0ZWVsXCIsXCJIc25DZFwiOlwiMTAwMVwiLFwiUXR5XCI6MTAsXCJVbml0XCI6XCJCQUdcIixcIlVuaXRQcmljZVwiOjIwMC4wMCxcIlRvdEFtdFwiOjIwMDAuMDAsXCJEaXNjb3VudFwiOjEwLFwiQXNzQW10XCI6MTk5MC4wMCxcIkdzdFJ0XCI6MTIuMDAsXCJJZ3N0QW10XCI6MjM4LjgsXCJDZ3N0QW10XCI6MCxcIlNnc3RBbXRcIjowLFwiQ2VzUnRcIjo1LFwiQ2VzQW10XCI6OTkuNSxcIkNlc05vbkFkdmxBbXRcIjoxMCxcIlN0YXRlQ2VzUnRcIjoxMixcIlN0YXRlQ2VzQW10XCI6MjM4LjgwLFwiU3RhdGVDZXNOb25BZHZsQW10XCI6NSxcIk90aENocmdcIjoxMCxcIlRvdEl0ZW1WYWxcIjoyNTkyLjF9LHtcIkl0ZW1Ob1wiOjIsXCJTbE5vXCI6XCIyXCIsXCJJc1NlcnZjXCI6XCJOXCIsXCJQcmREZXNjXCI6XCJTdGVlbFwiLFwiSHNuQ2RcIjpcIjEwMDFcIixcIlF0eVwiOjEwLFwiVW5pdFwiOlwiQkFHXCIsXCJVbml0UHJpY2VcIjoyMDAuMDAsXCJUb3RBbXRcIjoyMDAwLjAwLFwiRGlzY291bnRcIjoxMCxcIkFzc0FtdFwiOjE5OTAuMDAsXCJHc3RSdFwiOjEyLjAwLFwiSWdzdEFtdFwiOjIzOC44LFwiQ2dzdEFtdFwiOjAsXCJTZ3N0QW10XCI6MCxcIkNlc1J0XCI6NSxcIkNlc0FtdFwiOjk5LjUsXCJDZXNOb25BZHZsQW10XCI6MTAsXCJTdGF0ZUNlc1J0XCI6MTIsXCJTdGF0ZUNlc0FtdFwiOjIzOC44MCxcIlN0YXRlQ2VzTm9uQWR2bEFtdFwiOjUsXCJPdGhDaHJnXCI6MTAsXCJUb3RJdGVtVmFsXCI6MjU5Mi4xfSx7XCJJdGVtTm9cIjozLFwiU2xOb1wiOlwiM1wiLFwiSXNTZXJ2Y1wiOlwiTlwiLFwiUHJkRGVzY1wiOlwiU3RlZWxcIixcIkhzbkNkXCI6XCIxMDAxXCIsXCJRdHlcIjoxMCxcIlVuaXRcIjpcIkJBR1wiLFwiVW5pdFByaWNlXCI6MjAwLjAwLFwiVG90QW10XCI6MjAwMC4wMCxcIkRpc2NvdW50XCI6MTAsXCJBc3NBbXRcIjoxOTkwLjAwLFwiR3N0UnRcIjoxMi4wMCxcIklnc3RBbXRcIjoyMzguOCxcIkNnc3RBbXRcIjowLFwiU2dzdEFtdFwiOjAsXCJDZXNSdFwiOjUsXCJDZXNBbXRcIjo5OS41LFwiQ2VzTm9uQWR2bEFtdFwiOjEwLFwiU3RhdGVDZXNSdFwiOjEyLFwiU3RhdGVDZXNBbXRcIjoyMzguODAsXCJTdGF0ZUNlc05vbkFkdmxBbXRcIjo1LFwiT3RoQ2hyZ1wiOjEwLFwiVG90SXRlbVZhbFwiOjI1OTIuMX1dLFwiVmFsRHRsc1wiOntcIkFzc1ZhbFwiOjU5NzAuMCxcIkNnc3RWYWxcIjowLFwiU2dzdFZhbFwiOjAsXCJJZ3N0VmFsXCI6NzE2LjQsXCJDZXNWYWxcIjozMjguNSxcIlN0Q2VzVmFsXCI6NzMxLjQsXCJSbmRPZmZBbXRcIjowLFwiVG90SW52VmFsXCI6Nzc3Ni4zfSxcIlJlZkR0bHNcIjp7XCJJbnZSbVwiOlwiMTIzXCIsXCJQcmVjRG9jRHRsc1wiOlt7XCJJbnZOb1wiOlwiQUJDXCIsXCJJbnZEdFwiOlwiMDIvMDIvMjAyMFwiLFwiT3RoUmVmTm9cIjpcIjEyQVwifV0sXCJDb250ckR0bHNcIjpbe1wiUmVjQWR2UmVmclwiOlwiMTIzXCIsXCJSZWNBZHZEdFwiOlwiMTIvMDIvMjAyMFwiLFwiVGVuZFJlZnJcIjpcImFiY1wiLFwiQ29udHJSZWZyXCI6XCJhYmNcIixcIkV4dFJlZnJcIjpcImFiY1wiLFwiUHJvalJlZnJcIjpcImFiY1wiLFwiUE9SZWZyXCI6XCJhYmNcIixcIlBPUmVmRHRcIjpcIjEyLzAyLzIwMjBcIn1dfSxcIkFkZGxEb2NEdGxzXCI6W3tcIlVybFwiOlwiaHR0cHM6Ly9laW52LWFwaXNhbmRib3gubmljLmluL2dzdGNvcmVfdGVzdC92MS4wMS9pbnZvaWNlXCIsXCJEb2NzXCI6XCJ2aWthc1wiLFwiSW5mb1wiOlwidmlrYXNcIn1dLFwiRXdiRHRsc1wiOntcIlRyYW5zSWRcIjpcIjEyQVdHUFY3MTA3QjFaMVwiLFwiVHJhbnNOYW1lXCI6XCJYWVogRVhQT1JUU1wiLFwiVHJhbnNNb2RlXCI6XCIxXCIsXCJEaXN0YW5jZVwiOjEwMCxcIlRyYW5zRG9jTm9cIjpcIkRPQzAxXCIsXCJUcmFuc0RvY0R0XCI6XCIwNC8wOC8yMDIwXCIsXCJWZWhOb1wiOlwia2ExMjM0NTZcIixcIlZlaFR5cGVcIjpcIlJcIn19IiwiaXNzIjoiTklDIn0.oesnTXdXgOEeRjYr6bRQ-_Ks-bnIpwtj7Zx8phzfjL6vsfuGqBokILz6ai0NHFKRxiX_bTLrgrWmwXyBdEFmt88myf4n-NP5JvwqFx4OIf0gYMFTKGLx4AQsxwXER836FDxyS33K_7Erkm7_yHsITR5sBkYrZYOWimYl5cgh4EFN2mEq0B8oIp9pSXAU2RGvuirV6Rnl902sWj1Zv_2UK8e9C7cS7maeuFvEgAHrwBjxqLVvRGDz93oRVgQcavhdNTmBr8LQo2yRQkwtZKCMY_NGDsIoJx3orAKEUE7D1RbAM6xh-uxGOlqxur50826y0sk6OuG2WB9K5g5gumxIpg",
+                      "SignedQRCode": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNUY0NDI2NjE3QTc5MzhCRTFCQTA2REJFRTkxQTQyNzU4NEVEQUIiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJFVjlFSm1GNmVUaS1HNkJ0dnVrYVFuV0U3YXMifQ.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjM3QVJaUFQ0Mzg0UTFNVFwiLFwiQnV5ZXJHc3RpblwiOlwiMTFBQUFDVDM5MDRGMVpaXCIsXCJEb2NOb1wiOlwiREQtMjAyMDA4MDQtOVwiLFwiRG9jVHlwXCI6XCJJTlZcIixcIkRvY0R0XCI6XCIwNC8wOC8yMDIwXCIsXCJUb3RJbnZWYWxcIjo3Nzc2LjMsXCJJdGVtQ250XCI6MyxcIk1haW5Ic25Db2RlXCI6XCIxMDAxXCIsXCJJcm5cIjpcIjExZjhlZjcwMWZlMjk0ZDRhMTRhYWQwYjEyNDU3ZTYyNzc1ZDBmZGM0MWEwYWNmMDViNzRmYmIyZGRjNDdhY2JcIn0iLCJpc3MiOiJOSUMifQ.fya8oD85f2_K8pDWSf8N94_T24O1lA9OPpIuUwk14el_r1lhL13OFxGkklhiewSMUom8DvO9JKu4jjz2l5farRTJhiBWJ43EtEky2SLzRhJf23JYW_6PyLErYL2RTzv2PlZ75eXIBZzPkxc2erCx61T50oHmExLgl1Q6HclvgiQUAVxysq1VFv96zEZVH8I0xDNqjdvqdtsW74ZHqzpV28kDIvuyV4Z5j3bR39GE6YKMetext_x3bJ4Wt4F1z3DOzfUjuKGdEjP0fTSwNg1RpiDoH4wcaMP7RJgtbQYXn4j3YoppCEw916AmbihiT2gSODPn04vhCbBecI7oOZvxpw",
+                      "Status": "ACT",
+                      "EwbNo": null,
+                      "EwbDt": null,
+                      "EwbValidTill": null,
+                      "Remarks": null
+                    }
+                                        
+                    
+                
+                    
+                'Duplicate IRN Response':
+                  value: >-
+                    {
+                        "Status": 0,
+                        "ErrorDetails": [
+                            {
+                                "ErrorCode": "2150",
+                                "ErrorMessage": "Duplicate IRN."
+                            }
+                        ],
+                        "InfoDtls": [
+                            {
+                                "InfCd": "DUPIRN",
+                                "Desc": {
+                                    "AckNo": 472059965569840,
+                                    "AckDt": "2023-10-30 11:58:18",
+                                    "Irn": "d2f0fc79227079cfdc26d586e29e31ce81f1a7c6971891fd98793b926b7c2c83"
+                                }
+                            }
+                        ],
+                        "Data": null
+                    }
+                    
+                'Failure Response-1':
+                  value: >-
+                    {
+                      "Status": 0,
+                      "ErrorDetails": [
+                        {
+                          "ErrorCode": "5000",
+                          "ErrorMessage": "Data can not be null or empty"
+                        }
+                      ]
+                    }
+                'Failure Response-2':
+                  value: >-
+                    {
+                        "Status": 0,
+                        "ErrorDetails": [
+                            {
+                                "ErrorCode": "5002",
+                                "ErrorMessage": "Invalid Value in Type of Supply."
+                            }
+                        ]
+                    }
+                    
+                
+  /eiewb/v1.03/ewaybill:
+    post:
+      summary: Generate Eway bill by IRN
+      description: <h3>This API is designed to generate the Eway Bill using the Invoice Registration Number (IRN).
+      tags:
+        - Free Add-ons
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/sup_gstin'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "Data"
+              type: "object"
+              properties:
+                Data:
+                  type: "string"
+              additionalProperties: false
+            examples:
+              'Encrypted Payload': 
+                value: "{\r\n    \"Data\": \"fz6UQEVmkCS0ikCqymaA4RYF34k8VFno9incLZ9RTnk887FSM6Nf7QDYjpZ/GZPNfKx1uBkU2EDqGx22S34kbro+cdMg5vj7kIzfsaWJJIG6GQQTt1cBSg5HR2JGOzTdJni6pysYa/ISEEFPqkJJ8KMrUT6/inp0RnT7F1hJj4X6Ay5aKrNfbz2q6NQsUA9ORvp/a/h9lDmroMCfig0FUwPgQM8ZCYRf9Z6gf1+YVCNhcEVJ3VQFZXI6t7XBAEAvNE19Fllm2NZ39yvqJf2IKQNmqNrK52G8elag4sBk0RUitfi9nTSDDF+QLO3iGyBBo1JLP+KEPk6g1zKsfJaglFzmp7CxbSZTDs1zA4FlNvs1YmIHAAIZeV1VTbUO0vpfCTm/mqs6c0M8p4gVMKzJcJV5+aKSWalhPAnyyAwEL2v/t8zYciHSU7fQ0R5EIn7f48VGIqaPP8xR/AX6u5FL1DbWztHlyVcX9Q/iQ2Fzzfg2r5bMLRL7Ys3xU+EOj6SbSDqwcq4G6eR3GEaV6AnLtH8hxviJPTD1KLjk4WR28eA1YmIHAAIZeV1VTbUO0vpfCTm/mqs6c0M8p4gVMKzJcJV5+aKSWalhPAnyyAwEL2v/t8zYciHSU7fQ0R5EIn7ff3gK14x0Ye/FP4cKduqnjU/6agy8dO1Dkv/5Cp1Pm6o=\"\
+                  \r\n}"
+              
+              'JSON corresponds to the "Data" element of Generate E-Invoice + Eway bill Request above':
+                value: >-
+                  {
+                    "Irn": "9387f119afe9ec768e0f0a1b48f78193c5095c6a76fc23edc4285fe3a8590d3c",
+                    "Distance": 100,
+                    "TransMode": "1",
+                    "TransId": "12AWGPV7107B1Z1",
+                    "TransName": "trans name",
+                    "TransDocDt": "01/08/2020",
+                    "TransDocNo": "TRAN/DOC/11",
+                    "VehNo": "KA12ER1234",
+                    "VehType": "R",
+                    "ExpShipDtls": {
+                      "Addr1": "7th block, kuvempu layout",
+                      "Addr2": "kuvempu layout",
+                      "Loc": "Banagalore",
+                      "Pin": 562160,
+                      "Stcd": "29"
+                    },
+                    "DispDtls": {
+                      "Nm": "ABC company pvt ltd",
+                      "Addr1": "7th block, kuvempu layout",
+                      "Addr2": "kuvempu layout",
+                      "Loc": "Banagalore",
+                      "Pin": 562160,
+                      "Stcd": "29"
+                    }
+                  }
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                        "Status": 1,
+                        "InfoDtls": [
+                            {
+                                "InfCd": "EWBPPD",
+                                "Desc": "Pin-Pin calc distance: 973KM"
+                            }
+                        ],
+                        "data": "303geMtg/f8n+wk+7fs9gA5ykU6qfGmk/1fFLE7n6Y8iNIGFr5fj63tSJTU1jxAAoGe0VLSoGB1q0wOGkkI43yrSAeYZg9n1IguwnxgeCrjoXbsnzPYAuarvO4EWlDX4"
+                    }
+              
+                '"data" JSON (corresponds to the data element of Generate Einvoice+IRN Response(Success))':
+                  value: >-
+                    {
+                      "EwbNo": 111008683051,
+                      "EwbDt": "2020-04-24 11:28:00",
+                      "EwbValidTill": "2020-04-26 23:59:00"
+                    }         
+                    
+                'Duplicate Eway Bill':
+                  value: >-
+                    {
+                      "Status": 0,
+                      "ErrorDetails": [
+                        {
+                          "ErrorCode": "4026",
+                          "ErrorMessage": "Duplicate EwayBill for the given document number, EwbNo - 111010276711"
+                        }
+                      ],
+                      "InfoDtls": null,
+                      "Data": null
+                    }
+                    
+                'Failure Response-1':
+                  value: >-
+                    {
+                        "Status": 0,
+                        "ErrorDetails": [
+                            {
+                                "ErrorCode": "4021",
+                                "ErrorMessage": "Transporter document date cannot be earlier than the invoice date."
+                            }
+                        ],
+                        "InfoDtls": null,
+                        "Data": null
+                    }
+                    
+                'Failure Response-2':
+                  value: >-
+                    {
+                        "Status": 0,
+                        "ErrorDetails": [
+                            {
+                                "ErrorCode": "2148",
+                                "ErrorMessage": "Requested IRN data is not available"
+                            }
+                        ]
+                    }
+                
+                'Failure Response-3':
+                  value: >-
+                    {
+                        "Status": 0,
+                        "ErrorDetails": [
+                            {
+                                "ErrorCode": "5002",
+                                "ErrorMessage": "The field Transin must be a string with a minimum length of 15 and a maximum length of 15."
+                            },
+                            {
+                                "ErrorCode": "5002",
+                                "ErrorMessage": "The field Transin must match the regular expression '([0-9]{2}[A-Z 0-9]{13})'."
+                            }
+                        ]
+                    }
+  
+  /eiewb/v1.03/ewaybill/irn/{irn}:
+    get:
+      summary: Get Eway bill By IRN
+      description: <h3>This method provides the e-Waybill Details for a given IRN.
+      tags:
+        - Free Add-ons
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/client_secret'
+        - $ref: '#/components/parameters/gstin1'
+        - $ref: '#/components/parameters/user_name'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/irn'
+        - $ref: '#/components/parameters/sup_gstin'
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status:
+                    type: number
+                  Data: {}
+                  ErrorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ErrorCode:
+                          type: string
+                        ErrorMessage:
+                          type: string
+                  InfoDtls: {}
+              examples:
+                'Encrypted Response':
+                  value: >-
+                    {
+                        "Status": 1,
+                        "ErrorDetails": null,
+                        "InfoDtls": null,
+                        "Data": "fSKwBr5l90sfucO2xbONMZ/7zoigl5slpbbkhqTPEBDWI6qLgwj4Semz4YyxnYWlbrEh2+p3DYrMG/XstM+xqbX94cvXGrunXcuzuD8D/P5ey7sApBYoSyDqvGez/f5nXAxjfcKbLR+uoj9nn3+3aosRhBbWMGfd/Fo1AtDasCWH/A3E5aFP3Pzoie8BE+vT"
+                    }
+              
+                '"data" JSON (corresponds to the data element of Generate Einvoice+IRN Response(Success))':
+                  value: >-
+                    {
+                        "EwbNo":131008995134,
+                        "Status":"ACT",
+                        "GenGstin":"29AWGPV7107B1Z1",
+                        "EwbDt":"2020-10-21 15:33:00",
+                        "EwbValidTill":"2020-10-22 23:59:00"
+                    }
+                    
+                'Failure Response-1':
+                  value: >-
+                    {
+                        "Status": 0,
+                        "ErrorDetails": [
+                            {
+                                "ErrorCode": "4037",
+                                "ErrorMessage": "You are not authorised to get data"
+                            }
+                        ]
+                    }
+                    
+                'Failure Response-2':
+                  value: >-
+                    {
+                        "Status": 0,
+                        "ErrorDetails": [
+                            {
+                                "ErrorCode": "4005",
+                                "ErrorMessage": "Eway Bill details are not found"
+                            }
+                        ]
+                    }
+   
+  /portal/user/login:
+    post:
+      summary: Authentication of API user (partner)
+      tags:
+        - VAS - Onboarding
+      description: >-
+        Authenticate with IRIS IRP Portal. <br> <h2> Password will get expire after 60 days from date of generation. 
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - password
+              - userId
+              properties:
+                password:
+                  description: Login with registed password
+                  type: string
+                email:
+                  description: Login with registered email
+                  type: string
+                  format: email
+                  example: user_email@gmail.com
+            examples:
+              'Correct Payload':
+                value: >-
+                  {
+                      "userId": "User@irisbusiness.com",
+                      "password": "Abcd#123"
+                  }
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  errorList: {}
+                  response: {}
+                  message:
+                    type: string
+                  status:
+                    type: string
+              examples:
+                'Success Response':
+                  value: >-
+                   {
+                        "status": 1,
+                        "message": "User logged in successfully..",
+                        "response": {
+                            "passwordExpired": "false",
+                            "token": "eyJhbGciOiJIUzI1NiJ9.eyJSIjoiVEFYUEFZRVIiLCJzIjpmYWxzZSwidSI6IjYzMDMxZGE0YTEzMmJiNmU1NGJjNyIsImUiOiJtYXlhbmsuc2hhcm1hQGlyaXNidXNpbmVzcy5jb20iLCJleHAiOjE2NjExODg4NzMsImlhdCI6MTY2MTE2NzI3MywibiI6Ik1heWFuayBTaGFybWEifQ._zZ7I6V-Q8M4UrzLUwc3X_fyzX9-fp3aMRg_Bkt_Zts",
+                            "userId": "user@irisbusiness.com",
+                            "userName": "user",
+                            "userType": "API_INTEGRATOR",
+                            "id": "63031da4e2bb6e54bc7",
+                            "passwordExpiredTime": "2022-10-21",
+                            "isAdminUser": "false"
+                        }
+                    }
+                      
+                'Bad Credentials Response':
+                  value: >-
+                   {
+                        "status": 0,
+                        "message": "Invalid password added. In case you have forgot password, kindly reset your Password using Forgot Password"
+                    }
+                    
+                'Missing Madatory Paramters Response':
+                  value: >-
+                    {
+                        "status": 0,
+                        "message": "Mandatory fields should not be empty or null.",
+                        "fieldErrors": [
+                            {
+                                "message": "userId should not be empty",
+                                "field": "userId"
+                            },
+                            {
+                                "message": "userId should not be blank",
+                                "field": "userId"
+                            },
+                            {
+                                "message": "must not be empty",
+                                "field": "userId"
+                            }
+                        ]
+                    }
+                    
+                'Invalid Json Attribute Response':
+                  value: >-
+                   {
+                        "status": 0,
+                        "message": "Mandatory fields should not be empty or null.",
+                        "fieldErrors": [
+                            {
+                                "message": "Password should not be empty",
+                                "field": "password"
+                            },
+                            {
+                                "message": "Password should not be null",
+                                "field": "password"
+                            },
+                            {
+                                "message": "must not be empty",
+                                "field": "password"
+                            },
+                            {
+                                "message": "Password should not be blank",
+                                "field": "password"
+                            }
+                        ]
+                    }
+  
+  
+  /portal/partner/add/user:
+    post:
+      summary: Creating users on IRIS IRP via partner
+      tags:
+        - VAS - Onboarding
+      description: >-
+        To add partner User.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                userId:
+                  type: string
+                  description: Mobile No of Taxpayer
+                  minimum: 10
+                termsAndCondition:
+                  type: boolean
+            examples:
+              'Correct Payload':
+                value: >-
+                  {
+                      "userName": "User",
+                      "userId": "8080808080",
+                      "termsAndCondition": true
+                      
+                  }
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  errorList: {}
+                  response: {}
+                  message:
+                    type: string
+                  status:
+                    type: string
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                        "status": 1,
+                        "message": "User added successfully.",
+                        "response": {
+                            "passwordExpired": "false",
+                            "token": "eyJhbGciOiJIUzI1NiJ9.eyJSIjoiVEFYUEFZRVIiLCJzIjpmYWxzZSwidSI6IjYzMDNhZmQ5ZDBiNjMyMjBjNTAzYzBmYyIsImUiOiI4NjU0MzE2NDE5IiwioiXhwIjoxNjYxMjA3NjE3LCJpYXQiOjE2NjExODYwMTcsIm4iOiJ0ZXN0In0.eJSWmJ3vlxxwirxqkGep5UW7Zgr20TUVxwFlhHQLbVU",
+                            "userId": "9999999999",
+                            "userName": "test",
+                            "userType": "TAXPAYER",
+                            "id": "6303afd9d0b609920c503c0fc"
+                        }
+                    }
+                    
+  /portal/gstin/generate/otp:
+    post:
+      summary: Get OTP to verify of GSTIN provided by user
+      tags:
+        - VAS - Onboarding
+      description: >-
+        To generate OTP for GSTINs.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gstinUserName:
+                  type: string
+                gstinMobile:
+                  type: string
+                gstinEmail:
+                  type: string
+                gstin:
+                  type: string
+            examples:
+              'Correct Payload':
+                value: "{\r\n    \"gstin\": \"27AACCB3521C2ZA\",\r\n       \"gstinEmail\": \"user@irisbusiness.com\",\r\n    \"gstinMobile\": \"9999999999\"\r\n}"
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  response:
+                    type: object
+                    properties:
+                      appKey:
+                        type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Success Response':
+                  value: >-
+                    {"status":1,"message":"OTP generated successfully"}
+                    
+                'Failure Response':
+                  value: >-
+                    {"status":0,"message":"Mandatory fields should not be empty
+                    or null.","fieldErrors":[{"message":"Gstin should not be
+                    blank","field":"gstin"},{"message":"Gstin should not be
+                    empty","field":"gstin"}]}
+                    
+  /portal/gstin/verify/otp:
+    post:
+      summary: Confirm OTP to complete GSTIN registration on IRIS IRP
+      tags:
+        - VAS - Onboarding
+      description: >-
+        To verify the OTP for GSTINs
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                gstin:
+                  type: string
+            examples:
+              
+              'Correct Payload':
+                value: "{\r\n    \"gstin\": \"27AACCB3521C2ZA\",\r\n    \"otp\": \"123456\"\r\n}"
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      gstn:
+                        type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Success Response':
+                  value: >-
+                    {"status":1,"message":"OTP verified successfully.","response":{"gstn":"27AACCB3521C2ZA"}}         
+                'Failure Response':
+                  value: '{"status":0,"message":"Only admin user can submit otp."}'
+                  
+  /portal/gstin/irp/details:
+    post:
+      summary: Set IRP Credentials
+      tags:
+        - VAS - Onboarding
+      description: >-
+        Define IRP credentials for the registered GSTIN. All E-invoice core API calls need GSTIN IRP credentials for authentication
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gstin:
+                  type: string
+                irpUserName:
+                  type: string
+                irpPassword:
+                  type: string
+            examples:
+              'Correct Payload':
+                value: >-
+                  {
+                      "gstin": "27BCKPS4201C1ZV",
+                      "irpUserName": "msharma1434",
+                      "irpPassword": "Abcd@1434"
+                  }
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  response:
+                    type: object
+                    properties:
+                      appKey:
+                        type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                        "status": 1,
+                        "message": "IRP Details added successfully...",
+                        "response": {
+                            "gstn": "27BCKPS4201C1ZV"
+                        }
+                    }
+                    
+                'Failure Response':
+                  value: >-
+                    {
+                        "status": 0,
+                        "message": "27BCKPS4201C1ZV does not exists."
+                    }
+                  
+  /portal/gstin/manage/api/access:
+    post:
+      summary: Manage API Access
+      tags:
+        - VAS - Onboarding
+      description: >-
+        Authorise the API user to manage e-invoice operations via API user’s application
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gstins:
+                  type: array
+                  items:
+                    type: string
+                intermediaryGstins:
+                  type: array
+                  items:
+                    type: string
+                type:
+                  type: string
+            examples:
+              'Correct Payload':
+                value: "{\r\n    \"type\": \"INTERMEDIARY\",\r\n    \"intermediaryGstins\": [\r\n        \"27BCKPS4201C1ZV\"\r\n    ],\r\n    \"gstins\": [\r\n        \"27BCKPS4201C1ZV\"\r\n    ]\r\n}"
+              
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Success Response':
+                  value: '{"status":1,"message":"GSTIN 27BCKPS4201C1ZV registered for API access with Test gstin"}'
+                'Failure Response':
+                  value: >-
+                    {"status":0,"message":"Mandatory fields should not be empty
+                    or null.","fieldErrors":[{"message":"Type should not be
+                    empty","field":"type"},{"message":"Type should not be
+                    blank","field":"type"}]}
+  
+  /portal/user/expired/password/change:
+    post:
+      summary: Set password on expiry for Partner
+      tags:
+        - VAS - Onboarding
+      description: >-
+        To set password while existing password is expired after 60 days.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
+                confirmPassword:
+                  type: string
+                userId:
+                  type: string
+            examples:
+              'Correct Paylaod':
+                value: "{\r\n  \"oldPassword\": \"Abcd@1234\",\r\n  \"userId\": \"usertopaz199@gmail.com\",\r\n  \"newPassword\": \"Abcd@12345\",\r\n  \"confirmPassword\": \"Abcd@12345\"\r\n}"
+      responses:
+        '200':
+          description: API processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      passwordExpiredTime:
+                        type: string
+                      intermediary_status:
+                        type: string
+                      userType:
+                        type: string
+                      id:
+                        type: string
+                      isAdminUser:
+                        type: string
+                      passwordExpired:
+                        type: string
+                      userName:
+                        type: string
+                      userId:
+                        type: string
+                      token:
+                        type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Success Response':
+                  value: >-
+                    {"status":1,"message":"Password changed
+                    successfully","response":{"passwordExpired":"false","token":"eyJhbGciOiJIUzI1NiJ9.eyJSIjoiQVBJX0lOVEVHUkFUT1IiLCJzIjpmYWxzZSwidSI6IjYzZWRmMjg5ZmRkMjVmMTdjYzEwMzNmYyIsImUiOiJ1c2VydG9wYXoxOTlAZ21haWwuY29tIiwidiI6ZmFsc2UsImV4cCI6MTY3NjkzMTUyMiwiaWF0IjoxNjc2OTAyNzIyLCJuIjoiQVBJIFVzZXIgMSJ9.Bf6qbvEsL8rIAaPdf72yRse08DhxFqooRPfzfxKWckw","userId":"usertopaz199@gmail.com","userName":"API
+                    User
+                    1","userType":"API_INTEGRATOR","id":"63edf289fdd25f17cc1033fc","passwordExpiredTime":"2023-04-21","isAdminUser":"false","intermediary_status":"SANDBOX_GRANTED"}}
+                
+                'Failure Response':
+                  value: >-
+                    {
+                      "status": 0,
+                      "message": "Invalid old password"
+                    }
+  /portal/gstin/generate/consent/otp:
+    post:
+      summary: Generate OTP for Consent
+      tags:
+        - VAS - Consent Management 
+      description: >-
+       Define the consents and request OTP. <br> <h3>OTP will be sent to primary authorised signatory of the GSTIN
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: boolean 
+                view:
+                  type: boolean
+                share:
+                  type: boolean
+                validUpto:
+                    type: string
+                termsAndCondition:
+                    type: boolean
+                gstbin:
+                    type: string
+                
+            examples:
+              'Correct Payload':
+                value: >-
+                  {
+                      "store": true,
+                      "view": false,
+                      "share": false,
+                      "validUpto": "2022-12-31",
+                      "termsAndCondition": true,
+                      "gstin":"27BCKPS4201C1ZV"
+                  }
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                        "status": 1,
+                        "message": "OTP generation successful"
+                    }
+        '403':
+          description: API Procced Failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Forbidden Response':
+                  value: >-
+                    {
+                        "status": 1,
+                        "message": "Only admin or Authorised user can grant consent."
+                    }
+            
+  /portal/gstin/verify/consent/otp:
+    post:
+      summary: Verify OTP for Consent
+      tags:
+        - VAS - Consent Management
+      description: >-
+        Confirming the consent with OTP. OTP will be sent to primary authorised signatory of the GSTIN
+      security:
+          - bearerAuth: []
+      parameters:
+          - $ref: '#/components/parameters/portal_id'
+      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: boolean 
+                view:
+                  type: boolean
+                share:
+                  type: boolean
+                validUpto:
+                    type: string
+                
+            examples:
+              'Correct Payload':
+                value: "{\r\n    \"gstin\": \"27AACCB3521C2ZA\",\r\n    \"otp\": \"123456\"\r\n}"
+     
+      responses:        
+          '200':
+            description: API Processed Successfully.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fieldErrors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field:
+                            type: string
+                          message:
+                            type: string
+                    message:
+                      type: string
+                    status:
+                      type: integer
+                examples:
+                  'Success Response':
+                    value: >-
+                      {
+                          "status": 1,
+                          "message": "OTP successfully verified."
+                      }
+                      
+                  'Failure Response':
+                    value: >-
+                      {
+                          "status": 0,
+                          "errorList": [
+                              {
+                                  "type": "ERROR",
+                                  "description": "OTP Expired"
+                              }
+                          ],
+                          "message": "OTP Expired"
+                      }
+                      
+  /portal/vas/user/generate/otp:
+    post:
+      summary: Generate OTP for VAS Users
+      tags:
+        - VAS - Data APIs  
+      description: >-
+        GOTP for getting User AuthToken for accessing Data APIs
+      parameters:
+          - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string 
+                
+            examples:
+              'Correct Payload':
+                value: "{\r\n    \"userId\": \"27AACCB3521C2ZA\"}"
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        description:
+                          type: string
+                        type:
+                          type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+              examples:
+                'Success Response':
+                  value: '{"status":1,"message":"OTP generated successfully."}'
+                  
+                'Failure Response':
+                  value: >-
+                    {"status":0,"errorList":[{"type":"ERROR","description":"User
+                    not present."}],"message":"User not present."}
+                    
+                    
+  /portal/vas/user/verify/otp:
+    post:
+      summary: Verify OTP for VAS Users
+      tags:
+        - VAS - Data APIs  
+      description: >-
+        Verify OTP for VAS Users.
+      parameters:
+          - $ref: '#/components/parameters/portal_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                userId:
+                  type: string
+            examples:
+              'Request Paylaod':
+                value: "{\r\n    \"userId\": \"User@irisbusis.com\",\r\n    \"otp\": \"498161\"\r\n}"
+      responses:
+        '200':
+          description: API Processed Successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fieldErrors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+                  response:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                    
+              examples:
+                'Success Response':
+                  value: >-
+                    {
+                        "status": 1,
+                        "message": "OTP verified successfully.",
+                        "response": {
+                            "token": "eyJhbGciOiJIUzI1NiJ9.eyJwIjoiZTdhMTI5Mjc0Y2ZhYmU5Y2M4ODM3YmE5ZTNmMDcxYjkiLCJSIjoiVEFYUEFZRVIiLCJzIjpmYWxzZSwidSI6IjYzNGNlYWIzYmIzY2UzMzIxNjAyNmJhNCIs767iOiJzaHJhZGRoYS5zb2xhbmtpQGlyaXNidXNpbmVzcy5jb20iLCJ2Ijp0cnVlLCJleHAiOjE2NzA1MDUwNDYsImlhdCI6MTY3MDQxODY0NiwibiI6InNocmFkZGhhIHNvbGFua2kifQ.ZAeea3TC7llVAQ6HMxpmw5ag-212hwz_IhIoMRazUCA"
+                        }
+                    }
+                    
+                'Failure Response':
+                  value: >-
+                    {"status":0,"message":"User@irisbusis.com is not
+                    registered with IRISIRP"}             
+  /portal/download/view/file:
+    post:
+      summary: Download JSON for Supplier 
+      tags:
+        - VAS - Data APIs 
+      description: >-
+        For taxpayer as a supplier, this API can fetch data for e-invoices generated by them.<br> <h3>Option to apply filters is available
+      security:
+          - bearerAuth: []
+      parameters:
+          - $ref: '#/components/parameters/portal_id'
+          - $ref: '#/components/parameters/ViewdownloadType'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ackDtt:
+                  type: string
+                ackDtf:
+                  type: string
+                gstin:
+                  type: string
+                merged:
+                  type: string
+                  enum: ["true","false"]
+            examples:
+              'Request Payload':
+                value: >-
+                  {
+                    "gstin": "27AACCB3521C2ZA",
+                    "ackDtf": "2022-11-30",
+                    "ackDtt": "2022-11-30",
+                    "merged": "true"
+                  }
+      responses:        
+          '200':
+            description: API Processed Successfully.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fieldErrors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field:
+                            type: string
+                          message:
+                            type: string
+                    message:
+                      type: string
+                    status:
+                      type: integer
+                examples:
+                  'Success Response':
+                    value: >-
+                      {
+                          "status": 1,
+                          "message": "Request placed successfully",
+                          "response": {
+                              "count": 101,
+                              "id": "638627903b10be5cac035f2b"
+                          }
+                      }
+                      
+                  'Failure Response':
+                    value: >-
+                      {
+                          "status": 0,
+                          "message": "Error in fields",
+                          "fieldErrors": [
+                              {
+                                  "message": "'Acknowledgement From Date format is invalid",
+                                  "field": "ackDtf"
+                              }
+                          ]
+                      }
+                      
+  
+                      
+  /portal/download/buyer/view/file:
+    post:
+      summary: Download JSON for Recipient
+      tags:
+        - VAS - Data APIs 
+      description: >-
+        For taxpayer as a recipient, this API can fetch data for e-invoices generated for them by the suppliers on IRIS IRP and supplier has given consent to share. <br><h3>Option to apply filters is available
+      security:
+          - bearerAuth: []
+      parameters:
+          - $ref: '#/components/parameters/portal_id'
+          - $ref: '#/components/parameters/ViewdownloadType'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ackDtt:
+                  type: string
+                ackDtf:
+                  type: string
+                gstin:
+                  type: string
+            examples:
+              '0':
+                value: "{\r\n    \"gstin\": \"33GSPMH1621G1ZH\",\r\n    \"ackDtf\": \"2022-10-18\",\r\n    \"ackDtt\": \"2022-10-20\"\r\n}"
+      responses:        
+          '200':
+            description: API Processed Successfully.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fieldErrors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field:
+                            type: string
+                          message:
+                            type: string
+                    message:
+                      type: string
+                    status:
+                      type: integer
+                examples:
+                  'Success Response':
+                    value: >-
+                      {
+                          "status": 1,
+                          "message": "Request placed successfully",
+                          "response": {
+                              "count": 0,
+                              "id": "638627903b10be5cac035f2b"
+                          }
+                      }
+                      
+                  'Failure Response':
+                    value: >-
+                      {
+                          "status": 0,
+                          "message": "Error in fields",
+                          "fieldErrors": [
+                              {
+                                  "message": "'Acknowledgement From Date format is invalid",
+                                  "field": "ackDtf"
+                              }
+                          ]
+                      }
+  
+  /portal/download/view/file/status:
+    get:
+      summary: View Status of Download Request for Supplier and Recipient
+      tags:
+        - VAS - Data APIs 
+      description: >-
+        My Purchases - View Invoices - Download JSON
+      security:
+          - bearerAuth: []
+      parameters:
+          - $ref: '#/components/parameters/portal_id'
+          - $ref: '#/components/parameters/id'
+     
+      responses:
+        '200':
+            description: API Processed Successfully.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    fieldErrors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field:
+                            type: string
+                          message:
+                            type: string
+                    message:
+                      type: string
+                    status:
+                      type: integer
+                examples:
+                  'Success Response':
+                    value: >-
+                      {
+                          "status": 1,
+                          "message": "Download completed",
+                          "response": {
+                              "requestTime": "29-11-2022 21:32:10",
+                              "completionTime": "29-11-2022 21:32:10",
+                              "message": "https://irp06-test-cases.s3.ap-south-1.amazonaws.com/download-testcase/33GSPMH1621G1ZH/33GSPMH1621G1ZH_IRNGeneratedByMe_JSON_20221129213210.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20221129T160240Z&X-Amz-SignedHeaders=host&X-Amz-Expires=599&X-Amz-Credential=AKIAS7XMNKK7R4IG72AR%2F20221129%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=8ac9dc6aaca550ca841812802ff6817338b263588bd951f1601425ec19abece3",
+                              "status": "COMPLETE"
+                          }
+                      }
+                      
+                  'Failure Response':
+                    value: >-
+                      Request processing failed; nested exception is java.lang.IllegalArgumentException: invalid hexadecimal representation of an ObjectId: [63862d023b10be5cac035f2T]
+
+  
+components:
+  securitySchemes:
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+
+  parameters:
+    downloadType:
+      name: downloadType
+      in: query
+      required: true
+      description: Mention Download Type
+      schema:
+        type: string
+        example: 'ERROR_CSV'
+        enum: ['ERROR_CSV','JSON','CSV']
+        
+    ViewdownloadType:
+      name: downloadType
+      in: query
+      required: true
+      description: Mention Download Type
+                  
+      schema:
+        type: string
+        example: 'VIEW_JSON'
+        enum: ['VIEW_JSON']
+        
+    id:
+      name: id
+      in: query
+      required: true
+      description: Id received in response of download file for Supplier and Recipient
+      schema:
+        type: string
+        example: '622f250ea896750ee6c19b51'
+        
+    gstin:
+      name: gstin
+      in: query
+      required: true
+      description: User gstin
+      schema:
+        type: string
+        example: '27BCKPS4201C1ZV'
+        
+    gstin1:
+      name: gstin
+      in: header
+      required: true
+      description: User gstin
+      schema:
+        type: string
+        example: '27BCKPS4201C1ZV'
+        
+    gstin2:    
+        name: gstin
+        in: path
+        description: Provide GSTIN for which OTP needs to generate
+        required: true
+        schema:
+          type: string
+          default: 33GSPMH1621G1ZH
+        
+        
+    irn:
+        name: irn
+        in: path
+        description: Provide IRN number
+        required: true
+        schema:
+          type: string
+          default: 11f8ef701fe294d4a14aad0b12457e62775d0fdc41a0acf05b74fbb2ddc47acb
+    
+    client_id:
+      name: client_id
+      in: header
+      required: true
+      description: Client id provided by IRIS
+      schema:
+        type: string
+        example: tv5dVs0zwwdowftRAAc50rh2ldoSx7Kg    
+    
+    client_secret:
+      name: client_secret
+      in: header
+      required: true
+      description: Client secret provided by IRIS
+      schema:
+        type: string
+        example: jh2qZkcOjn80A3LuyljqmTVob3hyRj0J
+    
+    portal_id:
+      name: portal_id
+      in: header
+      required: true 
+      description: This field is mandatory in case partner is performing action. 
+      schema:
+        type: string
+        example: jh2qZkcOjn80A3LuyljqmTVob3hyRj0J
+        
+    Origin:
+      name: Origin
+      in: header
+      required: false
+      description: This field is mandatory in case partner is performing action. 
+      schema:
+        type: string
+        example: irisirp.com 
+          
+    AuthToken:
+      name: AuthToken
+      in: header
+      required: true
+      description: Getting from authorization API response.
+      schema:
+        type: string
+        example: XZfp13yy3aD919SeTSq+lp8f3t3v7ZXF
+          
+    user_name:
+      name: user_name
+      in: header
+      required: true
+      description: IRIS IRP username need to pass
+      schema:
+        type: string
+        example: msharma1434
+    
+    sup_gstin:
+      name: sup_gstin
+      in: header
+      required: false
+      description: (Optional) Supplier GSTIN, only in case E Comm. operator is performing action.
+      schema:
+        type: string
+        example: 27BCKPS4201C1ZV
+    
+    doctype:
+      name: doctype
+      in: query
+      required: true
+      description: Document type
+      schema:
+        type: string
+        example: INV 
+        enum: ["INV","CRN","DBN"]
+        description: "INVOICE, CREDIT NOTE, DEBIT NOTE"
+        
+    docnum:
+      name: docnum
+      in: query
+      required: true
+      description: Document number
+      schema:
+        type: string
+        example: ABCD34567
+        
+    docdate:
+      name: docdate
+      in: query
+      required: true
+      description: Document date
+      schema:
+        type: string
+        example: "01/01/2022"
+       
+    
+    otp:
+      name: otp
+      in: query
+      required: true
+      description: OTP received on register mobile number
+      schema:
+        type: string
+        example: '442971'
+        
+    userId:   
+      name: userId
+      in: query
+      schema:
+        type: string
+        example: user@irisbusiness.com
+    
+       
+        
+        

@@ -1,0 +1,222 @@
+unit_id,name,meaning,owner,scope,vendor,status,registered_on
+U01,Invoice Number (Business),The number printed on the invoice that identifies it for business purposes.,document,generic,,confirmed,2026-09-16
+U02,Invoice Platform Identifier,"The invoice record identifier (UUID or integer) generated internally by the platform/system, not the printed number.",document,generic,,confirmed,2026-09-16
+U03,Authority-Issued Invoice Number,The invoice number or submission number issued by the tax authority or official registration body.,document,generic,,confirmed,2026-09-16
+U04,Invoice Issue Date,The date the invoice was issued.,document,generic,,confirmed,2026-09-16
+U05,Payment Due Date,The deadline date by which payment is due.,document,generic,,confirmed,2026-09-16
+U06,Payment Date,"The date on which payment occurred (Serbia's advance payment date, Intia's deposit payment date, NAV's payment query parameter date).",document,generic,,confirmed,2026-09-16
+U07,System Creation Timestamp,"The time the record was created on the platform, not a business date.",record,generic,,confirmed,2026-09-16
+U08,Send/Receive Timestamp,The time the invoice was sent or received.,record,generic,,confirmed,2026-09-16
+U09,Total Amount (Tax-Inclusive),"The total amount receivable for the document, tax-inclusive.",document,generic,,confirmed,2026-09-16
+U10,Amount Due,The amount still owed after deducting amounts already paid or prepaid.,document,generic,,confirmed,2026-09-16
+U11,Net Amount (Tax-Exclusive),"The tax-exclusive amount, at line or document level depending on ownership.",document_or_line,generic,,confirmed,2026-09-16
+U12,Tax Amount,The VAT/sales tax amount.,document_or_line,generic,,confirmed,2026-09-16
+U13,Tax-Exempt Amount,The amount of the portion not subject to tax.,document_or_line,generic,,confirmed,2026-09-16
+U14,Tax Rate,"The applicable tax rate, expressed as a percentage.",line_or_tax_bracket,generic,,confirmed,2026-09-16
+U15,Tax Category Code,The code for the VAT category or tax type.,line_or_tax_bracket,generic,,confirmed,2026-09-16
+U16,Currency,The document's currency.,document,generic,,confirmed,2026-09-16
+U17,Individual Name,The name of a contact person or individual.,party_by_role,generic,,confirmed,2026-09-16
+U18,Organization Name,The name of a company or organization.,party_by_role,generic,,confirmed,2026-09-16
+U19,VAT Registration Number,"The VAT registration number, which may differ from the tax identification number depending on the country.",party,generic,,confirmed,2026-09-16
+U20,Taxpayer Identification Number,The taxpayer number assigned by the tax authority (TIN/RUC/RFC/CUIT/GSTIN/SIREN).,party,generic,,confirmed,2026-09-16
+U21,Email Address,The contact email address.,party,generic,,confirmed,2026-09-16
+U22,Phone Number,The contact phone number.,party,generic,,confirmed,2026-09-16
+U23,Street Address,The street name and house/building number.,party_address,generic,,confirmed,2026-09-16
+U24,City,The city or town.,party_address,generic,,confirmed,2026-09-16
+U25,Postal Code,The postal/ZIP code.,party_address,generic,,confirmed,2026-09-16
+U26,Country,"The country, represented as an id, a two-letter code, or a full name.",party_address,generic,,confirmed,2026-09-16
+U27,Address (Whole),The address as a single object or text string.,party,generic,,confirmed,2026-09-16
+U28,Document Type,"The type of document, such as invoice, credit note, or debit note.",document,generic,,confirmed,2026-09-16
+U29,Document Status,The processing status of the invoice at the platform or tax authority.,document,generic,,confirmed,2026-09-16
+U30,Description / Remarks,Free-text notes or description.,document_or_line,generic,,confirmed,2026-09-16
+U31,Quantity,The quantity of the line item.,line,generic,,confirmed,2026-09-16
+U32,Unit Price,The unit price of the line item.,line,generic,,confirmed,2026-09-16
+U33,Line Items Array,The array of line items.,document,generic,,confirmed,2026-09-16
+U34,Related Document Reference,"A reference pointing to an order, contract, or original invoice.",document,generic,,confirmed,2026-09-16
+U35,Attachments,Attached files and their file names.,document,generic,,confirmed,2026-09-16
+U36,Bank Account,The identifier of the bank account for receiving payment.,party,generic,,confirmed,2026-09-16
+U37,Invoice (Whole Object),The entire invoice represented as a single object or string.,document,generic,,confirmed,2026-09-16
+U38,Buyer Identity Document Type/Number (Argentina),The type and number of the invoice recipient's identity document.,party,generic,,confirmed,2026-09-16
+U39,Point of Sale / Branch,The point of sale or branch at which the invoice was issued.,document,generic,,confirmed,2026-09-16
+U40,Network Delivery Identifier,The sender/receiver identifier within a delivery network such as Peppol.,party,generic,,confirmed,2026-09-16
+U41,Customer/Supplier Record ID,The internal identifier of a party record within the platform.,party,generic,,confirmed,2026-09-16
+U42,Submission/Export Reference Number,"The reference number assigned by the tax authority platform to a submission or export, not the invoice number.",record,generic,,confirmed,2026-09-16
+U43,Establishment Registration Number (SIRET),"The 14-digit French establishment registration number, which includes the SIREN.",party,generic,,confirmed,2026-09-16
+U44,Line Item Code,The code for the line item or product.,line,generic,,confirmed,2026-09-16
+U45,Document Version,"The version number of the document itself, not the API version.",document,generic,,confirmed,2026-09-16
+U46,Line Sequence Number,The sequence number of the line item within the document.,line,generic,,confirmed,2026-09-16
+U47,Total Line Count,The total number of line items in the document.,document,generic,,confirmed,2026-09-16
+U48,Trade Name,"The trade name a company uses externally, which differs from its legally registered name.",party,generic,,confirmed,2026-09-16
+U49,Unit of Measure,"The unit of measure, or its code, for the line item quantity.",line,generic,,confirmed,2026-09-16
+U50,Discounts and Surcharges,"The amount, percentage, and reason for document-level or line-level discounts/surcharges.",document_or_line,generic,,confirmed,2026-09-16
+U51,Payment Method,"The code or detail of the payment means (transfer, card, cash, etc.).",document,generic,,confirmed,2026-09-16
+U52,Payment Terms,The text or code describing the payment conditions and deadline.,document,generic,,confirmed,2026-09-16
+U53,Tax Exemption Reason/Category,The category code or reason text for a VAT exemption.,document_or_line,generic,,confirmed,2026-09-16
+U54,Self-Billing Flag,A flag marking that the invoice was issued by the buyer on the seller's behalf (self-billing).,document,generic,,confirmed,2026-09-16
+U55,Document Direction,Whether the document is outgoing (sales) or incoming (purchase).,record,generic,,confirmed,2026-09-16
+U56,Exchange Rate,The exchange rate between the document currency and the local currency.,document,generic,,confirmed,2026-09-16
+U57,Party Object,"The container object for a party such as buyer or seller, whose role is determined by its name or parent path.",party,generic,,confirmed,2026-09-16
+U58,Administrative Division,"The subnational administrative division such as province, state, county, or district.",party_address,generic,,confirmed,2026-09-16
+U59,Delivery and Shipping Information,"The information block for delivery location, delivery terms, mode of transport, etc.",document,generic,,confirmed,2026-09-16
+U60,Line Item Name,The name of the line item/product.,line,generic,,confirmed,2026-09-16
+U61,Advance Payment / Deposit,The amount and details of an advance payment or deposit already made.,document,generic,,confirmed,2026-09-16
+U62,Invoicing Period and Tax Point Date,The service period covered by the invoice and the tax point date.,document,generic,,confirmed,2026-09-16
+U63,Line Amount (Tax-Inclusive),The tax-inclusive amount of the line item.,line,generic,,confirmed,2026-09-16
+U64,Payment Amount,The amount already paid or to be paid against a given invoice.,document,generic,,confirmed,2026-09-16
+U65,Amount Before Discount,The amount (sales value) before discounts and surcharges are applied.,document_or_line,generic,,confirmed,2026-09-16
+U66,Whole Document Body,"The synthetic field (body) that stands for a request or response whose top level is a scalar (a whole XML/JSON document as text, or an array of scalars); produced by check item 2.1 rule (5), not stored as a schema field.",document,generic,,confirmed,2026-09-16
+V-ANAF-01,Foreign Buyer Flag,A flag indicating that the buyer is not a Romanian resident.,party,vendor,Romanian Ministry of Finance / National Agency for Fiscal Administration (MF/ANAF),confirmed,2026-09-16
+V-ANAF-02,Enforcement Authority Submission Flag,A flag indicating that an enforcement authority submitted the invoice on behalf of the debtor.,document,vendor,Romanian Ministry of Finance / National Agency for Fiscal Administration (MF/ANAF),confirmed,2026-09-16
+V-AT-01,Order Date,The date the goods were ordered.,document,vendor,Portuguese Tax and Customs Authority (AT),confirmed,2026-09-16
+V-CHORUS-01,Document VAT Regime,The document-level VAT regime type (accrual basis / cash basis / exempt / no VAT).,document,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-02,Invoicing Framework Code,The Chorus invoicing framework enumeration (A1 supplier invoice / A2 already paid / A9 subcontractor / A12 co-contractor).,document,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-03,Party Service (Department) Block,"The technical id/function code/name/description of a service under a Chorus structure, with the supplier or recipient role determined by path.",party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-04,Structure Functional Identifier,"The functional identifier of the party structure (interpreted via typeIdentifiant: SIRET/RIDET/TAHITI/foreign number, etc.), not the platform's technical id.",party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-05,Party Identifier Type,The type enumeration of a Chorus party identifier (SIRET/RIDET/TAHITI/HORS_UE/UE_HORS_FRANCE/PARTICULIER/AUTRE).,party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-06,Factor (Affactureur) Block,"The factor's technical id, functional identifier, identifier type, legal name, and country code.",party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-07,Status Change Reason/Remarks,The reason or remarks entered when a status change occurs (rejected/suspended/validated).,document,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-08,Validator (Valideur) Block,"The id, function code, identifier type, legal name, representative name, validation date, and service code of the 1st/2nd validator under a subcontracting/co-contracting framework.",party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-09,Chorus/Helios Payment Request Number,The mandat number assigned to the payment request by the downstream public accounting system (Chorus/Helios).,document,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-10,Project Manager (MOE) Block,"The id, identifier, identifier type, name, representative name, and service information of the project manager/supervisor (maitrise d'oeuvre) on a construction invoice.",party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-11,Construction Invoice Type,"The subtype enumeration of a construction payment request (etat d'acompte, decompte general, etc.).",document,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-12,Project Owner (MOA) Block,"The id, identifier, identifier type, name, and service information of the project owner/contracting authority (maitrise d'ouvrage) on a construction invoice.",party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-13,Document Chain Block (Prior/Next),"The number, technical id, and invoicing framework of the prior/next document in a construction invoice chain, plus the prior document's recipient and its service information.",document,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-14,Address Record Technical ID,The technical identifier of a party address record within the platform.,party_address,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-16,RCS Business Registration Number,The French Registre du Commerce et des Societes (RCS) registration number.,party,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-CHORUS-17,Tax Rate Reference Entry,The technical id and description text of an entry in the Chorus reference tax rate table.,line,vendor,Agency for State Financial Information Technology (AIFE),confirmed,2026-09-16
+V-ETA-01,Additional Metadata Field,"The field name, value, type, and Arabic/English descriptions of an additionalMetadata entry.",document,vendor,Egyptian Tax Authority (ETA),confirmed,2026-09-16
+V-ETA-02,Party Type (B/F/P),"The type of the issuer/recipient: business, foreign, or individual.",party,vendor,Egyptian Tax Authority (ETA),confirmed,2026-09-16
+V-ETA-03,Freeze Status Block,"The freezeStatus flag, scope, accounting unit code/name, and action date.",document,vendor,Egyptian Tax Authority (ETA),confirmed,2026-09-16
+V-ETA-04,Cancellation/Rejection Process Dates,"The dates of the cancellation or rejection request, of rejecting that request, and of automatic effect.",record,vendor,Egyptian Tax Authority (ETA),confirmed,2026-09-16
+V-ETA-05,Public Access URL,The public access link to the document.,document,vendor,Egyptian Tax Authority (ETA),confirmed,2026-09-16
+V-ETA-06,Late Submission Request Number,The identifier number of a late-submission request.,record,vendor,Egyptian Tax Authority (ETA),confirmed,2026-09-16
+V-ETIMS-01,Registration Type Code,A flag indicating whether the record was registered automatically (A) or manually (M).,record,vendor,Kenya Revenue Authority (KRA),confirmed,2026-09-16
+V-ETIMS-02,Buyer Acceptance Flag,A Y/N flag indicating whether the buyer has accepted/received the goods.,document,vendor,Kenya Revenue Authority (KRA),confirmed,2026-09-16
+V-ETIMS-03,Transaction Type Code,The business type of the transaction/receipt (N normal / C copy / T training / P proforma).,document,vendor,Rwanda Revenue Authority (RRA),confirmed,2026-09-16
+V-ETIMS-04,Transaction Lifecycle Timestamps,"The event times of the transaction on the device/tax-authority side (confirmed, cancel-requested, cancelled, refunded, stock-out, stock-in, receipt-published).",document,vendor,Rwanda Revenue Authority (RRA),confirmed,2026-09-16
+V-ETIMS-05,Packaging Information (Quantity and Unit),The packaging quantity and packaging unit code of the line item.,line,vendor,Zambia Revenue Authority (ZRA),confirmed,2026-09-16
+V-ETIMS-06,Credit/Debit Adjustment Reason,"The reason code or text for a credit note, debit note, or adjustment.",document,vendor,Kenya Revenue Authority (KRA),confirmed,2026-09-16
+V-ETIMS-07,Product Classification Code,"The tax authority's product classification (UNSPSC-type) code, distinct from the product's own code.",line,vendor,Zambia Revenue Authority (ZRA),confirmed,2026-09-16
+V-ETIMS-08,Additional Levy Tax Brackets (IPL/TL/Excise/ECM/EXEEG/TOT),"The taxable base/tax amount/tax rate broken out by non-VAT levy type (insurance premium levy, tourism levy, excise duty, turnover tax, etc.).",line,vendor,Zambia Revenue Authority (ZRA),confirmed,2026-09-16
+V-ETIMS-09,Product Barcode,The barcode of the line item's product.,line,vendor,Zambia Revenue Authority (ZRA),confirmed,2026-09-16
+V-ETIMS-10,Line Insurance Information,"The insurance company code/name, insured amount, and rate associated with the line item.",line,vendor,Kenya Revenue Authority (KRA),confirmed,2026-09-16
+V-ETIMS-11,SDC Fiscal Device Identifier,The identifier of the SDC fiscal device that issued/recorded the invoice.,party,vendor,Rwanda Revenue Authority (RRA),confirmed,2026-09-16
+V-ETIMS-12,Receipt Header/Footer Text,Custom text printed at the top/bottom of the receipt.,document,vendor,Rwanda Revenue Authority (RRA),confirmed,2026-09-16
+V-ETIMS-13,Product Expiry Date,The expiry date of the line item's product.,line,vendor,Rwanda Revenue Authority (RRA),confirmed,2026-09-16
+V-ETIMS-14,Non-Resident Customer Travel Information,"The non-resident customer type and travel purpose code, used for tourist tax refunds.",party,vendor,Zambia Revenue Authority (ZRA),confirmed,2026-09-16
+V-ETIMS-15,Purchase Code (RRA),"The purchase code issued by the RRA for a business customer's procurement, required for business customers.",document,vendor,Rwanda Revenue Authority (RRA),confirmed,2026-09-16
+V-ETIMS-16,Customer Category Code,"The customer's category/type code, per the tax authority's code table.",party,vendor,Zambia Revenue Authority (ZRA),confirmed,2026-09-16
+V-ETIMS-17,Goods Origin/Destination Country Code,The country-of-origin or export-destination country code of the goods.,document,vendor,Zambia Revenue Authority (ZRA),confirmed,2026-09-16
+V-INTIA-01,Document Subtype,The document subtype.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-02,Derived Credit Notes List,The IDs of credit notes generated from this invoice and whether each represents a refund.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-03,Contact Person (To Attention),The contact person for the customer/delivery and their job title.,party,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-04,VAT Summary (By Tax Bracket),The vatSummary list summarized by tax rate.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-05,Fax Number,The fax number.,party,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-06,Document Title,An optional title used only for listing and search.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-07,Signature Area Prompt,Custom prompt text in the quotation's signature area.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-08,Legal Statement Text,Legal statements such as tax-exemption clauses.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-09,Reverse Charge Flag,Whether the customer is subject to the VAT reverse charge.,party,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-10,Issuer Company Legal Information Block,"Capital, legal form, RCS, NAF, RNA, legal statements, no-SIRET marker, and VAT applicability.",party,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-11,Progress Invoice and Project,The situation sequence number and the id of the project it belongs to.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-12,Website,The company's website.,party,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-13,Profit / Gross Margin,The document's profit amount and profit margin.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-14,Quote Acceptance/Rejection Date,The date the customer accepted or rejected the quote.,document,vendor,Intia Dev Team,confirmed,2026-09-16
+V-INTIA-15,Document Display Options,Display toggles such as hiding the logo.,party,vendor,Intia Dev Team,confirmed,2026-09-16
+V-ITA-02,Joint-Filing VAT Number,The VAT number the issuer uses when filing under a dealer consortium or partnership.,party,vendor,Israel Tax Authority (ITA),confirmed,2026-09-16
+V-ITA-03,Authorized Company Number,The number of the company or qualified entity issuing the invoice on another's behalf.,party,vendor,Israel Tax Authority (ITA),confirmed,2026-09-16
+V-ITA-04,Additional Information (Reserved Fields),Reserved fields additional_information 1-3.,document,vendor,Israel Tax Authority (ITA),confirmed,2026-09-16
+V-KSEF-01,Invoice Schema Code,The formCode/systemCode identifying the invoice XML schema (FA(2)/FA(3)).,document,vendor,Polish Ministry of Finance / National Revenue Administration (MF/KAS),confirmed,2026-09-16
+V-KSEF-02,Issuance Mode (Online/Offline),The declaration that the invoice was issued in online or offline mode.,document,vendor,Polish Ministry of Finance / National Revenue Administration (MF/KAS),confirmed,2026-09-16
+V-KSEF-03,KSeF Processing Milestone Dates,The dates the KSeF number was granted and the invoice was placed into permanent storage.,record,vendor,Polish Ministry of Finance / National Revenue Administration (MF/KAS),confirmed,2026-09-16
+V-KSEF-04,Third-Party Entities List,The list of third-party entities on the invoice.,party,vendor,Polish Ministry of Finance / National Revenue Administration (MF/KAS),confirmed,2026-09-16
+V-KSEF-05,Authorized Entity,"An authorized entity on the invoice, such as an enforcement authority or bailiff.",party,vendor,Polish Ministry of Finance / National Revenue Administration (MF/KAS),confirmed,2026-09-16
+V-LINK4-01,Merchant Transaction Number,The payment gateway's merchant transaction reference number or original transaction number.,record,vendor,Link4,confirmed,2026-09-16
+V-LINK4-02,Transaction Amount,The amount of the payment transaction.,record,vendor,Link4,confirmed,2026-09-16
+V-MYDATA-01,Invoice Header Block,The invoiceHeader general-information block.,document,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-02,Vessel Activity Declaration Block (dienergia),"The vessel identifier, activity declaration number, and declaration date per POL 1177/2018.",line,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-03,Summary Block and Other Tax/Fee Totals,"The invoiceSummary block and the document-level totals and tax-bracket base values for withholding tax, fees, other taxes, stamp duty, deductions, etc.",document,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-04,Other Related Entities Block,Other related entities on the invoice and their entity data.,party,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-05,Invoice Series,The series/prefix of the invoice number.,document,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-06,Income/Expense Classification Block,"The myDATA classification characteristics for income and expenses (classification list, details, submission method, transaction reason).",document_or_line,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-07,Identity Document Issuing Country Code,The country code of the country that issued the party's official identity document.,party,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-08,Fuel Invoice Information,"The fuel invoice flag, fuel code, and quantity at 15°C.",document_or_line,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-09,Line-Level Other Tax/Fee Amounts and Categories,The line-item withholding tax/fee/other-tax/stamp-duty/deduction amounts and their tax rate categories.,line,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-10,Invoice Header Additional Flags,"Header-level flags such as special invoice category, deviation type, VAT deferral, and self-billing marker.",document,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-11,QR Code URL,The URL of the invoice's QR code.,document,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-12,Transmission Failure Flag,A flag for provider communication failure or ERP transmission failure.,document,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-13,Discount Eligibility Flag,Whether the line item is eligible for a discount.,line,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-14,Line Type/Flag,The line item's type (recType) and marker (invoiceDetailType).,line,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYDATA-15,Invoice Cancellation Date,The date the invoice was cancelled on the platform.,record,vendor,Independent Authority for Public Revenue (IAPR/AADE),confirmed,2026-09-16
+V-MYINVOIS-01,Identity Document Type and Value,The party's identity document type (NRIC/PASSPORT/BRN/ARMY) and its value (conceptually similar to U38).,party,vendor,Inland Revenue Board of Malaysia (HASiL),confirmed,2026-09-16
+V-MYINVOIS-02,Document Type Version,"The version name of the document type, not the version of the document itself.",document,vendor,Inland Revenue Board of Malaysia (HASiL),confirmed,2026-09-16
+V-MYINVOIS-03,Status Reason,The reason for cancellation or rejection.,document,vendor,Inland Revenue Board of Malaysia (HASiL),confirmed,2026-09-16
+V-MYINVOIS-04,Tax Authority Processing Timestamps,"The UTC times of tax authority actions such as validation success, cancellation, and rejection request.",record,vendor,Inland Revenue Board of Malaysia (HASiL),confirmed,2026-09-16
+V-MYINVOIS-05,Business Registration Number (ROB/BRN),"The company's business registration number, distinct from its TIN.",party,vendor,Inland Revenue Board of Malaysia (HASiL),confirmed,2026-09-16
+V-SAP-01,Company Bill-To/Ship-To Address Block,"The buyer company's BillTo/ShipTo address object, its external ID, and address code.",party,vendor,SAP,confirmed,2026-09-16
+V-SAP-02,Supplier Identifier Code Block,"The Concur supplier code, address code, remit-to/ship-from code, and supplier object.",party,vendor,SAP,confirmed,2026-09-16
+V-SAP-03,Purchase-Order-Specific Fields,"The PO line's external ID, procurement type, requested delivery date, need-by date, and test/change-order flags.",line,vendor,SAP,confirmed,2026-09-16
+V-SAP-04,Policy/Ledger/Org Unit Codes,"The Concur policy external ID, company ledger code, org unit 1-6, and buyer cost center.",document,vendor,SAP,confirmed,2026-09-16
+V-SAP-05,Employee/Requester Identifiers,"The login name, email, employee ID, and requester of the employee to whom the requisition or invoice belongs.",record,vendor,SAP,confirmed,2026-09-16
+V-SAP-06,Goods Receipt Matching Block,"The receipt type, whether receipt is required, receipt number, delivery note number, received quantity, deletion status, and confirmation type.",by_parent,vendor,SAP,confirmed,2026-09-16
+V-SAP-07,Dual VAT Amount/Rate Fields,The first and second VAT amount and rate slots on the invoice header.,document,vendor,SAP,confirmed,2026-09-16
+V-SAP-08,Line Cost Allocation Block,"The allocation array, account code, expense type, and custom fields for line-level cost allocation.",line,vendor,SAP,confirmed,2026-09-16
+V-SAP-09,Provincial Tax Number,The supplier's provincial-level tax registration number.,party,vendor,SAP,confirmed,2026-09-16
+V-SAP-10,Payment/Remittance Record Block,"The payment array, check number, urgent-check flag, payment adjustment note, and ERP document number.",record,vendor,SAP,confirmed,2026-09-16
+V-SAP-11,Buyer's Account Number at Supplier,The buyer's customer account number within the supplier's system.,party,vendor,SAP,confirmed,2026-09-16
+V-SEF-01,Total Amount Paid,The sum of all payments made against this invoice.,document,vendor,Ministry of Finance of the Republic of Serbia (MoF),confirmed,2026-09-16
+V-SEF-02,Transaction Type,The transaction type code (currently used only for India).,document,vendor,Ministry of Finance of the Republic of Serbia (MoF),confirmed,2026-09-16
+V-SII-01,Economic Activity Code (Acteco),The seller's economic activity code registered with the SII.,party_seller,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-02,Document Header/ID/Totals Container,"The three header containers Encabezado, IdDoc, and Totales.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-03,Business Line (Giro),The party's business line/activity description text.,party_seller,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-04,Reference Detail Block (Referencia),"The type, number, date, and reason of the referenced document.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-05,Payment Schedule Block (MntPagos),The installment payment schedule table and the amount of each installment.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-06,Sub-Quantity Allocation Block (Subcantidad),The allocation of the line quantity across sub-codes.,line,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-07,Informational Subtotal Block (SubTotInfo),Informational subtotals for printing and the lines grouped under them.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-09,Line Item Code Scheme Type,The type of coding scheme used for the line item code.,line,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-10,Commissions and Other Fees Block (Comisiones),"The commission/other-fee details of a settlement invoice, including their net amount, exempt amount, and IVA.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-11,Line Alternate Currency Block (OtrMnda),"The unit price/discount/surcharge/amount of the line item expressed in another currency, and the conversion factor.",line,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-12,Alternate Currency Totals Block (OtraMoneda),The exchange rate and the various totals expressed in another currency.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-13,Additional Tax/Withholding Block (ImptoReten),"The container, amount, and line-level code for an additional tax or withholding item.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-14,Withholding Agent Block (Retenedor),"The withholding-agent transaction indicator, slaughter base, profit margin, and end-consumer net price.",line,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-15,RUT Check Digit (DV),"The check digit of the RUT number, transmitted separately from the main entity number.",party_seller,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-16,SII Authorization Resolution (Resolucion),The SII resolution number and date authorizing the sending of DTEs.,party,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-17,Settled Document Type,The type of document being settled in a settlement-invoice line.,line,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-18,Package Type Block (TipoBultos),"The export package type, quantity, marks, container, and seal numbers.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-19,Recipient Mailing Address Block (DirPostal),"The buyer's mailing address (street/city/district), distinct from the delivery address.",party_address,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-20,Transaction Type Indicator,"Whether the transaction is a service, and the transaction type code from the seller's/buyer's perspective.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-21,Amount Paid at Issuance,The amount already paid (cancelado) at the time the document was issued.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-22,Line Item Production/Expiry Date,The production date and expiry date of the line item.,line,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-23,Recipient Contact Text,"Free text combining the buyer contact's name, phone, and email.",party,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-24,Salesperson Code,The seller's internal salesperson code.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-25,Customs/Export Information Block (Aduana),"Export customs information: sale terms, incoterms, mode of transport, port, weight, and freight/insurance.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-26,Statement Totals (Opening Balance/Period Total),The opening balance and the total sales for the period.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-27,Chile-Specific Total Items,"Third-party IVA, own IVA, non-withheld IVA, packaging deposit, construction credit, non-invoiceable amount, and slaughter/profit-margin base.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-28,Foreign Recipient Identification Block (Extranjero),The nationality and identity document number of a foreign buyer.,party,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-29,Shipment/Transshipment Mode Indicator,The shipment mode and transshipment type for goods accompanying the document.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-30,Party Additional Identifier (IdAdic),The additional identifier of the seller/foreign buyer/other taxpayer/carrier.,party,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-31,Document Processing Flags,"Flags such as whether line items are tax-inclusive, the print type, and non-deductible credit note.",document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-32,Other RUT Roles (Applicant/Principal),The RUT of the applicant for a retail document and the RUT of the principal for whom the invoice is issued.,party,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-SII-33,Export Dispatch Guide Authorization Block (GuiaExport),The SII authorization resolution number/date and transshipment code for the export dispatch guide.,document,vendor,Chile Internal Revenue Service (SII),confirmed,2026-09-16
+V-STORECOVE-01,Referenced Document ID Qualifiers,The scheme/list/agency/version qualifiers and description for a referenced document's id within a references block.,by_parent,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-02,Party Additional Registration Information,Additional legal information text about the party and its industry classification code (MSIC).,party,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-03,Tax Detail Block,The tax array on a line/document/charge (taxesDutiesFees/taxSubtotals) and the third-country tax confirmation flag.,by_parent,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-04,UAE PINT-AE Extension,"UAE-specific fields: transaction type flag, billing frequency, credit note reason, reverse charge nature, goods/services type, SAC, and passport issuing country.",party,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-05,Line Item Additional Attributes Block,"Line-item additional attributes: name/code, value, and unit.",line,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-06,Price Base Quantity,The quantity to which the unit price corresponds (UBL BaseQuantity).,line,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-07,Buyer Cost Center,The buyer's accounting cost center text (UBL AccountingCost).,by_parent,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-08,French E-Reporting Block,"DGFiP e-reporting data: cross-border B2B invoice, B2C transaction, payment summary, payment receipt notice, and invoicing framework code.",document,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-09,Invoicing Reason,The array of reasons for issuing the invoice.,document,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-10,Invoice Processing Mode Options,"Storecove processing toggles: tax regime, pricing mode, self-billing, consumer tax mode, B2B/B2G, preferred invoice type, etc.",document,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-11,Line Item Other Identifiers,"The line-level buyer item code, standard item code and its scheme, order line reference, and batch number.",line,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-12,Invoice Response Block,"InvoiceResponse: the response and clarification (code, type, text) and effective date.",document,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-13,Accounting Currency Converted Amounts,"The exchange rate from document currency to accounting currency, and the tax amount, taxable amount, and currency expressed in the accounting currency.",document,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-14,Payable Rounding Amount,The rounding adjustment applied to the amount due.,document,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-15,Order Object and Order-Specific Fields,"The purchase order object and order-specific fields such as order type, validity period, and partial-delivery allowed.",document,vendor,Storecove,confirmed,2026-09-16
+V-STORECOVE-16,Tax Authority Verification Information,Information about the tax authority's verification of the invoice and its verification time.,record,vendor,Storecove,confirmed,2026-09-16
+V-TW-01,Carrier Information (Taiwan),"The category, masked code, verification code, and name of a mobile barcode or card carrier.",party,vendor,Taiwan Ministry of Finance / Fiscal Information Agency (MOF/FIA),confirmed,2026-09-16
+V-TW-02,Donation Recipient Organization,"The unified business number, donation code, name, and abbreviation of the organization or group receiving the donation.",party,vendor,Taiwan Ministry of Finance / Fiscal Information Agency (MOF/FIA),confirmed,2026-09-16
+V-TW-03,Invoice Period (Taiwan),The bimonthly uniform-invoice lottery period (in ROC year/month).,document,vendor,Taiwan Ministry of Finance / Fiscal Information Agency (MOF/FIA),confirmed,2026-09-16
+V-TW-04,Buyer Type (Taiwan),The type of the buyer (business entity / government or organization / individual).,party,vendor,Taiwan Ministry of Finance / Fiscal Information Agency (MOF/FIA),confirmed,2026-09-16
+V-TW-05,Winning Numbers and Prize Amounts,The winning numbers and prize amounts for each prize tier.,record,vendor,Taiwan Ministry of Finance / Fiscal Information Agency (MOF/FIA),confirmed,2026-09-16
+V-TW-06,Invoice Donation Status,"Whether the invoice is eligible for donation, its donation marker, and the donation timestamp.",document,vendor,Taiwan Ministry of Finance / Fiscal Information Agency (MOF/FIA),confirmed,2026-09-16
+V-TW-07,Invoice Random Code / Check Code,The 4-digit random code and check code of the uniform invoice.,document,vendor,Taiwan Ministry of Finance / Fiscal Information Agency (MOF/FIA),confirmed,2026-09-16

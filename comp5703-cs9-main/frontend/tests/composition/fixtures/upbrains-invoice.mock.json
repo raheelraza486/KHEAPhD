@@ -1,0 +1,33 @@
+{
+  "status": 200,
+  "extractor_result": {
+    "documents": [{
+      "document_type": "invoice",
+      "fields": {
+        "InvoiceId": { "content": "MOCK-96-001", "details": null },
+        "InvoiceDate": { "content": "12/10/2026", "details": { "year": 2026, "month": 10, "day": 12 } },
+        "DueDate": { "content": "26/10/2026", "details": { "year": 2026, "month": 10, "day": 26 } },
+        "VendorName": { "content": "Synthetic Supplier" },
+        "VendorTaxId": { "content": "AU12345678901" },
+        "VendorAddress": { "content": "1 Example Street", "details": { "street_address": "1 Example Street", "city": "Sydney", "postal_code": "2000", "country_region": "AU" } },
+        "CustomerName": { "content": "Synthetic Buyer" },
+        "BillingAddress": { "content": "2 Example Street", "details": { "street_address": "2 Example Street", "city": "Sydney", "postal_code": "2000", "country_region": "AU" } },
+        "BuyerReference": { "content": "MOCK-ORDER-96" },
+        "SubTotal": { "content": "$100.00", "details": { "code": "AUD", "amount": 100 } },
+        "TotalTax": { "content": "$10.00", "details": { "code": "AUD", "amount": 10 } },
+        "InvoiceTotal": { "content": "$110.00", "details": { "code": "AUD", "amount": 110 } },
+        "AmountDue": { "content": "$110.00", "details": { "code": "AUD", "amount": 110 } }
+      },
+      "items": [{
+        "_index": 1,
+        "Description": { "content": "Synthetic consulting service" },
+        "Quantity": { "content": "2" },
+        "Unit": { "content": "HUR" },
+        "UnitPrice": { "content": "$50.00", "details": { "code": "AUD", "amount": 50 } },
+        "Amount": { "content": "$100.00", "details": { "code": "AUD", "amount": 100 } },
+        "TaxRate": { "content": "10%" }
+      }],
+      "needs_review": { "low_confidence": false, "has_validation_error": false, "uncertain_fields": [] }
+    }]
+  }
+}

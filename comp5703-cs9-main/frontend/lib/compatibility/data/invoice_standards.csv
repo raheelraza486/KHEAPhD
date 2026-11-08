@@ -1,0 +1,11 @@
+standard,parent,kind,customization_id,pattern,note
+EN 16931,,semantic,urn:cen.eu:en16931:2017,EN[ -]?16931,European semantic standard for e-invoices; parent of the CIUS rows below. A validator of EN 16931 alone checks the core rules and accepts any CIUS of it
+Peppol PINT A-NZ,EN 16931,cius,urn:peppol:pint:billing-1@aunz-1,PINT[ -]?A-?NZ,Peppol International invoice for Australia and New Zealand. Its identifier is not written as an EN 16931 extension (urn:peppol:pint:…)
+Peppol BIS Billing 3.0,EN 16931,cius,urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0,Peppol[ -]?BIS,Peppol CIUS of EN 16931
+XRechnung,EN 16931,cius,urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0,X-?Rechnung,German CIUS of EN 16931; identifier given for version 3.0
+Factur-X,EN 16931,cius,,Factur-?X|ZUGFeRD,French and German hybrid PDF/A-3 with CII; ZUGFeRD 2.x is the same standard; identifier depends on the profile (not recorded)
+CIUS-RO,EN 16931,cius,,CIUS-RO|RO[ _-]?16931,Romanian CIUS of EN 16931; identifier not recorded
+UBL,,syntax,,^(OASIS )?UBL( 2\.\d+| Invoice| XML)?$,Syntax only: says how the document is written; not compared
+UN/CEFACT CII,,syntax,,^(UN/CEFACT )?CII$,Syntax only; not compared
+PDF,,syntax,,^PDF$,A file type; not compared
+N/A,,none,,^N/A,No invoice payload or no mandated standard; not compared

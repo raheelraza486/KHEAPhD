@@ -1,0 +1,231 @@
+{
+ "status": 200,
+ "metadata": {
+  "processed_page_count": 2,
+  "total_page_count": 2
+ },
+ "extractor_result": {
+  "file_name": "",
+  "attachment_id": null,
+  "document_type": "invoice",
+  "pages": [
+   {
+    "page_number": 1,
+    "incomplete_processed": false,
+    "text": ""
+   },
+   {
+    "page_number": 2,
+    "incomplete_processed": false,
+    "text": ""
+   }
+  ],
+  "documents": [
+   {
+    "document_type": "invoice",
+    "fields": {
+     "AmountDue": {
+      "content": "$110.00",
+      "field_name": "Amount Due",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 110,
+       "symbol": "$",
+       "code": "AUD"
+      }
+     },
+     "CustomerAddress": {
+      "content": "999 The Crescent\nHomebush West\n2140\nAustralia",
+      "field_name": "Customer Address",
+      "type": "address",
+      "page_number": "1",
+      "details": {
+       "house_number": "999",
+       "po_box": null,
+       "road": "The Crescent",
+       "city": null,
+       "state": null,
+       "postal_code": "2140",
+       "country_region": "Australia",
+       "street_address": "999 The Crescent",
+       "unit": null,
+       "city_district": null,
+       "state_district": null,
+       "suburb": "Homebush West",
+       "house": null,
+       "level": null
+      }
+     },
+     "CustomerAddressRecipient": {
+      "content": "Awolako Enterprises Pty Ltd\nSuite 123 Level 45",
+      "field_name": "Customer Address Recipient",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "CustomerName": {
+      "content": "Awolako Enterprises Pty Ltd\nSuite 123 Level 45",
+      "field_name": "Customer Name",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "InvoiceDate": {
+      "content": "February 07, 2022",
+      "field_name": "Invoice Date",
+      "type": "date",
+      "page_number": "1",
+      "details": {
+       "day": 7,
+       "month": 2,
+       "year": 2022
+      }
+     },
+     "InvoiceId": {
+      "content": "EBWASP1002",
+      "field_name": "Invoice Id",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "InvoiceTotal": {
+      "content": "$110.00",
+      "field_name": "Invoice Total",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 110,
+       "symbol": "$",
+       "code": "AUD"
+      }
+     },
+     "SubTotal": {
+      "content": "$100.00",
+      "field_name": "Sub Total",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 100,
+       "symbol": "$",
+       "code": "AUD"
+      }
+     },
+     "TotalTax": {
+      "content": "$10.00",
+      "field_name": "Total Tax",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 10,
+       "symbol": "$",
+       "code": "AUD"
+      }
+     },
+     "VendorAddress": {
+      "content": "100 Business St\n2203\nDulwich Hill\nAustralia",
+      "field_name": "Vendor Address",
+      "type": "address",
+      "page_number": "1",
+      "details": {
+       "house_number": "100",
+       "po_box": null,
+       "road": "Business St",
+       "city": "Dulwich Hill",
+       "state": null,
+       "postal_code": "2203",
+       "country_region": "Australia",
+       "street_address": "100 Business St",
+       "unit": null,
+       "city_district": null,
+       "state_district": null,
+       "suburb": null,
+       "house": null,
+       "level": null
+      }
+     },
+     "VendorAddressRecipient": {
+      "content": "Ebusiness Software Services Pty Ltd",
+      "field_name": "Vendor Address Recipient",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "VendorName": {
+      "content": "Ebusiness Software Services Pty Ltd",
+      "field_name": "Vendor Name",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     }
+    },
+    "items": [
+     {
+      "_index": 1,
+      "Amount": {
+       "content": "$100.00",
+       "field_name": "Amount",
+       "type": "currency",
+       "details": {
+        "amount": 100,
+        "symbol": "$",
+        "code": "AUD"
+       }
+      },
+      "Description": {
+       "content": "pencils",
+       "field_name": "Description",
+       "type": "string",
+       "details": null
+      },
+      "Quantity": {
+       "content": "500.0",
+       "field_name": "Quantity",
+       "type": "float",
+       "details": null
+      },
+      "TaxRate": {
+       "content": "10.0%",
+       "field_name": "Tax Rate",
+       "type": "string",
+       "details": null
+      },
+      "UnitPrice": {
+       "content": "$0.20",
+       "field_name": "Unit Price",
+       "type": "currency",
+       "details": {
+        "amount": 0.2,
+        "symbol": "$",
+        "code": "AUD"
+       }
+      },
+      "page_number": "1"
+     },
+     {
+      "_index": 2,
+      "Description": {
+       "content": "Standard",
+       "field_name": "Description",
+       "type": "string",
+       "details": null
+      },
+      "page_number": "1"
+     }
+    ],
+    "content": "Amount Due: $110.00\nCustomer Address: 999 The CrescentHomebush West2140Australia\nCustomer Address Recipient: Awolako Enterprises Pty LtdSuite 123 Level 45\nCustomer Name: Awolako Enterprises Pty LtdSuite 123 Level 45\nInvoice Date: February 07, 2022\nInvoice Id: EBWASP1002\nInvoice Total: $110.00\nSub Total: $100.00\nTotal Tax: $10.00\nVendor Address: 100 Business St2203Dulwich HillAustralia\nVendor Address Recipient: Ebusiness Software Services Pty Ltd\nVendor Name: Ebusiness Software Services Pty Ltd\n\nTotal Items: 2\n\nItem 1:\nAmount: $100.00\nDescription: pencils\nQuantity: 500.0\nTax Rate: 10.0%\nUnit Price: $0.20\n\nItem 2:\nDescription: Standard\n",
+    "csv_content": "Header Fields\r\nAmount Due,$110.00\r\nCustomer Address,999 The Crescent Homebush West 2140 Australia\r\nCustomer Address Recipient,Awolako Enterprises Pty Ltd Suite 123 Level 45\r\nCustomer Name,Awolako Enterprises Pty Ltd Suite 123 Level 45\r\nInvoice Date,\"February 07, 2022\"\r\nInvoice Id,EBWASP1002\r\nInvoice Total,$110.00\r\nSub Total,$100.00\r\nTotal Tax,$10.00\r\nVendor Address,100 Business St 2203 Dulwich Hill Australia\r\nVendor Address Recipient,Ebusiness Software Services Pty Ltd\r\nVendor Name,Ebusiness Software Services Pty Ltd\r\n\r\nLine Items\r\nAmount,Description,Quantity,Tax Rate,Unit Price\r\n$100.00,pencils,500.0,10.0%,$0.20\r\n,Standard,,,",
+    "needs_review": {
+     "low_confidence": false,
+     "has_validation_logic": {},
+     "has_validation_error": false,
+     "uncertain_fields": [],
+     "violations": []
+    }
+   }
+  ],
+  "tables": []
+ },
+ "result_id": null,
+ "status_summary": "The information extraction process was completed successfully."
+}

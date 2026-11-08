@@ -1,0 +1,2 @@
+source,target,relation,note
+Peppol BIS Billing 3.0,Peppol PINT A-NZ,fillable,"Client, 10 October 2026: the PINT A-NZ details a Peppol BIS invoice lacks are not mandatory and may be filled with any value; the aim is to check whether the APIs are compatible"

@@ -1,0 +1,286 @@
+{
+ "status": 200,
+ "metadata": {
+  "processed_page_count": 1,
+  "total_page_count": 1
+ },
+ "extractor_info": {
+  "display_name": "Standard Invoice Extractor"
+ },
+ "extractor_result": {
+  "file_name": "",
+  "document_type": "invoice",
+  "documents": [
+   {
+    "document_type": "invoice",
+    "fields": {
+     "AmountDue": {
+      "content": "550.00",
+      "field_name": "Amount Due",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 550,
+       "symbol": null,
+       "code": "AUD"
+      }
+     },
+     "BillingAddress": {
+      "content": "1 Test Street\nSydney 2000\nAustralia",
+      "field_name": "Billing Address",
+      "type": "address",
+      "page_number": "1",
+      "details": {
+       "house_number": "1",
+       "po_box": null,
+       "road": "Test Street",
+       "city": "Sydney",
+       "state": null,
+       "postal_code": "2000",
+       "country_region": "Australia",
+       "street_address": "1 Test Street",
+       "unit": null,
+       "city_district": null,
+       "state_district": null,
+       "suburb": null,
+       "house": null,
+       "level": null
+      }
+     },
+     "BillingAddressRecipient": {
+      "content": "Test PEPPOL Registered",
+      "field_name": "Billing Address Recipient",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "CustomerName": {
+      "content": "Test PEPPOL Registered",
+      "field_name": "Customer Name",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "DueDate": {
+      "content": "11 November 2026",
+      "field_name": "Due Date",
+      "type": "date",
+      "page_number": "1",
+      "details": {
+       "day": 11,
+       "month": 11,
+       "year": 2026
+      }
+     },
+     "InvoiceDate": {
+      "content": "12 October 2026",
+      "field_name": "Invoice Date",
+      "type": "date",
+      "page_number": "1",
+      "details": {
+       "day": 12,
+       "month": 10,
+       "year": 2026
+      }
+     },
+     "InvoiceId": {
+      "content": "CS95-PDF-0001",
+      "field_name": "Invoice Id",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "InvoiceTotal": {
+      "content": "550.00",
+      "field_name": "Invoice Total",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 550,
+       "symbol": null,
+       "code": "AUD"
+      }
+     },
+     "PaymentTerm": {
+      "content": "Payable within 30 days.",
+      "field_name": "Payment Term",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "SubTotal": {
+      "content": "500.00",
+      "field_name": "Sub Total",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 500,
+       "symbol": null,
+       "code": "AUD"
+      }
+     },
+     "TotalTax": {
+      "content": "50.00",
+      "field_name": "Total Tax",
+      "type": "currency",
+      "page_number": "1",
+      "details": {
+       "amount": 50,
+       "symbol": null,
+       "code": "AUD"
+      }
+     },
+     "VendorAddress": {
+      "content": "University of Sydney\nCamperdown NSW 2050\nAustralia",
+      "field_name": "Vendor Address",
+      "type": "address",
+      "page_number": "1",
+      "details": {
+       "house_number": null,
+       "po_box": null,
+       "road": null,
+       "city": "Camperdown",
+       "state": "NSW",
+       "postal_code": "2050",
+       "country_region": "Australia",
+       "street_address": "",
+       "unit": null,
+       "city_district": null,
+       "state_district": null,
+       "suburb": null,
+       "house": "University of Sydney",
+       "level": null
+      }
+     },
+     "VendorAddressRecipient": {
+      "content": "CS9 Demo Supplies Pty Ltd",
+      "field_name": "Vendor Address Recipient",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "VendorName": {
+      "content": "CS9 Demo Supplies Pty Ltd",
+      "field_name": "Vendor Name",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     },
+     "VendorTaxId": {
+      "content": "47 555 222 000",
+      "field_name": "Vendor Tax Id",
+      "type": "string",
+      "page_number": "1",
+      "details": null
+     }
+    },
+    "items": [
+     {
+      "_index": 1,
+      "Amount": {
+       "content": "300.00",
+       "field_name": "Amount",
+       "type": "currency",
+       "details": {
+        "amount": 300,
+        "symbol": null,
+        "code": "AUD"
+       }
+      },
+      "Description": {
+       "content": "API integration consulting",
+       "field_name": "Description",
+       "type": "string",
+       "details": null
+      },
+      "Quantity": {
+       "content": "2",
+       "field_name": "Quantity",
+       "type": "float",
+       "details": null
+      },
+      "TaxRate": {
+       "content": "10%",
+       "field_name": "Tax Rate",
+       "type": "string",
+       "details": null
+      },
+      "Unit": {
+       "content": "hours",
+       "field_name": "Unit",
+       "type": "string",
+       "details": null
+      },
+      "UnitPrice": {
+       "content": "150.00",
+       "field_name": "Unit Price",
+       "type": "currency",
+       "details": {
+        "amount": 150,
+        "symbol": null,
+        "code": "AUD"
+       }
+      },
+      "page_number": "1"
+     },
+     {
+      "_index": 2,
+      "Amount": {
+       "content": "200.00",
+       "field_name": "Amount",
+       "type": "currency",
+       "details": {
+        "amount": 200,
+        "symbol": null,
+        "code": "AUD"
+       }
+      },
+      "Description": {
+       "content": "E-invoice format mapping\nworkshop",
+       "field_name": "Description",
+       "type": "string",
+       "details": null
+      },
+      "Quantity": {
+       "content": "1",
+       "field_name": "Quantity",
+       "type": "float",
+       "details": null
+      },
+      "TaxRate": {
+       "content": "10%",
+       "field_name": "Tax Rate",
+       "type": "string",
+       "details": null
+      },
+      "Unit": {
+       "content": "hours",
+       "field_name": "Unit",
+       "type": "string",
+       "details": null
+      },
+      "UnitPrice": {
+       "content": "200.00",
+       "field_name": "Unit Price",
+       "type": "currency",
+       "details": {
+        "amount": 200,
+        "symbol": null,
+        "code": "AUD"
+       }
+      },
+      "page_number": "1"
+     }
+    ],
+    "needs_review": {
+     "low_confidence": false,
+     "has_validation_logic": {},
+     "has_validation_error": false,
+     "uncertain_fields": [],
+     "violations": []
+    }
+   }
+  ]
+ },
+ "status_summary": "The information extraction process was completed successfully."
+}

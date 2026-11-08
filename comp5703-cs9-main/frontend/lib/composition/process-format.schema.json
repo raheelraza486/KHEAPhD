@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Business process for the BP-Builder",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "input_text",
+    "steps",
+    "unmatched"
+  ],
+  "properties": {
+    "version": {
+      "const": "1.0"
+    },
+    "input_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "The user's text, unchanged."
+    },
+    "steps": {
+      "type": "array",
+      "description": "The steps in the order the user described them. Order numbers run 1, 2, 3.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order",
+          "category",
+          "task"
+        ],
+        "properties": {
+          "order": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "category": {
+            "enum": [
+              "Transformation",
+              "Validation",
+              "Communication"
+            ]
+          },
+          "task": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "What the step does, in the user's words."
+          },
+          "input_format": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "A format the user named for the step's input, e.g. PDF."
+          },
+          "output_format": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "A format the user named for the step's output, e.g. UBL XML."
+          },
+          "rule_set": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "A rule set the user named, e.g. Australian rules."
+          },
+          "candidate_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Repository API ids (apis.id) suited to the task, from Discovery when available. Null: search the catalogue after parsing. Never invented by the model."
+          }
+        }
+      }
+    },
+    "unmatched": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Parts of the text that are not a Transformation, Validation or Communication step."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Zoho Invoice",
+    "version": "1.0.0",
+    "description": "Zoho Invoice API — create invoices from JSON payloads."
+  },
+  "servers": [{ "url": "https://www.zohoapis.com/invoice/v3" }],
+  "paths": {
+    "/invoices": {
+      "post": {
+        "summary": "Create an invoice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["customer_id", "date", "line_items"],
+                "properties": {
+                  "customer_id": { "type": "string" },
+                  "date": { "type": "string" },
+                  "line_items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["item_id", "quantity", "rate"],
+                      "properties": {
+                        "item_id": { "type": "string" },
+                        "quantity": { "type": "number" },
+                        "rate": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        }
+      }
+    }
+  }
+}

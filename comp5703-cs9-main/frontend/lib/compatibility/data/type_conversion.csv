@@ -1,0 +1,122 @@
+source_type,target_type,kind,condition
+string,string,same,
+string,integer,conditional,value must be integer text
+string,number,conditional,value must be numeric text
+string,boolean,conditional,value must be the text true/false
+string,date,conditional,value must parse as a date
+string,date-time,conditional,value must parse as a date-time
+string,email,conditional,value must be an e-mail address
+string,binary,conditional,value must be base64 text
+string,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+string,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+string,unknown,undetermined,target declares no type
+integer,string,lossless,number rendered as text
+integer,integer,same,
+integer,number,lossless,
+integer,boolean,incompatible,
+integer,date,incompatible,
+integer,date-time,conditional,value is a timestamp
+integer,email,incompatible,
+integer,binary,incompatible,
+integer,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+integer,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+integer,unknown,undetermined,target declares no type
+number,string,lossless,number rendered as text
+number,integer,conditional,value must have no fractional part
+number,number,same,
+number,boolean,incompatible,
+number,date,incompatible,
+number,date-time,conditional,value is a timestamp
+number,email,incompatible,
+number,binary,incompatible,
+number,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+number,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+number,unknown,undetermined,target declares no type
+boolean,string,lossless,true/false rendered as text
+boolean,integer,incompatible,
+boolean,number,incompatible,
+boolean,boolean,same,
+boolean,date,incompatible,
+boolean,date-time,incompatible,
+boolean,email,incompatible,
+boolean,binary,incompatible,
+boolean,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+boolean,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+boolean,unknown,undetermined,target declares no type
+date,string,lossless,date semantics lost; recorded
+date,integer,incompatible,
+date,number,incompatible,
+date,boolean,incompatible,
+date,date,same,
+date,date-time,lossless,pad with 00:00:00
+date,email,incompatible,
+date,binary,incompatible,
+date,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+date,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+date,unknown,undetermined,target declares no type
+date-time,string,conditional,time semantics lost; recorded
+date-time,integer,conditional,convert to timestamp
+date-time,number,conditional,convert to timestamp
+date-time,boolean,incompatible,
+date-time,date,conditional,time part dropped
+date-time,date-time,same,
+date-time,email,incompatible,
+date-time,binary,incompatible,
+date-time,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+date-time,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+date-time,unknown,undetermined,target declares no type
+email,string,lossless,
+email,integer,incompatible,
+email,number,incompatible,
+email,boolean,incompatible,
+email,date,incompatible,
+email,date-time,incompatible,
+email,email,same,
+email,binary,incompatible,
+email,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+email,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+email,unknown,undetermined,target declares no type
+binary,string,lossless,as base64 text
+binary,integer,incompatible,
+binary,number,incompatible,
+binary,boolean,incompatible,
+binary,date,incompatible,
+binary,date-time,incompatible,
+binary,email,incompatible,
+binary,binary,same,
+binary,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+binary,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+binary,unknown,undetermined,target declares no type
+object,string,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,integer,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,number,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,boolean,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,date,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,date-time,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,email,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,binary,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,object,container,"same-shape container; not judged here, child fields go through 2.2-2.4 individually"
+object,array,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+object,unknown,undetermined,target declares no type
+array,string,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,integer,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,number,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,boolean,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,date,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,date-time,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,email,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,binary,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,object,shape,handed to shape alignment (Semantic Check Manual 5.10); this phase: shape_unsupported
+array,array,container,"same-shape container; not judged here, element fields go through 2.2-2.4 individually (element type differences are judged on the element fields)"
+array,unknown,undetermined,target declares no type
+unknown,string,undetermined,source declares no type
+unknown,integer,undetermined,source declares no type
+unknown,number,undetermined,source declares no type
+unknown,boolean,undetermined,source declares no type
+unknown,date,undetermined,source declares no type
+unknown,date-time,undetermined,source declares no type
+unknown,email,undetermined,source declares no type
+unknown,binary,undetermined,source declares no type
+unknown,object,undetermined,source declares no type
+unknown,array,undetermined,source declares no type
+unknown,unknown,undetermined,source declares no type

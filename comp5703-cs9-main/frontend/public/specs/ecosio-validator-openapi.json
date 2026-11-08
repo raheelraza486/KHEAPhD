@@ -1,0 +1,267 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ecosio Peppol and XML Validator",
+    "version": "1.0.0",
+    "description": "Validates an XML business document, such as a UBL invoice, against one rule set chosen by the caller: well-formedness, then the XML schema, then the Schematron rules of that rule set. On 13 October 2026 the service listed 1066 current rule sets (2373 with deprecated ones), among them Peppol PINT A-NZ Invoice (UBL) 1.1.3, A-NZ Peppol BIS3 Invoice (UBL) 1.0.12, OpenPeppol UBL Invoice 2026.5 (BIS Billing 3.0.21), EN 16931 UBL Invoice 1.3.16 and XRechnung UBL Invoice 3.0.2.\n\necosio publishes no OpenAPI document and offers this validator to the public as a web tool (https://ecosio.com/en/peppol-e-invoice-xml-document-validator/). This document was written by the CS9-5 group from what that web tool sends and receives, observed in a browser on 13 October 2026 while validating two of the group's own test invoices under Peppol PINT A-NZ Invoice (UBL) 1.1.3: a valid one (answered with success true and no findings) and a copy with three things broken (answered with success false and four findings). Both answers had HTTP status 200. The response schema lists what those two answers contained; the group has not seen a warning, a malformed document or an unknown rule set answered, so other levels and statuses are not described.\n\nThe paths below are the ones the provider's own web tool calls, without credentials. ecosio states that the validator can be integrated as a RESTful web service and asks to be contacted for details, so these paths are not a published integration interface and may change without notice. ecosio states that submitted documents are kept only for the duration of the validation and deleted after the result is displayed.",
+    "contact": {
+      "name": "ecosio",
+      "url": "https://ecosio.com"
+    }
+  },
+  "externalDocs": {
+    "description": "ecosio's free Peppol, e-invoice and XML validator (web tool)",
+    "url": "https://ecosio.com/en/peppol-e-invoice-xml-document-validator/"
+  },
+  "servers": [
+    {
+      "url": "https://validator.ecosio.com"
+    }
+  ],
+  "paths": {
+    "/api/v1/open/vesids": {
+      "get": {
+        "operationId": "listRuleSets",
+        "summary": "List the rule sets a document can be validated against",
+        "description": "Returns every rule set with its name and its identifier. The identifier goes into the path of the validation call.",
+        "parameters": [
+          {
+            "name": "include-deprecated",
+            "in": "query",
+            "required": false,
+            "description": "Whether deprecated rule sets are listed too. The web tool sends false unless \"Show deprecated\" is ticked.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The rule sets. 1066 were listed on 13 October 2026 without deprecated ones.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleSetList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/open/validate/{vesid}": {
+      "post": {
+        "operationId": "validateDocument",
+        "summary": "Validate an XML document against one rule set",
+        "description": "Checks the XML document in the request body against the rule set named in the path: well-formedness, the XML schema, and the rule set's Schematron rules. The verdict is in the body, not in the status: a valid and an invalid invoice were both answered with status 200. Called on 13 October 2026 through the provider's web tool with the rule set for Australia and New Zealand, Peppol PINT A-NZ Invoice (UBL) 1.1.3 (org.peppol.pint.aunz:invoice:1.1.3).",
+        "parameters": [
+          {
+            "name": "vesid",
+            "in": "path",
+            "required": true,
+            "description": "The identifier of the rule set, as listed by /api/v1/open/vesids. Its form is group:name:version; a version of \"latest\" is listed for each rule set.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "org.peppol.pint.aunz:invoice:1.1.3"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "The XML document itself, as the whole body. The web tool sends the uploaded file's content with Content-Type application/xml.",
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string",
+                "description": "An XML business document, for example a UBL 2.1 invoice."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The verdict and the findings of each check. Returned for a valid and for an invalid document alike.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RuleSet": {
+        "type": "object",
+        "description": "One rule set.",
+        "required": [
+          "deprecated",
+          "name",
+          "vesid"
+        ],
+        "properties": {
+          "deprecated": {
+            "type": "boolean",
+            "description": "Whether the provider marks the rule set as deprecated."
+          },
+          "name": {
+            "type": "string",
+            "description": "The rule set's name with its version.",
+            "example": "Peppol PINT A-NZ Invoice (UBL) 1.1.3"
+          },
+          "vesid": {
+            "type": "string",
+            "description": "The rule set's identifier, used in the path of the validation call.",
+            "example": "org.peppol.pint.aunz:invoice:1.1.3"
+          }
+        }
+      },
+      "RuleSetList": {
+        "type": "object",
+        "required": [
+          "count",
+          "list"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "The number of rule sets listed.",
+            "example": 1066
+          },
+          "list": {
+            "type": "array",
+            "description": "The rule sets.",
+            "items": {
+              "$ref": "#/components/schemas/RuleSet"
+            }
+          }
+        }
+      },
+      "ValidationResult": {
+        "type": "object",
+        "required": [
+          "durationMS",
+          "interrupted",
+          "mostSevereErrorLevel",
+          "results",
+          "success",
+          "ves"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "The verdict: true when the document passed every check of the rule set."
+          },
+          "mostSevereErrorLevel": {
+            "type": "string",
+            "description": "The highest severity among the findings. SUCCESS for the valid invoice and ERROR for the broken one are the two values the group has seen.",
+            "example": "SUCCESS"
+          },
+          "interrupted": {
+            "type": "boolean",
+            "description": "false in both answers the group has seen."
+          },
+          "durationMS": {
+            "type": "integer",
+            "description": "How long the validation took, in milliseconds.",
+            "example": 70
+          },
+          "ves": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RuleSet"
+              }
+            ],
+            "description": "The rule set the document was validated against."
+          },
+          "results": {
+            "type": "array",
+            "description": "One entry per check, in the order they ran. For Peppol PINT A-NZ Invoice 1.1.3 there were four: xml, xsd, and two schematron-xslt2 checks (the PINT shared rules and the A-NZ jurisdiction-aligned rules).",
+            "items": {
+              "type": "object",
+              "required": [
+                "artifactPath",
+                "artifactType",
+                "items",
+                "success"
+              ],
+              "properties": {
+                "artifactType": {
+                  "type": "string",
+                  "description": "The kind of check. The group has seen xml (well-formedness), xsd and schematron-xslt2.",
+                  "example": "schematron-xslt2"
+                },
+                "artifactPath": {
+                  "type": "string",
+                  "description": "The schema or rule file the check used; empty for the well-formedness check.",
+                  "example": "external/schematron/pint-aunz/1.1.3/xslt/billing/PINT-jurisdiction-aligned-rules.xslt"
+                },
+                "success": {
+                  "type": "string",
+                  "description": "Whether this check passed, as text. The group has seen TRUE and FALSE.",
+                  "example": "TRUE"
+                },
+                "items": {
+                  "type": "array",
+                  "description": "The findings of this check; empty when it passed.",
+                  "items": {
+                    "type": "object",
+                    "description": "One finding. No finding appeared in the response for the valid invoice; four appeared for the broken one, all with errorLevel ERROR.",
+                    "required": [
+                      "errorFieldName",
+                      "errorID",
+                      "errorLevel",
+                      "errorText",
+                      "violatedRule"
+                    ],
+                    "properties": {
+                      "errorFieldName": {
+                        "type": "string",
+                        "description": "Where in the document the rule failed, as an XPath-like location.",
+                        "example": "/:Invoice[1]/cac:TaxTotal[1]"
+                      },
+                      "errorID": {
+                        "type": "string",
+                        "description": "The identifier of the rule that failed.",
+                        "example": "aligned-ibrp-003"
+                      },
+                      "errorLevel": {
+                        "type": "string",
+                        "description": "The severity of the finding. ERROR is the only value the group has seen.",
+                        "example": "ERROR"
+                      },
+                      "errorLocationObj": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "null in every finding the group has seen."
+                      },
+                      "errorText": {
+                        "type": "string",
+                        "description": "The rule's message, starting with its identifier in square brackets.",
+                        "example": "[aligned-ibrp-003]-A buyer reference (ibt-010) or purchase order reference (ibt-013) MUST be provided."
+                      },
+                      "exception": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "null in every finding the group has seen."
+                      },
+                      "violatedRule": {
+                        "type": "string",
+                        "description": "The test of the rule, as an XPath expression.",
+                        "example": "cbc:BuyerReference or cac:OrderReference/cbc:ID"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

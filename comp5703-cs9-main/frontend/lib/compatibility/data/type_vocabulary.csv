@@ -1,0 +1,20 @@
+json_type,format,normalized_type,note
+string,,string,
+string,date-time,date-time,
+string,datetime,date-time,
+string,date,date,
+string,email,email,
+string,byte,binary,
+string,binary,binary,
+string,uri,string,format=uri retained for check 3
+integer,,integer,
+integer,int32,integer,
+integer,int64,integer,
+number,,number,
+number,double,number,
+number,float,number,
+boolean,,boolean,
+object,,object,
+array,,array,
+unknown,,unknown,schema declares no type
+,,unknown,json_type is empty

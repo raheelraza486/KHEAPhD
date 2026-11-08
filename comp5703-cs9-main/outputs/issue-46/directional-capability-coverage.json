@@ -1,0 +1,1922 @@
+{
+  "reviewed_on": "2026-09-30",
+  "scope": "Active nonduplicate live catalogue APIs",
+  "counts": {
+    "active": 167,
+    "capability_claims": 58,
+    "apis_with_claims": 40,
+    "uncovered": 127,
+    "uncovered_legacy_NA_or_empty": 63,
+    "uncovered_needing_operation_evidence": 64
+  },
+  "note": "A legacy invoice_standard label does not prove an operation-specific input or output capability. Claim status is reported pending administrator review. The gap classification is a queue, not a verdict that every remaining API can or cannot support an invoice standard.",
+  "uncovered": [
+    {
+      "api_id": "5b495649-7246-4f84-aa35-3c8487f675d4",
+      "api_name": "AdemicoPeppolREST",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "Peppol BIS Billing 3.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "cc2d2f60-1af7-401f-8b44-c0931df96a1e",
+      "api_name": "Argentina ARCA WSFEv1 Get Last Authorized Electronic Voucher API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "ARCA WSFEv1 electronic voucher schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "652f3370-ef1e-4391-8556-9df3f3162bbe",
+      "api_name": "Argentina ARCA WSFEv1 Retrieve Authorized Electronic Voucher API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "ARCA WSFEv1 electronic voucher schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "6b319a41-f264-44fd-859b-5d0c546e28b0",
+      "api_name": "B2BRouting",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "Peppol BIS Billing 3.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "14942a33-20b8-410c-9e04-f62c86a5c1e6",
+      "api_name": "Chile SII DTE Upload API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "SII DTE XML"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "056bf066-037a-4d21-b8fc-b3dc76affd11",
+      "api_name": "Chile SII DTE Upload Status Query API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "SII DTE XML"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "98db1950-87ec-4dff-9db9-840122f30265",
+      "api_name": "Colombia DIAN Document XML Retrieval API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "DIAN Electronic Invoice Technical Annex 1.9"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "613c2e5e-8ab1-4a02-9b09-10a14fe5dc04",
+      "api_name": "Colombia DIAN Invoice Event Status Update API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "379336f6-cabc-4c65-b2cb-39645258feb9",
+      "api_name": "Colombia DIAN ZIP Submission Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "399d960e-a23a-49f3-9839-510452c24749",
+      "api_name": "Ecuador SRI Electronic Document Authorization API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "SRI Offline Electronic Voucher XML 2.32/2.34"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "53fbc9be-a6a7-4837-9714-b9ce7afbd6ae",
+      "api_name": "Egypt ETA Cancel Document API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "14211b31-ee9c-4252-a36e-c71078cbd442",
+      "api_name": "Egypt ETA List Document Package Requests API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "8c8be6fd-643d-407b-9578-6b04c831ddc1",
+      "api_name": "Egypt ETA Reject Document API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "fce22665-e5d0-459a-bcd5-942bfc5187bb",
+      "api_name": "Egypt ETA Request Document Package API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "cd44afeb-f539-4e90-931a-b5b8b201fdaa",
+      "api_name": "Egypt ETA Search Documents API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "20566b91-95b1-49e4-852f-d201e707e098",
+      "api_name": "France Chorus Pro Process Received Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL Invoice",
+        "UN/CEFACT CII",
+        "Factur-X"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "c1036ca7-18e2-4614-972d-34697668a0d5",
+      "api_name": "France Chorus Pro Retrieve Invoice History API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL Invoice",
+        "UN/CEFACT CII",
+        "Factur-X"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "ab752f62-4fb2-4c99-aede-60f49e86125f",
+      "api_name": "France Chorus Pro Retrieve Recipient Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL Invoice",
+        "UN/CEFACT CII",
+        "Factur-X"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "f1fb4bbb-ab1c-4a5b-9ac2-baf8c173651e",
+      "api_name": "France Chorus Pro Search Recipient Invoices API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "a00d579f-714a-41af-b5fe-acf55d6b969e",
+      "api_name": "France Chorus Pro Search Supplier Invoices API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "b6bae2f8-65f3-448e-9d0e-6cc99ba62d70",
+      "api_name": "France Chorus Pro Submit Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL Invoice",
+        "UN/CEFACT CII",
+        "Factur-X"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "58bfca4d-3c02-4cf7-8827-24de29d2788c",
+      "api_name": "France Chorus Pro Submit PDF Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "PDF"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "844e0898-760a-4038-8d1f-c1a7796fabe5",
+      "api_name": "Greece AADE myDATA Cancel Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "9a1d53cc-ea97-46e9-a57c-915120335519",
+      "api_name": "Hungary NAV Online Invoice Chain Digest Query API v3",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "Online Invoice XML schema 3.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "d3147f01-c96c-4647-8279-e0d6b3023168",
+      "api_name": "Hungary NAV Online Invoice Digest Query API v3",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "Online Invoice XML schema 3.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "b24c6f6a-b2d6-456d-b968-d077b34987c2",
+      "api_name": "Hungary NAV Online Invoice Technical Annulment Submission API v3",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "0392a213-fe47-4bd5-9550-74a64c80cd75",
+      "api_name": "Hungary NAV Online Invoice Transaction List Query API v3",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "f34d378a-ce77-4d60-b7a5-eada42658d26",
+      "api_name": "Hungary NAV Online Invoice Transaction Status Query API v3",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "a019bb6e-5fcb-499d-947b-b99051e50252",
+      "api_name": "India IRIS IRP Generate E-Way Bill by IRN API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST E-Way Bill API schema v1.03"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "f8d2a4c5-68cd-4f9e-8a35-ee93e4508e0e",
+      "api_name": "India IRIS IRP Generate IRN and E-Way Bill API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST E-Way Bill API schema v1.03"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "7c4ea26a-899b-47d7-b6a4-69b5738462e3",
+      "api_name": "India IRIS IRP Get E-Way Bill by IRN API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST E-Way Bill API schema v1.03"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "279ff0d4-18b2-4338-be54-2513a50c774c",
+      "api_name": "India IRIS IRP Get GSTIN Details API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "36e17bd1-b6f5-43f6-af1e-602647a49a70",
+      "api_name": "India IRIS IRP Get IRN by Document Details API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST e-Invoice schema v1.1"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "cd1e3a3c-8522-4ae2-a043-2409eaccc9d4",
+      "api_name": "India IRIS IRP Get IRN Details API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST e-Invoice schema v1.1"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "7e39793a-6983-4d2a-8016-0adabb3b997e",
+      "api_name": "India IRIS IRP Invoice Export Status and Download API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST e-Invoice schema v1.1"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "0424f86c-c3c2-416f-8ed6-44b411dcdc98",
+      "api_name": "India IRIS IRP Recipient Invoice JSON Export Request API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST e-Invoice schema v1.1"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "e416d408-4898-4363-a67e-77ab3b6d50c3",
+      "api_name": "India IRIS IRP Supplier Invoice JSON Export Request API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "GST e-Invoice schema v1.1"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "75afa534-a7f9-4867-8878-4bc931dcbc7c",
+      "api_name": "India IRIS IRP Synchronize GSTIN Details from Common Portal API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "0ab0e2b0-6dc0-4bed-a608-ac9945aca0a7",
+      "api_name": "INFast API getDocument",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "INFast API v2 document schema (JSON)"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "729d7616-80bc-47b7-b452-02111a96ada1",
+      "api_name": "Israel ITA Retrieve Allocated Invoice Details API v1",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "Israel Invoices allocation API v1 (JSON)"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "232ff448-8b0a-4e38-86a2-c1cb9eb8cd08",
+      "api_name": "Kenya KRA eTIMS OSCU Record Purchase Transaction API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "KRA eTIMS OSCU schema v2.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "298c464a-9110-4741-8632-3943520538b1",
+      "api_name": "Kenya KRA eTIMS OSCU Retrieve Supplier Sales for Purchase Import API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "KRA eTIMS OSCU schema v2.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "f976ca03-db08-4012-9d8e-caed19a26c00",
+      "api_name": "Link4 Recurring Payment API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "c582f8e0-10d4-497f-9944-c6abd4991634",
+      "api_name": "Link4 Transaction Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "ee16a09b-db29-417d-9d8d-626ffc5fbbce",
+      "api_name": "Malaysia MyInvois Get Document Details API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "MyInvois e-Invoice schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "89a9e3a6-732a-4812-8892-55596cade218",
+      "api_name": "Malaysia MyInvois Get Recent Documents API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "MyInvois e-Invoice schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "9cdc4f8b-e213-40ec-8cb1-60b2619644b4",
+      "api_name": "Malaysia MyInvois Get Submission API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "d4488a24-f830-45d2-a199-89a621c365be",
+      "api_name": "Malaysia MyInvois Search Documents API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "294a4f11-3b2a-43c5-9046-9c746703ed24",
+      "api_name": "Mexico SAT CFDI Mass Download Request API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "CFDI 4.0 XML"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "16c2c4b1-bb50-43b5-99bf-52d9b9ca8809",
+      "api_name": "Mexico SAT CFDI Mass Download Verification API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "CFDI 4.0 XML"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "f5fd0ebc-69fd-417c-9eb0-aedab32e2cc2",
+      "api_name": "Peru SUNAT Retrieve CDR by Document Details API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "SUNAT CPE"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "4b5af7e9-8052-4e36-b542-9954020ce7ec",
+      "api_name": "Peru SUNAT Retrieve Submission Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "2126b60b-0c51-4623-8fe7-30be847524ab",
+      "api_name": "Peru SUNAT Submit Daily Summary API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "1571e563-08cb-4196-b69c-5ee35802e41b",
+      "api_name": "Poland KSeF 2.0 Close Online Session API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "2be2f049-cbda-4303-9786-729f4f6f0fbc",
+      "api_name": "Poland KSeF 2.0 Get Invoice Export Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "cec9ab52-8d2b-43a8-a34d-3beed28858bc",
+      "api_name": "Poland KSeF 2.0 Get Invoice UPO API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "KSeF FA(3) XML"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "2c824ce0-bf66-43fe-99f0-f1467cd11505",
+      "api_name": "Poland KSeF 2.0 Get Session Invoice Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "635c2426-4ea9-43a6-9cc4-2bd99bc8338a",
+      "api_name": "Poland KSeF 2.0 List Failed Session Invoices API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "f3f99680-97b1-49a6-a871-2c25fb3ffe67",
+      "api_name": "Poland KSeF 2.0 List Session Invoices API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "dad5bb3e-0dd2-40a2-80ff-ab4b36556d4f",
+      "api_name": "Poland KSeF 2.0 Open Online Session API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "20dbcc15-1534-49ca-971b-082cd8e53979",
+      "api_name": "Poland KSeF 2.0 Query Invoice Metadata API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "KSeF FA(3) XML"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "47955d5b-63ef-41cf-b97c-dc3bb32aa07e",
+      "api_name": "Poland KSeF 2.0 Start Invoice Export API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "KSeF FA(3) XML"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "a851b8c3-ac91-43f6-9235-58aeff16c615",
+      "api_name": "Portugal AT e-Fatura Change Invoice Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "33a2604b-847e-43e7-9197-e455ec8c8aee",
+      "api_name": "Portugal AT e-Fatura Delete Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "2ce5fe48-19a7-46c2-ba3c-afe90da6d07d",
+      "api_name": "Portugal AT e-Fatura Register Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "AT e-Fatura SOAP schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "fc5b82c2-a9a6-4914-adbe-31db0c10f85c",
+      "api_name": "Romania ANAF RO e-Factura Check Message Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "83af5ab0-92d7-4677-8a36-e58e735dea1b",
+      "api_name": "Romania ANAF RO e-Factura List Messages API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "83d909dc-937e-48c2-81bd-3ac11d60d24a",
+      "api_name": "Rwanda RRA EBM 2.1 VSDC Retrieve Purchase Transactions API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "29f2f121-2c22-4e1e-be10-2ff842502d23",
+      "api_name": "SAP Concur Invoice Payment Service API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no mandated invoice standard"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "b2d3dbcf-eaa3-46f0-a638-a3e8fd2d8ff1",
+      "api_name": "SAP Concur Payment Request API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no mandated invoice standard"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "e65ca148-b405-492d-ad30-5125f812740d",
+      "api_name": "SAP Concur Purchase Order API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no mandated invoice standard"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "13135506-b89a-40cd-b7dd-07608f3db7fa",
+      "api_name": "SAP Concur Purchase Request API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no mandated invoice standard"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "d6cd9b1b-ebe8-439c-888f-bba202d523d2",
+      "api_name": "Serbia SEF List Purchase Invoice Status Changes API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "8b3b1777-6013-47df-b901-d96a53b884bf",
+      "api_name": "Serbia SEF List Sales Invoice Status Changes API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "381d5a99-24cc-42b3-ba7e-4c2f9eee7732",
+      "api_name": "Serbia SEF Retrieve Purchase Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "Serbian SEF invoice schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "163ab8f6-6c2d-423a-b707-f36a52859a5c",
+      "api_name": "Serbia SEF Retrieve Purchase Invoice Signature API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "24e83d02-6bb5-4980-8f0d-d16d7d9e0860",
+      "api_name": "Serbia SEF Retrieve Sales Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "Serbian SEF invoice schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "a7e8e6a0-c1d6-4680-abc1-2efda1837134",
+      "api_name": "Serbia SEF Retrieve Sales Invoice Signature API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "e0ac2602-74ec-4b03-b697-5da57deb8e74",
+      "api_name": "Singapore IRAS InvoiceNow C5 Submission Status Check API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "6a619727-509f-489b-88d5-682aca318a1d",
+      "api_name": "Spain FACe Check Invoice Status API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "5e2c2515-32bc-421b-af77-747b33c4aa50",
+      "api_name": "Spain FACe Check Multiple Invoice Statuses API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "58eafabc-7bf9-4868-b048-be19caf21bc2",
+      "api_name": "Spain FACe List Public Invoice Statuses API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "7659b57c-c9b7-45ad-b181-b8707cd5ba5d",
+      "api_name": "Taiwan MOF Carrier Invoice Detail Query API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "Taiwan e-Invoice API schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "d2338a92-64bb-46fd-bba2-753b31c6c467",
+      "api_name": "Taiwan MOF Carrier Invoice Donation API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "3312282e-a077-4697-a68a-c6e2e717fa79",
+      "api_name": "Taiwan MOF Carrier Invoice Header Query API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "Taiwan e-Invoice API schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "9115caf0-702e-4ed2-a025-9f400043f0d4",
+      "api_name": "Taiwan MOF Donation Code Query API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "1bb954e1-19b8-4638-995d-7a28c0248526",
+      "api_name": "Taiwan MOF Invoice Detail Query API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "Taiwan e-Invoice API schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "a6ccaeff-fb3e-4568-acec-834702906cbf",
+      "api_name": "Taiwan MOF Mobile Barcode Linked Carrier Query API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "91f5de19-5fad-433a-9003-be95b8df886a",
+      "api_name": "Taiwan MOF Winning Invoice Number List Query API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "3df3f7c4-dcae-40a3-9dd4-f29f56148136",
+      "api_name": "Zambia ZRA Smart Invoice VSDC Retrieve Invoice API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "ZRA Smart Invoice VSDC API schema v1.0.8"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "96f82e65-5c76-4c96-9f38-f0fb284e4a7f",
+      "api_name": "Zambia ZRA Smart Invoice VSDC Retrieve Purchases API",
+      "category": "Communication",
+      "legacy_invoice_standard": [
+        "ZRA Smart Invoice VSDC API schema v1.0.8"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "223f3ce6-ca05-4779-92e5-3ba27225be41",
+      "api_name": "INFast API deleteDocument",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "55e96a00-33a7-4ddb-b8db-503991042030",
+      "api_name": "INFast API exportPdf",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "PDF"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "10321c97-991c-4e75-8174-e668b2f3f8a5",
+      "api_name": "INFast API findDocuments",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "INFast API v2 document schema (JSON)"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "b01aafe9-e6ff-4b9b-ae94-d14d598985a2",
+      "api_name": "INFast API validateDocument",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "INFast API v2 document schema (JSON)"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "492e550d-18b1-4a34-b20a-9ac8819547c8",
+      "api_name": "Malaysia MyInvois Cancel Document API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "819fc77f-37ca-4198-9f18-e398bb05ed88",
+      "api_name": "Malaysia MyInvois Reject Document API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "15bacef8-79f6-4026-9b72-3b67c95f8c29",
+      "api_name": "Rwanda RRA EBM 2.1 VSDC Save Purchases API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "RRA EBM 2.1 VSDC schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "83539de2-bb26-4bf7-9c28-d665078cbab0",
+      "api_name": "Rwanda RRA EBM 2.1 VSDC Save Sales API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "RRA EBM 2.1 VSDC schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "3ec24bcf-df76-421a-9044-d4d658e60ba2",
+      "api_name": "Serbia SEF Accept or Reject Purchase Invoice API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "3cdcd8df-145a-4b7b-9a8a-ed3b6ddce362",
+      "api_name": "Serbia SEF Cancel Sales Invoice API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "f7ad1b27-3b50-40a1-a389-9959ebf394bd",
+      "api_name": "Serbia SEF Delete Draft Sales Invoices API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "9f83e20e-c3fc-4271-a0e6-feac10c2b8ed",
+      "api_name": "Serbia SEF Download Purchase Invoice PDF API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "PDF"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "3c5cc7e7-293b-424d-88d8-b26005c6a8e1",
+      "api_name": "Serbia SEF Download Sales Invoice PDF API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "PDF"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "cd751f5f-a83b-4cf7-a6ca-fecf71b9afff",
+      "api_name": "Serbia SEF Reverse Sales Invoice API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "4e1bdd0d-d338-43da-8a5a-5c4ecc1ddf21",
+      "api_name": "Serbia SEF Subscribe to Invoice Status Notifications API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "ae2c302c-2839-4063-8105-488dbff3df18",
+      "api_name": "Spain FACe Cancel Invoice API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "b9504c6b-b7a6-4bfb-ae6b-f93c0423eb31",
+      "api_name": "Zambia ZRA Smart Invoice VSDC Save Purchase API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "ZRA Smart Invoice VSDC API schema v1.0.8"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "a9e39b80-e2f1-400a-87a7-f148ec6e7f37",
+      "api_name": "Zambia ZRA Smart Invoice VSDC Save Sales API",
+      "category": "Other",
+      "legacy_invoice_standard": [
+        "ZRA Smart Invoice VSDC API schema v1.0.8"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "cdbcc6ac-ad26-47a5-8497-c308e1296826",
+      "api_name": "e-invoice conversion API convertInvoice",
+      "category": "Transformation",
+      "legacy_invoice_standard": [],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "50b48a0c-0c12-4a76-863f-5f10fa08051f",
+      "api_name": "Egypt ETA Get Document Printout API",
+      "category": "Transformation",
+      "legacy_invoice_standard": [
+        "ETA eInvoicing document schema v1.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "b247ae41-c611-468c-8182-1d3ce7e4c4d0",
+      "api_name": "France Chorus Pro Download Invoice Group API",
+      "category": "Transformation",
+      "legacy_invoice_standard": [
+        "UBL Invoice",
+        "UN/CEFACT CII",
+        "Factur-X"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "293951f2-e119-44cb-a6a4-a9fc4b11a937",
+      "api_name": "INFast API convertToInvoice",
+      "category": "Transformation",
+      "legacy_invoice_standard": [
+        "INFast API v2 document schema (JSON)"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "a1caabdf-abed-43c1-8591-0c0fbdaeeec1",
+      "api_name": "INFast API createDocument",
+      "category": "Transformation",
+      "legacy_invoice_standard": [
+        "INFast API v2 document schema (JSON)"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "373e0728-c04a-40ff-8b3e-558876d25833",
+      "api_name": "Israel ITA Request Invoice Allocation Number API v2",
+      "category": "Transformation",
+      "legacy_invoice_standard": [
+        "Israel Invoices allocation API v2 (JSON)"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "c88fdae8-3ca3-4f0a-b560-c377d647c6bb",
+      "api_name": "Kenya KRA eTIMS OSCU Record Sales Transaction API",
+      "category": "Transformation",
+      "legacy_invoice_standard": [
+        "KRA eTIMS OSCU schema v2.0"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "bd0891e7-1aa0-4949-8a7b-6d5141f6b7d2",
+      "api_name": "SAP Concur Purchase Order Receipts API",
+      "category": "Transformation",
+      "legacy_invoice_standard": [
+        "N/A — no mandated invoice standard"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "89e1add5-b2b5-4bb2-84d9-88fd4cd21ae3",
+      "api_name": "Argentina ARCA WSFEv1 Request Electronic Invoice Authorization API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "ARCA WSFEv1 electronic voucher schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "e180f63b-f8e1-4680-83db-6f2fe0c681f8",
+      "api_name": "Chile SII DTE Document Status Query API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "3c9c49ae-379b-4079-b154-d84b205bfbf5",
+      "api_name": "Ecuador SRI Electronic Document Validation API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "SRI Offline Electronic Voucher XML 2.32/2.34"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "e0f9f9a6-68f7-406c-ac7e-cef54fee8a63",
+      "api_name": "Hungary NAV Online Invoice Validity Check API v3",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "5e02ce19-f904-4cf6-9b48-8c3e2215e93b",
+      "api_name": "InvoiceHub API validateInvoice",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "EN 16931"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "97ce335d-ae3b-4f04-8440-5cd79302933e",
+      "api_name": "Malaysia MyInvois Validate Taxpayer TIN API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "beb87f41-33b3-4823-afd9-d8e2e44c87ea",
+      "api_name": "Mexico SAT CFDI Status Query API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "N/A — no invoice payload"
+      ],
+      "gap": "legacy_NA_or_empty"
+    },
+    {
+      "api_id": "6ee75c97-2b06-462d-86d3-e26a5af1ba99",
+      "api_name": "Peru SUNAT Validate CPE by Criteria API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "SUNAT CPE"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "47dd1ba1-50f6-491d-8630-74c390728802",
+      "api_name": "Peru SUNAT Validate CPE File API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "UBL 2.1",
+        "SUNAT CPE"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    },
+    {
+      "api_id": "51159b5c-b30b-45bf-9e36-c630d4a95120",
+      "api_name": "Taiwan MOF Invoice Header Query API",
+      "category": "Validation",
+      "legacy_invoice_standard": [
+        "Taiwan e-Invoice API schema"
+      ],
+      "gap": "direction_and_version_require_operation_evidence"
+    }
+  ],
+  "covered": [
+    {
+      "api_id": "5896b0da-94e2-4ee9-88d6-876441b9cac3",
+      "api_name": "Colombia DIAN Asynchronous Invoice Submission API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "SendBillAsync contentFile contains ZIP with UBL invoice XML",
+          "status": "reported",
+          "evidence_url": "https://www.dian.gov.co/impuestos/factura-electronica/Documents/Anexo-Tecnico-Factura-Electronica-de-Venta-vr-1-9.pdf"
+        },
+        {
+          "direction": "input",
+          "standard": "DIAN Electronic Invoice Technical Annex",
+          "version": "1.9",
+          "condition": "SendBillAsync contentFile contains ZIP with electronic invoice XML",
+          "status": "reported",
+          "evidence_url": "https://www.dian.gov.co/impuestos/factura-electronica/Documents/Anexo-Tecnico-Factura-Electronica-de-Venta-vr-1-9.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "6660de23-a736-4b4a-9209-fa2e7a83df66",
+      "api_name": "Egypt ETA Get Document Package API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "ETA eInvoicing document schema",
+          "version": "1.0",
+          "condition": "full JSON or XML package ZIP includes invoice documents with typeVersionName=1.0",
+          "status": "reported",
+          "evidence_url": "https://sdk.invoicing.eta.gov.eg/einvoicingapi/07-get-document-package/"
+        }
+      ]
+    },
+    {
+      "api_id": "2fd04955-8bab-4f02-88bd-caadc3b734d2",
+      "api_name": "Egypt ETA Get Raw Document API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "ETA eInvoicing document schema",
+          "version": "1.0",
+          "condition": "retrieved documentType=i and typeVersionName=1.0; original XML or JSON",
+          "status": "reported",
+          "evidence_url": "https://sdk.invoicing.eta.gov.eg/einvoicingapi/08-get-document/"
+        }
+      ]
+    },
+    {
+      "api_id": "4bfb0bd5-2cfa-4365-ae74-df45502e3e6e",
+      "api_name": "Egypt ETA Submit Documents API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "ETA eInvoicing document schema",
+          "version": "1.0",
+          "condition": "documentType=i; documentTypeVersion=1.0; XML or JSON document in submission",
+          "status": "reported",
+          "evidence_url": "https://sdk.invoicing.eta.gov.eg/einvoicingapi/01-submit-documents/"
+        }
+      ]
+    },
+    {
+      "api_id": "9558e379-8e72-40e1-a196-f175ab494fc3",
+      "api_name": "France Chorus Pro Submit Invoice Flow API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "invoice XML flow syntax IN_DP_E1_UBL_INVOICE or IN_DP_E2_UBL_INVOICE_MIN",
+          "status": "reported",
+          "evidence_url": "https://communaute.chorus-pro.gouv.fr/wp-content/uploads/2018/10/Specifications_Externes_Annexe_EDI_V4.02.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "f6f9bba2-8cba-449f-92d4-150d77b154f8",
+      "api_name": "Greece AADE myDATA Retrieve Received Documents API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "AADE myDATA XML schema",
+          "version": "2.0.1",
+          "condition": "RequestDocs response includes received invoices in InvoicesDoc XML",
+          "status": "reported",
+          "evidence_url": "https://www.aade.gr/en/mydata-electronic-books/technical-specifications-versions-mydata/version-v201"
+        }
+      ]
+    },
+    {
+      "api_id": "5f2f35db-c86e-48fc-9333-435b78bb84fe",
+      "api_name": "Greece AADE myDATA Retrieve Transmitted Documents API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "AADE myDATA XML schema",
+          "version": "2.0.1",
+          "condition": "RequestTransmittedDocs response includes invoices in InvoicesDoc XML",
+          "status": "reported",
+          "evidence_url": "https://www.aade.gr/en/mydata-electronic-books/technical-specifications-versions-mydata/version-v201"
+        }
+      ]
+    },
+    {
+      "api_id": "22da4084-654b-4680-8373-0468538db868",
+      "api_name": "Greece AADE myDATA Send Invoices API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "AADE myDATA XML schema",
+          "version": "2.0.1",
+          "condition": "request XML contains InvoicesDoc with one or more invoices",
+          "status": "reported",
+          "evidence_url": "https://www.aade.gr/en/mydata-electronic-books/technical-specifications-versions-mydata/version-v201"
+        }
+      ]
+    },
+    {
+      "api_id": "f374167b-5d92-457a-a6ec-c45047ee9e80",
+      "api_name": "Hungary NAV Online Invoice Data Query API v3",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "Online Invoice XML schema",
+          "version": "3.0",
+          "condition": "QueryInvoiceData response invoiceData contains base64-encoded InvoiceData 3.0 XML",
+          "status": "reported",
+          "evidence_url": "https://github.com/nav-gov-hu/Online-Invoice/blob/master/src/schemas/nav/gov/hu/OSA/CHANGELOG_3.0.md"
+        }
+      ]
+    },
+    {
+      "api_id": "a66b9ab5-f60e-400a-9bd2-0e42e336e655",
+      "api_name": "Hungary NAV Online Invoice Data Submission API v3",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "Online Invoice XML schema",
+          "version": "3.0",
+          "condition": "ManageInvoiceRequest invoiceData field contains base64-encoded InvoiceData 3.0 XML",
+          "status": "reported",
+          "evidence_url": "https://github.com/nav-gov-hu/Online-Invoice/blob/master/src/schemas/nav/gov/hu/OSA/CHANGELOG_3.0.md"
+        }
+      ]
+    },
+    {
+      "api_id": "130ee246-0a25-4978-be36-0a9b9cfec396",
+      "api_name": "India IRIS IRP Generate IRN API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "GST e-Invoice schema",
+          "version": "1.1",
+          "condition": "Generate IRN request carries invoice JSON conforming to GST schema 1.1",
+          "status": "reported",
+          "evidence_url": "https://einvoice6.gst.gov.in/content/wp-content/uploads/2022/07/notification-60-central-tax-english-2020.pdf?x16745="
+        }
+      ]
+    },
+    {
+      "api_id": "df490deb-f9dc-466c-99a8-c4d98ceff9ee",
+      "api_name": "Jordan JoFotara Submit Invoice API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "JSON invoice field contains encoded UBL invoice XML",
+          "status": "reported",
+          "evidence_url": "https://istd.gov.jo/ebv4.0/root_storage/en/eb_list_page/procedure_manual_for_linking_to_the_jordanian_national_electronic_invoicing_system.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "b73c3e45-5a83-40f9-8e15-c7c1b24e2feb",
+      "api_name": "Malaysia MyInvois Get Raw Document API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "document field contains original submitted UBL XML or UBL JSON invoice",
+          "status": "reported",
+          "evidence_url": "https://sdk.myinvois.hasil.gov.my/einvoicingapi/07-get-document/"
+        }
+      ]
+    },
+    {
+      "api_id": "e549b243-1564-4c2a-8493-9c5ed62d3e05",
+      "api_name": "Malaysia MyInvois Submit Documents API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "documents[].document contains base64-encoded UBL XML or UBL JSON invoice",
+          "status": "reported",
+          "evidence_url": "https://sdk.myinvois.hasil.gov.my/einvoicingapi/02-submit-documents/"
+        }
+      ]
+    },
+    {
+      "api_id": "091885c5-dca7-45e3-90c1-90c1a697f4bb",
+      "api_name": "Mexico SAT CFDI Mass Download Package API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "CFDI",
+          "version": "4.0",
+          "condition": "downloaded package contains full CFDI XML version 4.0; metadata-only packages and older CFDI versions excluded",
+          "status": "reported",
+          "evidence_url": "https://wwwmat.sat.gob.mx/consultas/42968/consulta-y-recuperacion-de-comprobantes-%28nuevo%29"
+        }
+      ]
+    },
+    {
+      "api_id": "52b78a45-e86a-4ae7-b000-0995d6014955",
+      "api_name": "Peru SUNAT Submit Invoice API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "sendBill ZIP contains signed invoice XML; production billService",
+          "status": "reported",
+          "evidence_url": "https://orientacion.sunat.gob.pe/11-guias-y-manuales"
+        }
+      ]
+    },
+    {
+      "api_id": "de4d77e7-7aa8-482b-8623-7c6bbf016d1c",
+      "api_name": "Poland KSeF 2.0 Get Invoice API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "KSeF FA",
+          "version": "3",
+          "condition": "retrieved invoice formCode.systemCode=FA (3); response application/xml",
+          "status": "reported",
+          "evidence_url": "https://api.ksef.mf.gov.pl/docs/v2/openapi.json"
+        }
+      ]
+    },
+    {
+      "api_id": "bcddca1a-0d50-4006-857a-4877a1e13b1d",
+      "api_name": "Poland KSeF 2.0 Send Invoice in Online Session API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "KSeF FA",
+          "version": "3",
+          "condition": "online session formCode.systemCode=FA (3); encrypted XML invoice in request",
+          "status": "reported",
+          "evidence_url": "https://api.ksef.mf.gov.pl/docs/v2/openapi.json"
+        }
+      ]
+    },
+    {
+      "api_id": "e19d5fe0-3d62-4385-b4fe-5efdc9caeb54",
+      "api_name": "Romania ANAF RO e-Factura Download Message API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "downloaded message ZIP contains invoice XML; excludes error-only messages",
+          "status": "reported",
+          "evidence_url": "https://static.anaf.ro/static/10/Anaf/Informatii_R/Informatii_modificare_CIUS_RO.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "fcf71745-5bce-445e-b5c6-4bf7a63d35f0",
+      "api_name": "Romania ANAF RO e-Factura Upload Invoice API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "standard=UBL; request uploads RO e-Factura invoice XML",
+          "status": "reported",
+          "evidence_url": "https://static.anaf.ro/static/10/Anaf/Informatii_R/Informatii_modificare_CIUS_RO.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "063404d2-6032-4ae4-84a7-00ffac77fd29",
+      "api_name": "Saudi Arabia ZATCA Fatoora Reporting API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "ZATCA XML Implementation Standard",
+          "version": "1.2",
+          "condition": "invoice field contains base64-encoded signed XML for Reporting",
+          "status": "reported",
+          "evidence_url": "https://www.zatca.gov.sa/ar/E-Invoicing/SystemsDevelopers/Documents/20220624_ZATCA_Electronic_Invoice_XML_Implementation_Standard_vF.pdf"
+        },
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "invoice field contains base64-encoded signed UBL XML for Reporting",
+          "status": "reported",
+          "evidence_url": "https://zatca.gov.sa/en/E-Invoicing/Introduction/Guidelines/Documents/DEVELOPER-PORTAL-MANUAL.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "858062f1-97fb-4e17-96bc-24bec684b8a8",
+      "api_name": "Serbia SEF Download Purchase Invoice UBL XML API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "purchase invoice XML download by invoiceId",
+          "status": "reported",
+          "evidence_url": "https://www.efaktura.gov.rs/"
+        }
+      ]
+    },
+    {
+      "api_id": "cc343152-2355-433d-886c-29aa2521a27b",
+      "api_name": "Serbia SEF Download Sales Invoice UBL XML API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "sales invoice XML download by invoiceId",
+          "status": "reported",
+          "evidence_url": "https://www.efaktura.gov.rs/"
+        }
+      ]
+    },
+    {
+      "api_id": "12e9138b-7873-4c02-a2d5-977116ce262b",
+      "api_name": "Serbia SEF Upload Sales Invoice UBL API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "multipart upload of sales invoice UBL XML",
+          "status": "reported",
+          "evidence_url": "https://www.efaktura.gov.rs/"
+        }
+      ]
+    },
+    {
+      "api_id": "6d0459b6-b079-414d-b7b4-9e57a9477f48",
+      "api_name": "Singapore IRAS InvoiceNow C5 Bulk Invoice Data Submission API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "bulk SBDH body contains up to ten PINT-SG UBL invoice XML documents",
+          "status": "reported",
+          "evidence_url": "https://file.go.gov.sg/apex-invoice-data-submission.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "cf54b893-f8b8-4efb-a0d3-fa21a2711a2c",
+      "api_name": "Singapore IRAS InvoiceNow C5 Single Invoice Data Submission API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "single submission body contains PINT-SG UBL invoice XML in SBDH",
+          "status": "reported",
+          "evidence_url": "https://file.go.gov.sg/apex-invoice-data-submission.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "fdedd1bd-f2da-4e47-8ac3-d7a6a6efe88d",
+      "api_name": "Spain FACe Provider Invoice Submission API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "Facturae",
+          "version": "3.2.2",
+          "condition": "signed Facturae XML invoice submission",
+          "status": "reported",
+          "evidence_url": "https://administracionelectronica.gob.es/ctt/resources/Soluciones/334/Descargas/FACe-FAQs-Organismos.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "2aeb88df-1109-4dc3-953d-a03097daf71a",
+      "api_name": "StorecoveSend",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "JSON Enveloped or JSON Parsed document contains Peppol BIS Billing 3.0 invoice; Peppol routing",
+          "status": "reported",
+          "evidence_url": "https://www.storecove.com/docs/"
+        },
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "JSON Enveloped or JSON Parsed document contains UBL 2.1 Peppol invoice",
+          "status": "reported",
+          "evidence_url": "https://www.storecove.com/docs/"
+        }
+      ]
+    },
+    {
+      "api_id": "b5d33625-2789-4cea-b601-6714082fdd98",
+      "api_name": "Türkiye GİB e-Fatura Send Document API",
+      "category": "Communication",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL-TR",
+          "version": "1.2",
+          "condition": "e-Fatura SOAP envelope carries UBL-TR 1.2 invoice XML",
+          "status": "reported",
+          "evidence_url": "https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/e-FaturaUygulamasiEntegrasyonKilavuzu-v1.9.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "d332a0da-ac76-400a-80c5-5d802cb205fe",
+      "api_name": "Attestwire API generateInvoice",
+      "category": "Transformation",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "profile=peppol-bis-3; XML response or JSON envelope containing XML",
+          "status": "reported",
+          "evidence_url": "https://api.attestwire.com/docs"
+        },
+        {
+          "direction": "output",
+          "standard": "XRechnung",
+          "version": "3.0",
+          "condition": "profile=xrechnung-ubl or xrechnung-cii; XML response or JSON envelope containing XML",
+          "status": "reported",
+          "evidence_url": "https://api.attestwire.com/docs"
+        }
+      ]
+    },
+    {
+      "api_id": "74ee6b3b-9c7c-4cf6-ac18-03b77a5c26ce",
+      "api_name": "beliq API convertInvoice",
+      "category": "Transformation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "XRechnung",
+          "version": "3.0.2",
+          "condition": "sourceFormat=xrechnung or auto-detected XRechnung XML",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/convert/"
+        },
+        {
+          "direction": "output",
+          "standard": "XRechnung",
+          "version": "3.0.2",
+          "condition": "targetFormat=xrechnung; compatible source XML",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/convert/"
+        },
+        {
+          "direction": "input",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "sourceFormat=peppol-bis or auto-detected Peppol BIS XML",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/convert/"
+        },
+        {
+          "direction": "output",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "targetFormat=peppol-bis; source must contain required Peppol endpoints",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/convert/"
+        },
+        {
+          "direction": "input",
+          "standard": "Factur-X",
+          "version": "1.09.2",
+          "condition": "Content-Type=application/pdf; sourceFormat=facturx or auto-detected hybrid PDF",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/convert/"
+        },
+        {
+          "direction": "output",
+          "standard": "Factur-X",
+          "version": "1.09.2",
+          "condition": "Content-Type=application/pdf source; targetFormat=facturx; PDF re-wrap",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/convert/"
+        }
+      ]
+    },
+    {
+      "api_id": "245d788e-2bd5-436c-8e87-5f223def527b",
+      "api_name": "beliq API generateInvoice",
+      "category": "Transformation",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "standard=peppol-bis; output=xml; profile=peppol (default)",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/generate/"
+        },
+        {
+          "direction": "output",
+          "standard": "XRechnung",
+          "version": "3.0.2",
+          "condition": "standard=xrechnung; output=xml; profile=xrechnung (default)",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/format-reference/xrechnung/"
+        },
+        {
+          "direction": "output",
+          "standard": "Factur-X",
+          "version": "1.09.2",
+          "condition": "standard=facturx; output=pdf; profile=en16931 (default) or another supported Factur-X profile",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/format-reference/facturx/"
+        },
+        {
+          "direction": "output",
+          "standard": "Facturae",
+          "version": "3.2.2",
+          "condition": "standard=facturae; output=xml; documentType=invoice",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/generate/"
+        },
+        {
+          "direction": "output",
+          "standard": "e-SLOG",
+          "version": "2.0",
+          "condition": "standard=eslog; output=xml; profile=eracun (default)",
+          "status": "reported",
+          "evidence_url": "https://docs.beliq.eu/api-reference/generate/"
+        }
+      ]
+    },
+    {
+      "api_id": "1ff4c801-674b-4256-b36e-5398b82b3326",
+      "api_name": "NormAPI Generate an invoice",
+      "category": "Transformation",
+      "claims": [
+        {
+          "direction": "output",
+          "standard": "XRechnung",
+          "version": "3.0.2",
+          "condition": "syntax omitted (UBL default) or syntax=cii; syntax=zugferd produces another format",
+          "status": "reported",
+          "evidence_url": "https://normapi.de/docs"
+        }
+      ]
+    },
+    {
+      "api_id": "ca41b0f3-c6f7-4656-9fcd-76f1e92f9a14",
+      "api_name": "Attestwire API validateInvoice",
+      "category": "Validation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "Content-Type=application/xml; Peppol BIS UBL document",
+          "status": "reported",
+          "evidence_url": "https://api.attestwire.com/docs"
+        },
+        {
+          "direction": "input",
+          "standard": "XRechnung",
+          "version": "3.0",
+          "condition": "Content-Type=application/xml; XRechnung UBL or CII document",
+          "status": "reported",
+          "evidence_url": "https://api.attestwire.com/docs"
+        }
+      ]
+    },
+    {
+      "api_id": "0eb0ef0f-54fb-4933-ae1e-76fa86b8ffa0",
+      "api_name": "Colombia DIAN Synchronous Invoice Submission API",
+      "category": "Validation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "SendBillSync contentFile contains a ZIP with UBL invoice XML",
+          "status": "reported",
+          "evidence_url": "https://www.dian.gov.co/impuestos/factura-electronica/Documents/Anexo-Tecnico-Factura-Electronica-de-Venta-vr-1-9.pdf"
+        },
+        {
+          "direction": "input",
+          "standard": "DIAN Electronic Invoice Technical Annex",
+          "version": "1.9",
+          "condition": "SendBillSync contentFile contains a ZIP with electronic invoice XML",
+          "status": "reported",
+          "evidence_url": "https://www.dian.gov.co/impuestos/factura-electronica/Documents/Anexo-Tecnico-Factura-Electronica-de-Venta-vr-1-9.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "8e956b42-7d98-47d8-bf4f-6d1b6f00ccec",
+      "api_name": "NormAPI Validate an invoice",
+      "category": "Validation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "XRechnung",
+          "version": "3.0.2",
+          "condition": "",
+          "status": "reported",
+          "evidence_url": "https://normapi.de/en/ruleset"
+        }
+      ]
+    },
+    {
+      "api_id": "772b5d5e-11db-495e-a70c-85f4a3028959",
+      "api_name": "Peppol Validator API validateInvoice",
+      "category": "Validation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "",
+          "status": "reported",
+          "evidence_url": "https://peppolvalidator.com/developers"
+        }
+      ]
+    },
+    {
+      "api_id": "af7f1908-1ed4-4b93-be3d-3a6b4cc32ded",
+      "api_name": "Saudi Arabia ZATCA Fatoora Clearance API",
+      "category": "Validation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "ZATCA XML Implementation Standard",
+          "version": "1.2",
+          "condition": "JSON invoice field contains base64-encoded signed XML for Clearance",
+          "status": "reported",
+          "evidence_url": "https://www.zatca.gov.sa/ar/E-Invoicing/SystemsDevelopers/Documents/20220624_ZATCA_Electronic_Invoice_XML_Implementation_Standard_vF.pdf"
+        },
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "JSON invoice field contains base64-encoded signed UBL XML for Clearance",
+          "status": "reported",
+          "evidence_url": "https://zatca.gov.sa/en/E-Invoicing/Introduction/Guidelines/Documents/DEVELOPER-PORTAL-MANUAL.pdf"
+        }
+      ]
+    },
+    {
+      "api_id": "f6694cc4-9ef4-4a23-a5c7-96f9d107bfdd",
+      "api_name": "Verteco Peppol Portal API Validácia dokumentu bez odoslania",
+      "category": "Validation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "raw XML or JSON payload with payloadFormat=XML",
+          "status": "reported",
+          "evidence_url": "https://peppol.verteco.digital/en/docs/developers"
+        },
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "raw XML or JSON payload with payloadFormat=XML; Peppol document",
+          "status": "reported",
+          "evidence_url": "https://peppol.verteco.digital/en/docs/developers"
+        }
+      ]
+    },
+    {
+      "api_id": "d481c47b-4114-48ff-b453-0279056db20d",
+      "api_name": "Verteco Peppol Portal API Validácia e-faktúry (EN 16931 + Peppol BIS Billing 3.0)",
+      "category": "Validation",
+      "claims": [
+        {
+          "direction": "input",
+          "standard": "Peppol BIS Billing",
+          "version": "3.0",
+          "condition": "Content-Type=application/xml; UBL invoice, credit note, or Peppol SBD",
+          "status": "reported",
+          "evidence_url": "https://peppol.verteco.digital/en/docs/developers"
+        },
+        {
+          "direction": "input",
+          "standard": "UBL",
+          "version": "2.1",
+          "condition": "Content-Type=application/xml; Peppol invoice or credit note",
+          "status": "reported",
+          "evidence_url": "https://peppol.verteco.digital/en/docs/developers"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,536 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Upbrains",
+    "version": "1.0.0",
+    "description": "Extracts the fields and line items of an invoice PDF as JSON. Upbrains has no fixed public API: a workspace builds a flow (an \"agent\") in workflow.upbrains.ai that starts with a Webhook trigger, runs a Document Skills extractor and ends with a Return Response step, and the flow's webhook is the API that is called. The output is Upbrains' own JSON, not an invoice standard, so a conversion to UBL XML must follow it.\n\nNo provider OpenAPI document exists. This one was written by the CS9-5 group from the configuration of the flow \"BP Builer - Invoice PDF Extract\" in the client's Upbrains workspace (Webhook trigger; Extract Information with the prebuilt Standard Invoice Extractor, file type PDF; Return Response, status 200), first from the test run saved in that flow (11 October 2026) and then from the group's own call (12 October 2026): a one-page invoice PDF sent to the /sync form of the webhook was answered with status 200 in about 15 seconds. The response schema lists what that call and the saved run returned; which header fields appear depends on what the invoice shows, so fields is open to additional properties.\n\nThe flow identifier in the path is private to each workspace. The observed flow's webhook has no token, so its address is itself the secret and is not published here.",
+    "contact": {
+      "name": "Upbrains",
+      "url": "https://upbrains.ai"
+    }
+  },
+  "externalDocs": {
+    "description": "Upbrains workflow platform",
+    "url": "https://workflow.upbrains.ai"
+  },
+  "servers": [
+    {
+      "url": "https://agents.upbrains.ai"
+    }
+  ],
+  "paths": {
+    "/v1/webhooks/{flowId}/sync": {
+      "post": {
+        "operationId": "extractInvoiceFromPdf",
+        "summary": "Extract invoice fields from a PDF",
+        "description": "Starts the flow with a PDF carried as base64 inside a JSON body, waits for the flow's Return Response step and returns the extraction result of the Standard Invoice Extractor. The /sync suffix is what makes the call wait for the result. The flow's page also shows the address without the suffix and a /test form that runs the flow's draft; the group has called only the /sync form.",
+        "parameters": [
+          {
+            "name": "flowId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifier of the workspace's flow. Private to the workspace."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtractRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The extraction result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ExtractRequest": {
+        "type": "object",
+        "required": [
+          "fileBase64"
+        ],
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "The file name of the document, for example invoice.pdf. Sent in the saved test run; the extraction step does not read it."
+          },
+          "fileBase64": {
+            "type": "string",
+            "format": "byte",
+            "description": "The PDF, base64-encoded. The extraction step reads the document from this field."
+          }
+        }
+      },
+      "StringField": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "string"
+          },
+          "content": {
+            "type": "string",
+            "description": "The value as it is written on the document."
+          },
+          "field_name": {
+            "type": "string",
+            "description": "The display name of the field."
+          },
+          "page_number": {
+            "type": "string",
+            "description": "The page the value was read from."
+          },
+          "details": {
+            "type": "object",
+            "nullable": true,
+            "description": "Null for this kind of value."
+          }
+        }
+      },
+      "CurrencyField": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "currency"
+          },
+          "content": {
+            "type": "string",
+            "description": "The value as it is written on the document."
+          },
+          "field_name": {
+            "type": "string",
+            "description": "The display name of the field."
+          },
+          "page_number": {
+            "type": "string",
+            "description": "The page the value was read from."
+          },
+          "details": {
+            "type": "object",
+            "nullable": true,
+            "description": "The amount split into its parts.",
+            "properties": {
+              "code": {
+                "type": "string",
+                "nullable": true,
+                "description": "ISO 4217 currency code, for example AUD."
+              },
+              "amount": {
+                "type": "number",
+                "description": "The numeric amount."
+              },
+              "symbol": {
+                "type": "string",
+                "nullable": true,
+                "description": "The currency symbol or code written beside the amount, if any."
+              }
+            }
+          }
+        }
+      },
+      "DateField": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "date"
+          },
+          "content": {
+            "type": "string",
+            "description": "The value as it is written on the document."
+          },
+          "field_name": {
+            "type": "string",
+            "description": "The display name of the field."
+          },
+          "page_number": {
+            "type": "string",
+            "description": "The page the value was read from."
+          },
+          "details": {
+            "type": "object",
+            "nullable": true,
+            "description": "The date split into its parts.",
+            "properties": {
+              "day": {
+                "type": "integer"
+              },
+              "month": {
+                "type": "integer"
+              },
+              "year": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AddressField": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "address"
+          },
+          "content": {
+            "type": "string",
+            "description": "The value as it is written on the document."
+          },
+          "field_name": {
+            "type": "string",
+            "description": "The display name of the field."
+          },
+          "page_number": {
+            "type": "string",
+            "description": "The page the value was read from."
+          },
+          "details": {
+            "type": "object",
+            "nullable": true,
+            "description": "The address split into its parts; a part that was not found is null.",
+            "properties": {
+              "street_address": {
+                "type": "string",
+                "nullable": true
+              },
+              "house_number": {
+                "type": "string",
+                "nullable": true
+              },
+              "road": {
+                "type": "string",
+                "nullable": true
+              },
+              "unit": {
+                "type": "string",
+                "nullable": true
+              },
+              "house": {
+                "type": "string",
+                "nullable": true
+              },
+              "level": {
+                "type": "string",
+                "nullable": true
+              },
+              "po_box": {
+                "type": "string",
+                "nullable": true
+              },
+              "suburb": {
+                "type": "string",
+                "nullable": true
+              },
+              "city": {
+                "type": "string",
+                "nullable": true
+              },
+              "city_district": {
+                "type": "string",
+                "nullable": true
+              },
+              "state": {
+                "type": "string",
+                "nullable": true
+              },
+              "state_district": {
+                "type": "string",
+                "nullable": true
+              },
+              "postal_code": {
+                "type": "string",
+                "nullable": true
+              },
+              "country_region": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        }
+      },
+      "NumberField": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "float"
+          },
+          "content": {
+            "type": "string",
+            "description": "The value as it is written on the document."
+          },
+          "field_name": {
+            "type": "string",
+            "description": "The display name of the field."
+          },
+          "page_number": {
+            "type": "string",
+            "description": "The page the value was read from."
+          },
+          "details": {
+            "type": "object",
+            "nullable": true,
+            "description": "Null for this kind of value."
+          }
+        }
+      },
+      "LineItem": {
+        "type": "object",
+        "properties": {
+          "_index": {
+            "type": "integer",
+            "description": "Position of the line on the invoice, from 1."
+          },
+          "Description": {
+            "$ref": "#/components/schemas/StringField"
+          },
+          "Quantity": {
+            "$ref": "#/components/schemas/NumberField"
+          },
+          "Unit": {
+            "$ref": "#/components/schemas/StringField"
+          },
+          "UnitPrice": {
+            "$ref": "#/components/schemas/CurrencyField"
+          },
+          "TaxRate": {
+            "$ref": "#/components/schemas/StringField"
+          },
+          "Amount": {
+            "$ref": "#/components/schemas/CurrencyField"
+          },
+          "page_number": {
+            "type": "string"
+          }
+        }
+      },
+      "ExtractResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "200 when the extraction completed."
+          },
+          "status_summary": {
+            "type": "string",
+            "description": "A sentence describing the outcome."
+          },
+          "result_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "Null in the group's call."
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "total_page_count": {
+                "type": "integer"
+              },
+              "processed_page_count": {
+                "type": "integer"
+              }
+            }
+          },
+          "extractor_info": {
+            "type": "object",
+            "description": "The extractor and model that produced the result.",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "model_id": {
+                "type": "string"
+              },
+              "model_name": {
+                "type": "string"
+              },
+              "display_name": {
+                "type": "string"
+              },
+              "service_name": {
+                "type": "string"
+              },
+              "extractor_name": {
+                "type": "string"
+              },
+              "only_file_processable": {
+                "type": "boolean"
+              }
+            }
+          },
+          "extractor_result": {
+            "type": "object",
+            "properties": {
+              "file_name": {
+                "type": "string",
+                "description": "The file name that was sent."
+              },
+              "attachment_id": {
+                "type": "string",
+                "nullable": true,
+                "description": "Null in the group's call."
+              },
+              "document_type": {
+                "type": "string",
+                "description": "The kind of document recognised, for example invoice."
+              },
+              "pages": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "page_number": {
+                      "type": "integer"
+                    },
+                    "incomplete_processed": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "documents": {
+                "type": "array",
+                "description": "One entry per document found in the file.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "document_type": {
+                      "type": "string",
+                      "description": "The kind of document recognised, for example invoice."
+                    },
+                    "fields": {
+                      "type": "object",
+                      "description": "The header fields of the invoice. The ones listed were returned by the group's call or by the saved test run; an invoice that shows other details may return further fields.",
+                      "additionalProperties": true,
+                      "properties": {
+                        "InvoiceId": {
+                          "$ref": "#/components/schemas/StringField"
+                        },
+                        "InvoiceDate": {
+                          "$ref": "#/components/schemas/DateField"
+                        },
+                        "DueDate": {
+                          "$ref": "#/components/schemas/DateField"
+                        },
+                        "PaymentTerm": {
+                          "$ref": "#/components/schemas/StringField"
+                        },
+                        "VendorName": {
+                          "$ref": "#/components/schemas/StringField"
+                        },
+                        "VendorTaxId": {
+                          "$ref": "#/components/schemas/StringField"
+                        },
+                        "VendorAddress": {
+                          "$ref": "#/components/schemas/AddressField"
+                        },
+                        "VendorAddressRecipient": {
+                          "$ref": "#/components/schemas/StringField"
+                        },
+                        "CustomerName": {
+                          "$ref": "#/components/schemas/StringField"
+                        },
+                        "BillingAddress": {
+                          "$ref": "#/components/schemas/AddressField"
+                        },
+                        "BillingAddressRecipient": {
+                          "$ref": "#/components/schemas/StringField"
+                        },
+                        "ShippingAddress": {
+                          "$ref": "#/components/schemas/AddressField"
+                        },
+                        "SubTotal": {
+                          "$ref": "#/components/schemas/CurrencyField"
+                        },
+                        "TotalTax": {
+                          "$ref": "#/components/schemas/CurrencyField"
+                        },
+                        "InvoiceTotal": {
+                          "$ref": "#/components/schemas/CurrencyField"
+                        },
+                        "AmountDue": {
+                          "$ref": "#/components/schemas/CurrencyField"
+                        }
+                      }
+                    },
+                    "items": {
+                      "type": "array",
+                      "description": "The invoice lines.",
+                      "items": {
+                        "$ref": "#/components/schemas/LineItem"
+                      }
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "The extracted fields and lines as plain text."
+                    },
+                    "csv_content": {
+                      "type": "string",
+                      "description": "The extracted fields and lines as CSV text."
+                    },
+                    "needs_review": {
+                      "type": "object",
+                      "description": "Whether the extractor asks for a person to check the result.",
+                      "properties": {
+                        "low_confidence": {
+                          "type": "boolean"
+                        },
+                        "has_validation_error": {
+                          "type": "boolean"
+                        },
+                        "has_validation_logic": {
+                          "type": "object"
+                        },
+                        "uncertain_fields": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "violations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "tables": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

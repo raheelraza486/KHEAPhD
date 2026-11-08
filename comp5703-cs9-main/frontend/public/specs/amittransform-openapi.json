@@ -1,0 +1,215 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AmitTransform",
+    "version": "1.0.0",
+    "description": "Converts a UBL 2.1 invoice written in JSON (the OASIS UBL JSON form, as in the repository's UBL-Invoice-2.1-Example files) into UBL 2.1 XML. The XML is returned as a string inside a JSON response, with a report of the invoice fields that were found and missing.\n\nNo provider OpenAPI document exists. This one was written by the CS9-5 group on 6 October 2026 from the source code at https://github.com/iamAmiK/invoice-conversion-api (src/routes, src/controllers, src/middleware/validateRequest.ts, src/middleware/errorHandler.ts) and checked by calling the deployed service with the repository's own example invoice. The service runs on Render's free tier and can take about 20 seconds to wake. The two /api/fix operations were checked by calling the deployed service on 13 October 2026.",
+    "contact": {
+      "name": "AmitTransform (Amitabh K.)",
+      "url": "https://github.com/iamAmiK/invoice-conversion-api"
+    }
+  },
+  "externalDocs": {
+    "description": "Source code and README",
+    "url": "https://github.com/iamAmiK/invoice-conversion-api"
+  },
+  "servers": [
+    { "url": "https://invoice-conversion-api.onrender.com" }
+  ],
+  "paths": {
+    "/api/convert": {
+      "post": {
+        "operationId": "convertJsonToUblXml",
+        "summary": "Convert a UBL JSON invoice to UBL 2.1 XML",
+        "description": "Only invoiceType \"JSON\" and outputFormat \"UBL XML\" are accepted (case-insensitive). invoiceData may be the whole UBL JSON document, whose Invoice array's first element is used, or the invoice object itself. Mapping is flexible by default; useFlexibleMapping false selects the stricter legacy mapping.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ConvertRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The converted invoice.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConvertResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "A required field is missing, or the input or output format is not supported.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "500": {
+            "description": "The conversion failed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/fix/analyse": {
+      "post": {
+        "operationId": "analyseMissingFields",
+        "summary": "List the invoice fields that are found and missing",
+        "description": "Reports which UBL elements the service finds in invoiceData and which it does not, by element name, and lists the field names /api/fix/apply accepts. It checks a fixed list of elements, not the rules of an invoice standard, and converts nothing.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["invoiceData"],
+                "properties": {
+                  "invoiceData": { "$ref": "#/components/schemas/UblJsonInvoice" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The field report.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["missingFields", "foundFields", "summary", "supportedFixFields", "note"],
+                  "properties": {
+                    "missingFields": { "type": "array", "items": { "type": "string" } },
+                    "foundFields": { "type": "array", "items": { "type": "string" } },
+                    "summary": { "type": "string" },
+                    "supportedFixFields": { "type": "array", "items": { "type": "string" } },
+                    "note": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invoiceData is missing or not an object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/fix/apply": {
+      "post": {
+        "operationId": "applyFixesAndConvert",
+        "summary": "Fill missing fields, then convert to UBL 2.1 XML",
+        "description": "Writes the values in fixes into invoiceData, converts the result to UBL 2.1 XML with the flexible mapping, and returns the updated JSON, the XML and the field report. fixes is keyed by the names /api/fix/analyse lists in supportedFixFields (for example buyerReference); any other key is added at the top level when absent. Empty values are skipped.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["invoiceData", "fixes"],
+                "properties": {
+                  "invoiceData": { "$ref": "#/components/schemas/UblJsonInvoice" },
+                  "fixes": {
+                    "type": "object",
+                    "description": "Values for missing fields, keyed by a field name that /api/fix/analyse lists in supportedFixFields (for example buyerReference, note).",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The corrected invoice and its XML.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["updatedJson", "xml", "missingFields", "appliedFixes"],
+                  "properties": {
+                    "updatedJson": { "$ref": "#/components/schemas/UblJsonInvoice" },
+                    "xml": { "type": "string", "description": "UBL 2.1 Invoice XML." },
+                    "missingFields": { "$ref": "#/components/schemas/MissingFieldsReport" },
+                    "appliedFixes": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invoiceData or fixes is missing or invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UblJsonInvoice": {
+        "type": "object",
+        "description": "A UBL 2.1 invoice in the OASIS UBL JSON form: either the document with an Invoice array, or one invoice object. Every UBL element is an array of objects whose value is in \"_\".",
+        "additionalProperties": true,
+        "properties": {
+          "Invoice": {
+            "type": "array",
+            "items": { "type": "object", "additionalProperties": true }
+          }
+        }
+      },
+      "ConvertRequest": {
+        "type": "object",
+        "required": ["invoiceType", "outputFormat", "invoiceData"],
+        "properties": {
+          "invoiceType": { "type": "string", "enum": ["JSON"], "description": "Input format; only JSON is supported." },
+          "outputFormat": { "type": "string", "enum": ["UBL XML"], "description": "Output format; only UBL XML is supported." },
+          "invoiceData": { "$ref": "#/components/schemas/UblJsonInvoice" },
+          "useFlexibleMapping": { "type": "boolean", "default": true }
+        }
+      },
+      "ConvertResponse": {
+        "type": "object",
+        "required": ["xml", "missingFields"],
+        "properties": {
+          "xml": { "type": "string", "description": "UBL 2.1 Invoice XML." },
+          "missingFields": { "$ref": "#/components/schemas/MissingFieldsReport" }
+        }
+      },
+      "MissingFieldsReport": {
+        "type": "object",
+        "required": ["missing", "found", "summary"],
+        "properties": {
+          "missing": { "type": "array", "items": { "type": "string" } },
+          "found": { "type": "array", "items": { "type": "string" } },
+          "summary": { "type": "string" }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["status", "message"],
+        "properties": {
+          "status": { "type": "string", "enum": ["error"] },
+          "message": { "type": "string" },
+          "errors": { "type": "array", "items": {} }
+        }
+      }
+    }
+  }
+}

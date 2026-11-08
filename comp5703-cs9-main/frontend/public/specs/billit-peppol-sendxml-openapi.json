@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Billit Peppol Send XML API",
+    "version": "1.0.0",
+    "description": "Sends a UBL invoice or credit note over the Peppol network through Billit. The endpoint is documented at https://docs.billit.be/docs/peppol-sendxml but is absent from Billit's Swagger document; this file transcribes it so the catalogue holds the interface actually used on 2026-10-21 (run record Y1-Billit-Peppol-send-CS95-BL-1848-2026-10-21).",
+    "contact": { "name": "Billit", "url": "https://www.billit.eu" }
+  },
+  "servers": [
+    { "url": "https://api.sandbox.billit.be", "description": "Sandbox" },
+    { "url": "https://api.billit.be", "description": "Production" }
+  ],
+  "security": [{ "apiKey": [] }],
+  "tags": [{ "name": "Peppol", "description": "Peppol network: send and receive documents" }],
+  "paths": {
+    "/v1/peppol/sendxml": {
+      "post": {
+        "tags": ["Peppol"],
+        "operationId": "Peppol_SendXml",
+        "summary": "Send a UBL XML document over Peppol",
+        "description": "Sends one UBL 2.1 document (Peppol BIS Billing 3.0 invoice or credit note) to the receiver named inside the document. The sending party is the company of the API key; the receiver is resolved from the document's AccountingCustomerParty endpoint identifier, which must be registered on Peppol. The whole UBL document is passed as a string in the single field XML. Returns the identifier of the created inbox item.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["XML"],
+                "properties": {
+                  "XML": {
+                    "type": "string",
+                    "description": "The complete UBL 2.1 XML document (Peppol BIS Billing 3.0 Invoice or CreditNote) as a string, including the XML declaration."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The document was accepted for sending; the body is the Billit inbox item identifier.",
+            "content": { "application/json": { "schema": { "type": "integer", "format": "int64", "description": "InboxItemID of the created send record." } } }
+          },
+          "400": { "description": "The document was rejected (for example GenericError when the sending company has no business number, or TheCustomerIsNotActiveOnPeppol when the receiver is not registered)." }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": { "type": "apiKey", "in": "header", "name": "apiKey", "description": "API key issued in the Billit sandbox or production account (Settings > API). Optional header partyID selects the company when the key covers several." }
+    }
+  }
+}
